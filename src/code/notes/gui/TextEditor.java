@@ -123,6 +123,7 @@ public class TextEditor extends javax.swing.JFrame {
 
     private void menuOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuOpenActionPerformed
         String path = FileChooser.open();
+        if(path == null)return;
         addNewTab(path);
     }//GEN-LAST:event_menuOpenActionPerformed
 
