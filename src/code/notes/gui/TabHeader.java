@@ -11,22 +11,22 @@ import code.notes.Bundle;
  * @author phwts
  */
 public class TabHeader extends javax.swing.JPanel {
-    private final int tabID;
+    private String filename;
     private final TextEditor editor;
     /**
      * Creates new form TabHeader
      */
-    public TabHeader(TextEditor editor, int tabID) {
+    public TabHeader(TextEditor editor) {
         initComponents();
         this.editor = editor;
-        this.tabID = tabID;
-        labelFileName.setText(Bundle.get("new_file"));
+        this.filename = Bundle.get("new_file");
+        labelFileName.setText(filename);
     }
 
-    public TabHeader(TextEditor editor, int tabID, String filename) {
+    public TabHeader(TextEditor editor, String filename) {
         initComponents();
         this.editor = editor;
-        this.tabID = tabID;
+        this.filename = filename;
         labelFileName.setText(filename);
     }
 
@@ -76,7 +76,7 @@ public class TabHeader extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCloseTabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseTabMousePressed
-        editor.getEditorPane().removeTabAt(tabID);
+        editor.closeTabAt(filename);
     }//GEN-LAST:event_btnCloseTabMousePressed
 
 
