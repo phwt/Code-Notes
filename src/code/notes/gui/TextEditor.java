@@ -176,6 +176,13 @@ public class TextEditor extends javax.swing.JFrame {
         SingleEditor singleEditor = new SingleEditor(editorPane.getTabCount(), path);
         
         String filename = singleEditor.getFileName();
+        
+        int index = editorPane.indexOfTab(filename);
+        if(index != -1){
+            editorPane.setSelectedIndex(index);
+            return;
+        }
+        
         editorPane.addTab(filename, singleEditor);
         editorPane.setTabComponentAt(singleEditor.getTabID(), new TabHeader(this, filename));
     }
