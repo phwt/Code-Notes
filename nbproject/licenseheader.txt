@@ -1,0 +1,8 @@
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+${licensePrefix}${project.name} | ${nameAndExt}
+${licensePrefix}Created | ${time} ${date}
+<#if licenseLast??>
+${licenseLast}
+</#if>
