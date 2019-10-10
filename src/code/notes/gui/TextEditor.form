@@ -92,8 +92,12 @@
       </Events>
     </Component>
     <Container class="org.fife.ui.rtextarea.RTextScrollPane" name="scrollPane">
+      <Properties>
+        <Property name="verticalScrollBarPolicy" type="int" value="20"/>
+        <Property name="foldIndicatorEnabled" type="boolean" value="true"/>
+        <Property name="lineNumbersEnabled" type="boolean" value="true"/>
+      </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="scrollPane.setLineNumbersEnabled(true);"/>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value=""/>
       </AuxValues>
 
@@ -102,10 +106,12 @@
         <Component class="org.fife.ui.rsyntaxtextarea.RSyntaxTextArea" name="editorArea">
           <Properties>
             <Property name="columns" type="int" value="20"/>
-            <Property name="rows" type="int" value="5"/>
+            <Property name="rows" type="int" value="60"/>
+            <Property name="tabSize" type="int" value="4"/>
+            <Property name="codeFoldingEnabled" type="boolean" value="true"/>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="editorArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);&#xd;&#xa;editorArea.setCodeFoldingEnabled(true);"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="//editorArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);&#xd;&#xa;//editorArea.setCodeFoldingEnabled(true);"/>
           </AuxValues>
         </Component>
       </SubComponents>

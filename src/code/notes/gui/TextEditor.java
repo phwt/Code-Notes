@@ -45,8 +45,8 @@ public class TextEditor extends javax.swing.JFrame{
         jButton3 = new javax.swing.JButton();
         scrollPane = new org.fife.ui.rtextarea.RTextScrollPane();
         editorArea = new org.fife.ui.rsyntaxtextarea.RSyntaxTextArea();
-        editorArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
-        editorArea.setCodeFoldingEnabled(true);
+        //editorArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
+        //editorArea.setCodeFoldingEnabled(true);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("code/notes/Bundle"); // NOI18N
@@ -75,10 +75,14 @@ public class TextEditor extends javax.swing.JFrame{
             }
         });
 
+        scrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setFoldIndicatorEnabled(true);
         scrollPane.setLineNumbersEnabled(true);
 
         editorArea.setColumns(20);
-        editorArea.setRows(5);
+        editorArea.setRows(60);
+        editorArea.setTabSize(4);
+        editorArea.setCodeFoldingEnabled(true);
         scrollPane.setViewportView(editorArea);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
