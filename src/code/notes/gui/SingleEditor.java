@@ -20,7 +20,7 @@ public class SingleEditor extends JPanel {
 
     private RSyntaxTextArea textArea;
     private String content, path;
-    private final int tabID;
+    private final @Deprecated int tabID;
 
     public SingleEditor(int tabID) {
         this.tabID = tabID;
@@ -56,6 +56,7 @@ public class SingleEditor extends JPanel {
         return null;
     }
 
+    @Deprecated
     public int getTabID() {
         return tabID;
     }
