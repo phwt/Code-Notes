@@ -5,6 +5,7 @@
 package code.notes.gui;
 
 import code.notes.Bundle;
+import java.awt.Color;
 
 /**
  *
@@ -52,6 +53,12 @@ public class TabHeader extends javax.swing.JPanel {
         btnCloseTab.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCloseTab.setIconTextGap(0);
         btnCloseTab.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCloseTabMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCloseTabMouseExited(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 btnCloseTabMousePressed(evt);
             }
@@ -78,6 +85,14 @@ public class TabHeader extends javax.swing.JPanel {
     private void btnCloseTabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseTabMousePressed
         editor.closeTabAt(filename);
     }//GEN-LAST:event_btnCloseTabMousePressed
+
+    private void btnCloseTabMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseTabMouseEntered
+        btnCloseTab.setForeground(Color.red);
+    }//GEN-LAST:event_btnCloseTabMouseEntered
+
+    private void btnCloseTabMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseTabMouseExited
+        btnCloseTab.setForeground(Color.DARK_GRAY);
+    }//GEN-LAST:event_btnCloseTabMouseExited
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
