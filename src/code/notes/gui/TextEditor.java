@@ -6,6 +6,7 @@ package code.notes.gui;
 
 import code.notes.util.FileChooser;
 import code.notes.util.FileHandler;
+import code.notes.Bundle;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -43,6 +44,8 @@ public class TextEditor extends javax.swing.JFrame{
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("code/notes/Bundle"); // NOI18N
+        setTitle(bundle.getString("title")); // NOI18N
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -50,21 +53,23 @@ public class TextEditor extends javax.swing.JFrame{
         jTextArea1.getAccessibleContext().setAccessibleName("tf");
         jTextArea1.getAccessibleContext().setAccessibleDescription("");
 
-        jButton1.setText("Open");
+        jButton1.setText(bundle.getString("open")); // NOI18N
+        jButton1.setToolTipText("");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 OpenActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Save");
+        jButton2.setText(bundle.getString("save")); // NOI18N
+        jButton2.setToolTipText("");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SaveActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Save As");
+        jButton3.setText(bundle.getString("save_as")); // NOI18N
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SaveAsActionPerformed(evt);
@@ -105,7 +110,10 @@ public class TextEditor extends javax.swing.JFrame{
     }// </editor-fold>//GEN-END:initComponents
 
     public String getCurrentPath() {return currentPath;}
-    public void setCurrentPath(String currentPath) {this.currentPath = currentPath;}
+    public void setCurrentPath(String currentPath) {
+        this.currentPath = currentPath;
+        setTitle(Bundle.get("title") + " - " + currentPath);
+    }
     
     private void OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenActionPerformed
         String path = FileChooser.open();
