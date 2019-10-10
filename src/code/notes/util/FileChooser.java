@@ -19,7 +19,7 @@ public class FileChooser {
         if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
             return fileChooser.getSelectedFile().getAbsolutePath();
         }
-        return "";
+        return null;
     }
 
     public static String save() {
@@ -27,6 +27,6 @@ public class FileChooser {
         if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
             return fileChooser.getSelectedFile().getAbsolutePath();
         }
-        return "";
+        return null;
     }
 }
