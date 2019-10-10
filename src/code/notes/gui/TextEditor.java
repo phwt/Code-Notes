@@ -26,8 +26,6 @@ import org.fife.ui.rsyntaxtextarea.*;
  */
 public class TextEditor extends javax.swing.JFrame {
 
-    private String currentPath;
-
     /**
      * Creates new form TextEditor
      */
@@ -119,15 +117,6 @@ public class TextEditor extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public String getCurrentPath() {
-        return currentPath;
-    }
-
-    public void setCurrentPath(String currentPath) {
-        this.currentPath = currentPath;
-        setTitle(Bundle.get("title") + " - " + currentPath);
-    }
-    
     public SingleEditor getCurrentEditor(){
         return (SingleEditor) jTabbedPane1.getSelectedComponent();
     }
