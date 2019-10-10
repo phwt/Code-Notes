@@ -93,7 +93,7 @@ public class TextEditor extends javax.swing.JFrame {
         jMenu1.add(jSeparator2);
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem1.setText("New File");
+        jMenuItem1.setText(bundle.getString("new_file")); // NOI18N
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -102,7 +102,7 @@ public class TextEditor extends javax.swing.JFrame {
         jMenu1.add(jMenuItem1);
 
         menuCloseTab.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_W, java.awt.event.InputEvent.CTRL_MASK));
-        menuCloseTab.setText("Close File");
+        menuCloseTab.setText(bundle.getString("close_file")); // NOI18N
         menuCloseTab.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuCloseTabActionPerformed(evt);
@@ -113,7 +113,7 @@ public class TextEditor extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Edit");
+        jMenu2.setText(bundle.getString("edit")); // NOI18N
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
