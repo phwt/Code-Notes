@@ -6,6 +6,12 @@ package code.notes.gui;
 
 import code.notes.util.FileChooser;
 import code.notes.util.FileHandler;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 
 /**
  *
@@ -47,6 +53,8 @@ public class TextEditor extends javax.swing.JFrame {
         setTitle(bundle.getString("title")); // NOI18N
         setMinimumSize(new java.awt.Dimension(500, 300));
 
+        editorPane.setToolTipText("");
+        editorPane.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         editorPane.addContainerListener(new java.awt.event.ContainerAdapter() {
             public void componentAdded(java.awt.event.ContainerEvent evt) {
                 editorPaneComponentAdded(evt);
@@ -163,12 +171,17 @@ public class TextEditor extends javax.swing.JFrame {
 
     private void addNewTab(String path) {
         SingleEditor singleEditor = new SingleEditor(editorPane.getTabCount(), path);
-        editorPane.addTab(singleEditor.getFileName(), singleEditor);
+        
+        String filename = singleEditor.getFileName();
+        editorPane.addTab(filename, singleEditor);
+        editorPane.setTabComponentAt(singleEditor.getTabID(), new TabHeader(this, singleEditor.getTabID(), filename));
     }
 
     private void addEmptyTab() {
         SingleEditor singleEditor = new SingleEditor(editorPane.getTabCount());
+        
         editorPane.addTab(singleEditor.getFileName(), singleEditor);
+        editorPane.setTabComponentAt(singleEditor.getTabID(), new TabHeader(this, singleEditor.getTabID()));
     }
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -183,6 +196,14 @@ public class TextEditor extends javax.swing.JFrame {
         editorPane.setSelectedIndex(editorPane.getTabCount()-1);
     }//GEN-LAST:event_editorPaneComponentAdded
 
+    public void closeTabAt(int tabID){
+        editorPane.removeTabAt(tabID);
+    }
+
+    public JTabbedPane getEditorPane() {
+        return editorPane;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane editorPane;
     private javax.swing.JMenu jMenu1;
