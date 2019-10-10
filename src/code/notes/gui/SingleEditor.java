@@ -20,7 +20,7 @@ import org.fife.ui.rsyntaxtextarea.*;
 
 public class SingleEditor extends JPanel {
     private RSyntaxTextArea textArea;
-    private String content, path, fileName;
+    private String content, path;
     private final int tabID;
 
     public SingleEditor(int tabID) {
@@ -46,10 +46,8 @@ public class SingleEditor extends JPanel {
         
         try {
             setContent(FileHandler.open(path));
-            setFileName(new File(path).getName());
         } catch (FileNotFoundException ex) {
             setContent("");
-            setFileName("New File");
         }
         
         textArea.setText(getContent());
@@ -60,13 +58,9 @@ public class SingleEditor extends JPanel {
     }
     
     public String getFileName(){
-        return fileName;
+        return (!path.isEmpty()) ? new File(path).getName() : "New File";
     }
     
-    public void setFileName(String fileName){
-        this.fileName = fileName;
-    }
-
     public String getContent() {
         return content;
     }
@@ -85,7 +79,6 @@ public class SingleEditor extends JPanel {
 
     public void setPath(String path) {
         this.path = path;
-        setFileName(new File(path).getName());
     }
     
     
