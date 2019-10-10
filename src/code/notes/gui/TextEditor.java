@@ -8,6 +8,7 @@ import code.notes.util.FileChooser;
 import code.notes.util.FileHandler;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.io.File;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -137,9 +138,11 @@ public class TextEditor extends javax.swing.JFrame {
     }
 
     private void menuOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuOpenActionPerformed
-        String path = FileChooser.open();
-        if(path == null)return;
-        addNewTab(path);
+        File[] paths = FileChooser.open();
+        if(paths == null)return;
+        for(File file : paths){
+            addNewTab(file.getAbsolutePath());
+        }
     }//GEN-LAST:event_menuOpenActionPerformed
 
     private void menuSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSaveActionPerformed

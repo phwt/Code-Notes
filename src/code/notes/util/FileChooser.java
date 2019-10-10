@@ -16,11 +16,15 @@ public class FileChooser {
 
     static JFileChooser fileChooser = new JFileChooser();
 
-    public static String open() {
+    public static File[] open() {
         Action details = fileChooser.getActionMap().get("viewTypeDetails");
+        fileChooser.setMultiSelectionEnabled(true);
         details.actionPerformed(null);
+        
         if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-            return fileChooser.getSelectedFile().getAbsolutePath();
+            File[] files = fileChooser.getSelectedFiles();
+            return files;
+//            return fileChooser.getSelectedFile().getAbsolutePath();
         }
         return null;
     }
