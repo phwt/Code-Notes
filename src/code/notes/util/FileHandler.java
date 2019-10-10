@@ -6,6 +6,8 @@ package code.notes.util;
 
 import java.io.*;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -13,9 +15,14 @@ import java.util.*;
  */
 public class FileHandler {
 
-    public static String open(String path) throws FileNotFoundException {
+    public static String open(String path) {
         File file = new File(path);
-        Scanner scanner = new Scanner(file);
+        Scanner scanner;
+        try {
+            scanner = new Scanner(file);
+        } catch (FileNotFoundException ex) {
+            return "";
+        }
 
         String file_content = "";
         while (scanner.hasNextLine()) {
@@ -25,18 +32,27 @@ public class FileHandler {
         return file_content;
     }
 
-    public static void save(String content, String path) throws IOException {
+    public static void save(String content, String path) {
 
         File file = new File(path);
-        if (file.createNewFile()) {
-            System.out.println("File is created!");
-        } else {
-            System.out.println("File already exists.");
+        try {
+            if (file.createNewFile()) {
+                System.out.println("File is created!");
+            } else {
+                System.out.println("File already exists.");
+            }
+        } catch (IOException ex) {
+            return;
         }
 
-        FileWriter fileWriter = new FileWriter(file);
-        fileWriter.write(content);
-        fileWriter.close();
+        FileWriter fileWriter;
+        try {
+            fileWriter = new FileWriter(file);
+            fileWriter.write(content);
+            fileWriter.close();
+        } catch (IOException ex) {
+            return;
+        }
     }
 
 }

@@ -117,7 +117,7 @@ public class TextEditor extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public SingleEditor getCurrentEditor(){
+    public SingleEditor getCurrentEditor() {
         return (SingleEditor) jTabbedPane1.getSelectedComponent();
     }
 
@@ -129,48 +129,41 @@ public class TextEditor extends javax.swing.JFrame {
     private void menuSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSaveActionPerformed
         SingleEditor singleEditor = getCurrentEditor();
         String currentText = singleEditor.getTextArea().getText();
-        
-        if(singleEditor.getPath().isEmpty()){
+
+        if (singleEditor.getPath().isEmpty()) {
             menuSaveAsActionPerformed(evt);
             return;
         }
-        
-        try {
-            FileHandler.save(currentText, singleEditor.getPath());
-        } catch (IOException ex) {
-            Logger.getLogger(TextEditor.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+        FileHandler.save(currentText, singleEditor.getPath());
     }//GEN-LAST:event_menuSaveActionPerformed
 
     private void menuSaveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSaveAsActionPerformed
         String path = FileChooser.save();
         SingleEditor singleEditor = getCurrentEditor();
         String currentText = singleEditor.getTextArea().getText();
-        try {
-            FileHandler.save(currentText, path);
-            singleEditor.setContent(currentText);
-            
-            singleEditor.setPath(path);
-            jTabbedPane1.setTitleAt(singleEditor.getTabID(), singleEditor.getFileName());
-        } catch (IOException ex) {
-            Logger.getLogger(TextEditor.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+        FileHandler.save(currentText, path);
+        singleEditor.setContent(currentText);
+
+        singleEditor.setPath(path);
+        jTabbedPane1.setTitleAt(singleEditor.getTabID(), singleEditor.getFileName());
     }//GEN-LAST:event_menuSaveAsActionPerformed
 
-    private void addNewTab(String path){
+    private void addNewTab(String path) {
         System.out.println(jTabbedPane1.getTabCount());
         SingleEditor singleEditor = new SingleEditor(jTabbedPane1.getTabCount(), path);
         jTabbedPane1.addTab(singleEditor.getFileName(), singleEditor);
         jTabbedPane1.setSelectedIndex(singleEditor.getTabID());
         System.out.println(singleEditor.getTabID());
     }
-    
-    private void addEmptyTab(){
+
+    private void addEmptyTab() {
         SingleEditor singleEditor = new SingleEditor(jTabbedPane1.getTabCount());
         jTabbedPane1.addTab(singleEditor.getFileName(), singleEditor);
         jTabbedPane1.setSelectedIndex(singleEditor.getTabID());
     }
-    
+
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         addEmptyTab();
     }//GEN-LAST:event_jMenuItem1ActionPerformed

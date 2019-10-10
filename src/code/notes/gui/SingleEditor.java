@@ -19,6 +19,7 @@ import org.fife.ui.rtextarea.*;
 import org.fife.ui.rsyntaxtextarea.*;
 
 public class SingleEditor extends JPanel {
+
     private RSyntaxTextArea textArea;
     private String content, path;
     private final int tabID;
@@ -28,14 +29,14 @@ public class SingleEditor extends JPanel {
         this.path = "";
         init();
     }
-    
+
     public SingleEditor(int tabID, String path) {
         this.tabID = tabID;
         this.path = path;
         init();
     }
-    
-    public void init(){
+
+    public void init() {
         this.setLayout(new BorderLayout());
 
         textArea = new RSyntaxTextArea(20, 60);
@@ -43,24 +44,28 @@ public class SingleEditor extends JPanel {
         textArea.setCodeFoldingEnabled(true);
         RTextScrollPane sp = new RTextScrollPane(textArea);
         this.add(sp);
-        
-        try {
-            setContent(FileHandler.open(path));
-        } catch (FileNotFoundException ex) {
-            setContent("");
-        }
-        
+
+        setContent(FileHandler.open(path));
+
         textArea.setText(getContent());
+    }
+
+    public void save() {
+
+    }
+
+    public String open(){
+        return null;
     }
 
     public int getTabID() {
         return tabID;
     }
-    
-    public String getFileName(){
+
+    public String getFileName() {
         return (!path.isEmpty()) ? new File(path).getName() : "New File";
     }
-    
+
     public String getContent() {
         return content;
     }
@@ -80,6 +85,5 @@ public class SingleEditor extends JPanel {
     public void setPath(String path) {
         this.path = path;
     }
-    
-    
+
 }
