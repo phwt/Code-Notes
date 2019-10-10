@@ -43,7 +43,7 @@ public class TextEditor extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        editorPane = new javax.swing.JTabbedPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         menuOpen = new javax.swing.JMenuItem();
@@ -107,18 +107,18 @@ public class TextEditor extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(editorPane, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(editorPane, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     public SingleEditor getCurrentEditor() {
-        return (SingleEditor) jTabbedPane1.getSelectedComponent();
+        return (SingleEditor) editorPane.getSelectedComponent();
     }
 
     private void menuOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuOpenActionPerformed
@@ -147,21 +147,21 @@ public class TextEditor extends javax.swing.JFrame {
         singleEditor.setContent(currentText);
 
         singleEditor.setPath(path);
-        jTabbedPane1.setTitleAt(singleEditor.getTabID(), singleEditor.getFileName());
+        editorPane.setTitleAt(singleEditor.getTabID(), singleEditor.getFileName());
     }//GEN-LAST:event_menuSaveAsActionPerformed
 
     private void addNewTab(String path) {
-        System.out.println(jTabbedPane1.getTabCount());
-        SingleEditor singleEditor = new SingleEditor(jTabbedPane1.getTabCount(), path);
-        jTabbedPane1.addTab(singleEditor.getFileName(), singleEditor);
-        jTabbedPane1.setSelectedIndex(singleEditor.getTabID());
+        System.out.println(editorPane.getTabCount());
+        SingleEditor singleEditor = new SingleEditor(editorPane.getTabCount(), path);
+        editorPane.addTab(singleEditor.getFileName(), singleEditor);
+        editorPane.setSelectedIndex(singleEditor.getTabID());
         System.out.println(singleEditor.getTabID());
     }
 
     private void addEmptyTab() {
-        SingleEditor singleEditor = new SingleEditor(jTabbedPane1.getTabCount());
-        jTabbedPane1.addTab(singleEditor.getFileName(), singleEditor);
-        jTabbedPane1.setSelectedIndex(singleEditor.getTabID());
+        SingleEditor singleEditor = new SingleEditor(editorPane.getTabCount());
+        editorPane.addTab(singleEditor.getFileName(), singleEditor);
+        editorPane.setSelectedIndex(singleEditor.getTabID());
     }
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -169,11 +169,11 @@ public class TextEditor extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTabbedPane editorPane;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JMenuItem menuOpen;
     private javax.swing.JMenuItem menuSave;
     private javax.swing.JMenuItem menuSaveAs;
