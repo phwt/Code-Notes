@@ -166,7 +166,7 @@ public class TextEditor extends javax.swing.JFrame {
         singleEditor.setContent(currentText);
 
         singleEditor.setPath(path);
-        editorPane.setTitleAt(singleEditor.getTabID(), singleEditor.getFileName());
+        ((TabHeader) editorPane.getTabComponentAt(singleEditor.getTabID())).setFilename(singleEditor.getFileName());
     }//GEN-LAST:event_menuSaveAsActionPerformed
 
     private void addNewTab(String path) {

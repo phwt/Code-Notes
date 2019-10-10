@@ -94,6 +94,10 @@ public class TabHeader extends javax.swing.JPanel {
         btnCloseTab.setForeground(Color.DARK_GRAY);
     }//GEN-LAST:event_btnCloseTabMouseExited
 
+    public void setFilename(String filename) {
+        this.filename = filename;
+        labelFileName.setText(filename);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnCloseTab;
