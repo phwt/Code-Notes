@@ -6,13 +6,7 @@ package code.notes.gui;
 
 import code.notes.util.FileChooser;
 import code.notes.util.FileHandler;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.io.File;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
 
 /**
  *
