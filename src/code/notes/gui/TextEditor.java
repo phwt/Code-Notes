@@ -127,9 +127,11 @@ public class TextEditor extends javax.swing.JFrame {
     }//GEN-LAST:event_menuSaveActionPerformed
 
     private void menuSaveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSaveAsActionPerformed
-        String path = FileChooser.save();
-        if(path == null)return;
         SingleEditor singleEditor = getCurrentEditor();
+        
+        String path = FileChooser.save(singleEditor.getFileName());
+        
+        if(path == null)return;
         String currentText = singleEditor.getTextArea().getText();
 
         FileHandler.save(currentText, path);

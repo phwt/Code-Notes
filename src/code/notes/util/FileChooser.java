@@ -4,6 +4,7 @@
  */
 package code.notes.util;
 
+import java.io.File;
 import javax.swing.Action;
 import javax.swing.JFileChooser;
 
@@ -27,7 +28,16 @@ public class FileChooser {
     public static String save() {
         Action details = fileChooser.getActionMap().get("viewTypeDetails");
         details.actionPerformed(null);
-        fileChooser = new JFileChooser();
+        if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+            return fileChooser.getSelectedFile().getAbsolutePath();
+        }
+        return null;
+    }
+    
+    public static String save(String filename) {
+        Action details = fileChooser.getActionMap().get("viewTypeDetails");
+        details.actionPerformed(null);
+        fileChooser.setSelectedFile(new File(filename));
         if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
             return fileChooser.getSelectedFile().getAbsolutePath();
         }
