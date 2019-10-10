@@ -4,6 +4,7 @@
  */
 package code.notes.util;
 
+import javax.swing.Action;
 import javax.swing.JFileChooser;
 
 /**
@@ -12,10 +13,11 @@ import javax.swing.JFileChooser;
  */
 public class FileChooser {
 
-    static JFileChooser fileChooser;
+    static JFileChooser fileChooser = new JFileChooser();
 
     public static String open() {
-        fileChooser = new JFileChooser();
+        Action details = fileChooser.getActionMap().get("viewTypeDetails");
+        details.actionPerformed(null);
         if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
             return fileChooser.getSelectedFile().getAbsolutePath();
         }
@@ -23,6 +25,8 @@ public class FileChooser {
     }
 
     public static String save() {
+        Action details = fileChooser.getActionMap().get("viewTypeDetails");
+        details.actionPerformed(null);
         fileChooser = new JFileChooser();
         if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
             return fileChooser.getSelectedFile().getAbsolutePath();
