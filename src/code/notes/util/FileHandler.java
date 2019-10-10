@@ -35,15 +35,7 @@ public class FileHandler {
     public static void save(String content, String path) {
 
         File file = new File(path);
-        try {
-            if (file.createNewFile()) {
-                System.out.println("File is created!");
-            } else {
-                System.out.println("File already exists.");
-            }
-        } catch (IOException ex) {
-            return;
-        }
+        try { file.createNewFile(); } catch (IOException ex) { return; }
 
         FileWriter fileWriter;
         try {

@@ -140,6 +140,7 @@ public class TextEditor extends javax.swing.JFrame {
 
     private void menuSaveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSaveAsActionPerformed
         String path = FileChooser.save();
+        if(path == null)return;
         SingleEditor singleEditor = getCurrentEditor();
         String currentText = singleEditor.getTextArea().getText();
 
@@ -151,11 +152,9 @@ public class TextEditor extends javax.swing.JFrame {
     }//GEN-LAST:event_menuSaveAsActionPerformed
 
     private void addNewTab(String path) {
-        System.out.println(editorPane.getTabCount());
         SingleEditor singleEditor = new SingleEditor(editorPane.getTabCount(), path);
         editorPane.addTab(singleEditor.getFileName(), singleEditor);
         editorPane.setSelectedIndex(singleEditor.getTabID());
-        System.out.println(singleEditor.getTabID());
     }
 
     private void addEmptyTab() {
