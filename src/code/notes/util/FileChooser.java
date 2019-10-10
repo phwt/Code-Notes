@@ -1,7 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/* 
+ * Code-Notes | FileChooser.java
+ * Created | 1:29:08 PM ‎Oct ‎10, ‎2019
  */
 package code.notes.util;
 
