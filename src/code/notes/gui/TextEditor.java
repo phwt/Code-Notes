@@ -13,6 +13,9 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.fife.ui.rtextarea.*;
+import org.fife.ui.rsyntaxtextarea.*;
+
 /**
  *
  * @author phwts
@@ -40,8 +43,10 @@ public class TextEditor extends javax.swing.JFrame{
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        rSyntaxTextArea1 = new org.fife.ui.rsyntaxtextarea.RSyntaxTextArea();
+        scrollPane = new org.fife.ui.rtextarea.RTextScrollPane();
+        editorArea = new org.fife.ui.rsyntaxtextarea.RSyntaxTextArea();
+        editorArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
+        editorArea.setCodeFoldingEnabled(true);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("code/notes/Bundle"); // NOI18N
@@ -70,12 +75,11 @@ public class TextEditor extends javax.swing.JFrame{
             }
         });
 
-        rSyntaxTextArea1.setColumns(20);
-        rSyntaxTextArea1.setRows(5);
-        rSyntaxTextArea1.setTabSize(4);
-        rSyntaxTextArea1.setToolTipText("");
-        rSyntaxTextArea1.setFont(new java.awt.Font("Menlo", 0, 14)); // NOI18N
-        jScrollPane2.setViewportView(rSyntaxTextArea1);
+        scrollPane.setLineNumbersEnabled(true);
+
+        editorArea.setColumns(20);
+        editorArea.setRows(5);
+        scrollPane.setViewportView(editorArea);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -83,15 +87,15 @@ public class TextEditor extends javax.swing.JFrame{
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3)
-                        .addGap(0, 585, Short.MAX_VALUE)))
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton3)
+                .addContainerGap(591, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -103,7 +107,7 @@ public class TextEditor extends javax.swing.JFrame{
                     .addComponent(jButton2)
                     .addComponent(jButton3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 482, Short.MAX_VALUE)
+                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 482, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -118,9 +122,9 @@ public class TextEditor extends javax.swing.JFrame{
     
     private void OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenActionPerformed
         String path = FileChooser.open();
-        if (!path.isEmpty()) {
+        if (path != null) {
             try {
-                rSyntaxTextArea1.setText(FileHandler.open(path));
+                editorArea.setText(FileHandler.open(path));
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(TextEditor.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -130,7 +134,7 @@ public class TextEditor extends javax.swing.JFrame{
 
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
         try {
-            FileHandler.save(rSyntaxTextArea1.getText(), getCurrentPath());
+            FileHandler.save(editorArea.getText(), getCurrentPath());
         } catch (IOException ex) {
             Logger.getLogger(TextEditor.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -139,7 +143,7 @@ public class TextEditor extends javax.swing.JFrame{
     private void SaveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveAsActionPerformed
         String path = FileChooser.save();
         try {
-            FileHandler.save(rSyntaxTextArea1.getText(), path);
+            FileHandler.save(editorArea.getText(), path);
             setCurrentPath(path);
         } catch (IOException ex) {
             Logger.getLogger(TextEditor.class.getName()).log(Level.SEVERE, null, ex);
@@ -147,11 +151,11 @@ public class TextEditor extends javax.swing.JFrame{
     }//GEN-LAST:event_SaveAsActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private org.fife.ui.rsyntaxtextarea.RSyntaxTextArea editorArea;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JScrollPane jScrollPane2;
-    private org.fife.ui.rsyntaxtextarea.RSyntaxTextArea rSyntaxTextArea1;
+    private org.fife.ui.rtextarea.RTextScrollPane scrollPane;
     // End of variables declaration//GEN-END:variables
 
 }
