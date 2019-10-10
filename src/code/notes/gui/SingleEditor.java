@@ -12,9 +12,6 @@ import code.notes.util.FileHandler;
 import javax.swing.*;
 import java.awt.BorderLayout;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.fife.ui.rtextarea.*;
 import org.fife.ui.rsyntaxtextarea.*;
 

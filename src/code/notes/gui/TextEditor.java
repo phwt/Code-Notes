@@ -6,19 +6,6 @@ package code.notes.gui;
 
 import code.notes.util.FileChooser;
 import code.notes.util.FileHandler;
-import code.notes.Bundle;
-import java.awt.*;
-import javax.swing.*;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import org.fife.ui.rtextarea.*;
-import org.fife.ui.rsyntaxtextarea.*;
 
 /**
  *
