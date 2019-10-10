@@ -48,14 +48,6 @@ public class SingleEditor extends JPanel {
         textArea.setText(getContent());
     }
 
-    public void save() {
-
-    }
-
-    public String open(){
-        return null;
-    }
-
     @Deprecated
     public int getTabID() {
         return tabID;
