@@ -8,6 +8,7 @@ package code.notes.gui;
  *
  * @author phwts
  */
+import code.notes.Bundle;
 import code.notes.util.FileHandler;
 import javax.swing.*;
 import java.awt.BorderLayout;
@@ -60,7 +61,7 @@ public class SingleEditor extends JPanel {
     }
 
     public String getFileName() {
-        return (!path.isEmpty()) ? new File(path).getName() : "New File";
+        return (!path.isEmpty()) ? new File(path).getName() : Bundle.get("new_file");
     }
 
     public String getContent() {
