@@ -83,6 +83,7 @@ public class TextEditor extends javax.swing.JFrame{
         editorArea.setRows(60);
         editorArea.setTabSize(4);
         editorArea.setCodeFoldingEnabled(true);
+        editorArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
         scrollPane.setViewportView(editorArea);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

@@ -109,6 +109,9 @@
             <Property name="rows" type="int" value="60"/>
             <Property name="tabSize" type="int" value="4"/>
             <Property name="codeFoldingEnabled" type="boolean" value="true"/>
+            <Property name="syntaxEditingStyle" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="SyntaxConstants.SYNTAX_STYLE_JAVA" type="code"/>
+            </Property>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="//editorArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);&#xd;&#xa;//editorArea.setCodeFoldingEnabled(true);"/>
