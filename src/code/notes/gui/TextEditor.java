@@ -47,6 +47,12 @@ public class TextEditor extends javax.swing.JFrame {
         setTitle(bundle.getString("title")); // NOI18N
         setMinimumSize(new java.awt.Dimension(500, 300));
 
+        editorPane.addContainerListener(new java.awt.event.ContainerAdapter() {
+            public void componentAdded(java.awt.event.ContainerEvent evt) {
+                editorPaneComponentAdded(evt);
+            }
+        });
+
         jMenu1.setText("File");
 
         menuOpen.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
@@ -158,13 +164,11 @@ public class TextEditor extends javax.swing.JFrame {
     private void addNewTab(String path) {
         SingleEditor singleEditor = new SingleEditor(editorPane.getTabCount(), path);
         editorPane.addTab(singleEditor.getFileName(), singleEditor);
-        editorPane.setSelectedIndex(singleEditor.getTabID());
     }
 
     private void addEmptyTab() {
         SingleEditor singleEditor = new SingleEditor(editorPane.getTabCount());
         editorPane.addTab(singleEditor.getFileName(), singleEditor);
-        editorPane.setSelectedIndex(singleEditor.getTabID());
     }
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -174,6 +178,10 @@ public class TextEditor extends javax.swing.JFrame {
     private void menuCloseTabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCloseTabActionPerformed
         editorPane.removeTabAt(getCurrentEditor().getTabID());
     }//GEN-LAST:event_menuCloseTabActionPerformed
+
+    private void editorPaneComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_editorPaneComponentAdded
+        editorPane.setSelectedIndex(editorPane.getTabCount()-1);
+    }//GEN-LAST:event_editorPaneComponentAdded
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane editorPane;

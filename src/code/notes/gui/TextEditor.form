@@ -127,6 +127,9 @@
   </Layout>
   <SubComponents>
     <Container class="javax.swing.JTabbedPane" name="editorPane">
+      <Events>
+        <EventHandler event="componentAdded" listener="java.awt.event.ContainerListener" parameters="java.awt.event.ContainerEvent" handler="editorPaneComponentAdded"/>
+      </Events>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
     </Container>
