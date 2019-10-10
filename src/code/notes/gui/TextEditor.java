@@ -36,8 +36,11 @@ public class TextEditor extends javax.swing.JFrame {
         menuOpen = new javax.swing.JMenuItem();
         menuSave = new javax.swing.JMenuItem();
         menuSaveAs = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jMenuItem1 = new javax.swing.JMenuItem();
+        menuCloseTab = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("code/notes/Bundle"); // NOI18N
@@ -73,19 +76,30 @@ public class TextEditor extends javax.swing.JFrame {
             }
         });
         jMenu1.add(menuSaveAs);
+        jMenu1.add(jSeparator2);
 
-        jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Edit");
-
-        jMenuItem1.setText("Add Tab");
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem1.setText("New File");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem1);
+        jMenu1.add(jMenuItem1);
 
+        menuCloseTab.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_W, java.awt.event.InputEvent.CTRL_MASK));
+        menuCloseTab.setText("Close File");
+        menuCloseTab.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuCloseTabActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuCloseTab);
+        jMenu1.add(jSeparator1);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Edit");
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -94,11 +108,11 @@ public class TextEditor extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(editorPane, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(editorPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(editorPane, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+            .addComponent(editorPane, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
         );
 
         pack();
@@ -157,12 +171,19 @@ public class TextEditor extends javax.swing.JFrame {
         addEmptyTab();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void menuCloseTabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCloseTabActionPerformed
+        editorPane.removeTabAt(getCurrentEditor().getTabID());
+    }//GEN-LAST:event_menuCloseTabActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane editorPane;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JMenuItem menuCloseTab;
     private javax.swing.JMenuItem menuOpen;
     private javax.swing.JMenuItem menuSave;
     private javax.swing.JMenuItem menuSaveAs;
