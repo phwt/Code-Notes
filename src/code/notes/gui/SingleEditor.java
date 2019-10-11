@@ -9,25 +9,32 @@ package code.notes.gui;
  * @author phwts
  */
 import code.notes.Bundle;
+import code.notes.util.ExtensionTranslator;
 import code.notes.util.FileHandler;
 import javax.swing.*;
 import java.awt.BorderLayout;
+import java.awt.event.KeyEvent;
 import java.io.File;
+import org.fife.rsta.ac.LanguageSupportFactory;
 import org.fife.ui.rtextarea.*;
 import org.fife.ui.rsyntaxtextarea.*;
 
 public class SingleEditor extends JPanel {
 
     private RSyntaxTextArea textArea;
+    private TextEditor textEditor;
     private String content, path;
+    private boolean saved = true;
 
-    public SingleEditor() {
+    public SingleEditor(TextEditor textEditor) {
         this.path = "";
+        this.textEditor = textEditor;
         init();
     }
 
-    public SingleEditor(String path) {
+    public SingleEditor(TextEditor textEditor, String path) {
         this.path = path;
+        this.textEditor = textEditor;
         init();
     }
 
@@ -35,14 +42,29 @@ public class SingleEditor extends JPanel {
         this.setLayout(new BorderLayout());
 
         textArea = new RSyntaxTextArea(20, 60);
-        textArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
+        setExtension();
         textArea.setCodeFoldingEnabled(true);
         RTextScrollPane sp = new RTextScrollPane(textArea);
         this.add(sp);
-
+        LanguageSupportFactory.get().register(textArea);
         setContent(FileHandler.open(path));
+        
+        textArea.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                textAreaKeyTyped(evt);
+            }
+
+            private void textAreaKeyTyped(KeyEvent evt) {
+                saveFalse();
+            }
+        });
 
         textArea.setText(getContent());
+    }
+    
+    public void setExtension(){
+        String syntaxConstant = ExtensionTranslator.getConstant(getFileName());
+        textArea.setSyntaxEditingStyle(syntaxConstant);
     }
 
     public String getFileName() {
@@ -68,5 +90,17 @@ public class SingleEditor extends JPanel {
     public void setPath(String path) {
         this.path = path;
     }
+    
+    public void saveTrue(){
+        saved = true;
+        textEditor.updateHeader(getFileName(), true);
+    }
+    public void saveFalse(){
+        saved = false;
+        textEditor.updateHeader(getFileName(), isSaved());
+    }
 
+    public boolean isSaved() {
+        return saved;
+    }
 }
