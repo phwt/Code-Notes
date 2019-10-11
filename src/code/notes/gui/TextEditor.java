@@ -46,7 +46,9 @@ public class TextEditor extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("code/notes/Bundle"); // NOI18N
         setTitle(bundle.getString("title")); // NOI18N
+        setLocationByPlatform(true);
         setMinimumSize(new java.awt.Dimension(500, 300));
+        setPreferredSize(new java.awt.Dimension(750, 500));
 
         editorPane.setToolTipText("");
         editorPane.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -117,11 +119,13 @@ public class TextEditor extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(editorPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
+            .addComponent(editorPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 745, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(editorPane, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(editorPane, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 26, Short.MAX_VALUE))
         );
 
         pack();
@@ -163,11 +167,12 @@ public class TextEditor extends javax.swing.JFrame {
         singleEditor.setContent(currentText);
 
         singleEditor.setPath(path);
-        ((TabHeader) editorPane.getTabComponentAt(singleEditor.getTabID())).setFilename(singleEditor.getFileName());
+        int index = editorPane.indexOfTab(singleEditor.getFileName());
+        ((TabHeader) editorPane.getTabComponentAt(index)).setFilename(singleEditor.getFileName());
     }//GEN-LAST:event_menuSaveAsActionPerformed
 
     private void addNewTab(String path) {
-        SingleEditor singleEditor = new SingleEditor(editorPane.getTabCount(), path);
+        SingleEditor singleEditor = new SingleEditor(path);
         
         String filename = singleEditor.getFileName();
         
@@ -178,14 +183,16 @@ public class TextEditor extends javax.swing.JFrame {
         }
         
         editorPane.addTab(filename, singleEditor);
-        editorPane.setTabComponentAt(singleEditor.getTabID(), new TabHeader(this, filename));
+        index = editorPane.indexOfTab(filename);
+        editorPane.setTabComponentAt(index, new TabHeader(this, filename));
     }
 
     private void addEmptyTab() {
-        SingleEditor singleEditor = new SingleEditor(editorPane.getTabCount());
+        SingleEditor singleEditor = new SingleEditor();
         
         editorPane.addTab(singleEditor.getFileName(), singleEditor);
-        editorPane.setTabComponentAt(singleEditor.getTabID(), new TabHeader(this));
+        int index = editorPane.indexOfTab(singleEditor.getFileName());
+        editorPane.setTabComponentAt(index, new TabHeader(this));
     }
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
