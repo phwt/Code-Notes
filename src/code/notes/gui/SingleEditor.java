@@ -20,16 +20,13 @@ public class SingleEditor extends JPanel {
 
     private RSyntaxTextArea textArea;
     private String content, path;
-    private final @Deprecated int tabID;
 
-    public SingleEditor(int tabID) {
-        this.tabID = tabID;
+    public SingleEditor() {
         this.path = "";
         init();
     }
 
-    public SingleEditor(int tabID, String path) {
-        this.tabID = tabID;
+    public SingleEditor(String path) {
         this.path = path;
         init();
     }
@@ -46,11 +43,6 @@ public class SingleEditor extends JPanel {
         setContent(FileHandler.open(path));
 
         textArea.setText(getContent());
-    }
-
-    @Deprecated
-    public int getTabID() {
-        return tabID;
     }
 
     public String getFileName() {
