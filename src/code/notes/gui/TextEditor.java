@@ -40,7 +40,6 @@ public class TextEditor extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jMenuItem1 = new javax.swing.JMenuItem();
         menuCloseTab = new javax.swing.JMenuItem();
-        jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -106,7 +105,6 @@ public class TextEditor extends javax.swing.JFrame {
             }
         });
         jMenu1.add(menuCloseTab);
-        jMenu1.add(jSeparator1);
 
         jMenuBar1.add(jMenu1);
 
@@ -123,9 +121,7 @@ public class TextEditor extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(editorPane, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 26, Short.MAX_VALUE))
+            .addComponent(editorPane, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
         );
 
         pack();
@@ -145,13 +141,12 @@ public class TextEditor extends javax.swing.JFrame {
 
     private void menuSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSaveActionPerformed
         SingleEditor singleEditor = getCurrentEditor();
+        singleEditor.saveTrue();
         String currentText = singleEditor.getTextArea().getText();
-
         if (singleEditor.getPath().isEmpty()) {
             menuSaveAsActionPerformed(evt);
             return;
         }
-
         FileHandler.save(currentText, singleEditor.getPath());
     }//GEN-LAST:event_menuSaveActionPerformed
 
@@ -166,13 +161,15 @@ public class TextEditor extends javax.swing.JFrame {
         FileHandler.save(currentText, path);
         singleEditor.setContent(currentText);
 
-        singleEditor.setPath(path);
         int index = editorPane.indexOfTab(singleEditor.getFileName());
-        ((TabHeader) editorPane.getTabComponentAt(index)).setFilename(singleEditor.getFileName());
+        singleEditor.setPath(path);
+        singleEditor.saveTrue();
+        ((TabHeader) editorPane.getTabComponentAt(index)).setFilename(singleEditor.getFileName(), true);
+        getCurrentEditor().setExtension();
     }//GEN-LAST:event_menuSaveAsActionPerformed
-
+    
     private void addNewTab(String path) {
-        SingleEditor singleEditor = new SingleEditor(path);
+        SingleEditor singleEditor = new SingleEditor(this, path);
         
         String filename = singleEditor.getFileName();
         
@@ -188,13 +185,18 @@ public class TextEditor extends javax.swing.JFrame {
     }
 
     private void addEmptyTab() {
-        SingleEditor singleEditor = new SingleEditor();
+        SingleEditor singleEditor = new SingleEditor(this);
         
         editorPane.addTab(singleEditor.getFileName(), singleEditor);
         int index = editorPane.indexOfTab(singleEditor.getFileName());
         editorPane.setTabComponentAt(index, new TabHeader(this));
     }
 
+    public void updateHeader(String filename, boolean saved){
+        int index = editorPane.indexOfTab(filename);
+        ((TabHeader) editorPane.getTabComponentAt(index)).setFilename(filename, saved);
+    }
+    
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         addEmptyTab();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
@@ -208,8 +210,12 @@ public class TextEditor extends javax.swing.JFrame {
     }//GEN-LAST:event_editorPaneComponentAdded
 
     public void closeTabAt(String filename){
-        int index = editorPane.indexOfTab(filename);
-        editorPane.removeTabAt(index);
+        try{
+            int index = editorPane.indexOfTab(filename);
+            editorPane.removeTabAt(index);
+        }catch(Exception ex){
+            editorPane.removeTabAt(editorPane.getTabCount()-1);
+        }
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -218,7 +224,6 @@ public class TextEditor extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JMenuItem menuCloseTab;
     private javax.swing.JMenuItem menuOpen;
