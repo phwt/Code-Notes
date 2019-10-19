@@ -22,10 +22,10 @@ public class ExceptionDatabase {
     public static Connection conn;
     public static Statement stmt;
     public static ResultSet rst;
-    public static String url = "jdbc:derby:exceptiondb;create=true";
+    public static String url = "jdbc:derby:exceptiondb;";
+    public static String path = Paths.get(System.getProperty("user.dir"), ".derby").toAbsolutePath().toString();
 
     public static void createConnection() throws SQLException {
-        String path = Paths.get(System.getProperty("user.dir"), ".derby").toAbsolutePath().toString();
         System.setProperty("derby.system.home", path);
         conn = DriverManager.getConnection(url);
     }

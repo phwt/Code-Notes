@@ -4,7 +4,9 @@
  */
 package code.notes.util;
 
+import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -15,24 +17,26 @@ import java.sql.Statement;
 public class ExceptionLookup {
     public static void main(String[] args) {
         try {
-            System.setProperty("derby.system.home", "/home/janbodnar/.derby");
+            System.setProperty("derby.system.home", ExceptionDatabase.path);
             
             Connection conn = ExceptionDatabase.conn;
             Statement stmt = ExceptionDatabase.stmt;
-            ResultText rst = ExceptionDatabase.rst;
+            ResultSet rst = ExceptionDatabase.rst;
             String url = ExceptionDatabase.url;
             
-            con = DriverManager.getConnection(url);
-            st = con.createStatement();
-            rs = st.executeQuery("SELECT * FROM USER12.CARS");
+            conn = DriverManager.getConnection(url);
+            stmt = conn.createStatement();
+            rst = stmt.executeQuery("SELECT * FROM APP.EXCEPTION_DB");
 
-            while (rs.next()) {
-                System.out.print(rs.getInt(1));
+            while (rst.next()) {
+                System.out.print(rst.getInt(1));
                 System.out.print(" ");
-                System.out.print(rs.getString(2));
-                System.out.print(" ");
-                System.out.println(rs.getString(3));
+                System.out.print(rst.getString(2));
+//                System.out.print(" ");
+//                System.out.println(rst.getString(3));
             }
+            
+            ExceptionDatabase.closeConnection();
 //            ExceptionDatabase.createConnection();
 //
 //            Statement stmt = ExceptionDatabase.conn.createStatement();
