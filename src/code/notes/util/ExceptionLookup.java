@@ -4,50 +4,53 @@
  */
 package code.notes.util;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author phwts
  */
 public class ExceptionLookup {
-    public static void main(String[] args) {
+    static Set datas;
+    public static Set searchException(String lang, String keyword){
         try {
-            System.setProperty("derby.system.home", ExceptionDatabase.path);
+            DatabaseConnectionHandler.createConnection();
             
-            Connection conn = ExceptionDatabase.conn;
-            Statement stmt = ExceptionDatabase.stmt;
-            ResultSet rst = ExceptionDatabase.rst;
-            String url = ExceptionDatabase.url;
+            datas = DatabaseConnectionHandler.selectData("EXCEPTION_PYTHON");
+//            return datas;
+//            for(Object data : datas){
+//                System.out.print(((String[]) data)[0]);
+//                System.out.print(((String[]) data)[1]);
+//            }
             
-            conn = DriverManager.getConnection(url);
-            stmt = conn.createStatement();
-            rst = stmt.executeQuery("SELECT * FROM APP.EXCEPTION_DB");
-
-            while (rst.next()) {
-                System.out.print(rst.getInt(1));
-                System.out.print(" ");
-                System.out.print(rst.getString(2));
-//                System.out.print(" ");
-//                System.out.println(rst.getString(3));
-            }
-            
-            ExceptionDatabase.closeConnection();
-//            ExceptionDatabase.createConnection();
-//
-//            Statement stmt = ExceptionDatabase.conn.createStatement();
-//            stmt.executeUpdate("CREATE TABLE EXCEPTION(ID INT PRIMARY KEY, EXCEPTION VARCHAR(50), DESC VARCHAR(200))");
-//            stmt.executeUpdate("INSERT INTO EXCEPTION VALUES(1, 'Audi', 52642)");
-//
-//            ExceptionDatabase.closeConnection();
+            DatabaseConnectionHandler.closeConnection();
         } catch (SQLException ex) {
-            ExceptionDatabase.catchSQLEx(ex);
+            Logger lgr = Logger.getLogger(TestSelect.class.getName());
+            if (((ex.getErrorCode() == 50000)
+                    && ("XJ015".equals(ex.getSQLState())))) {
+                lgr.log(Level.INFO, "Derby shut down normally", ex);
+            } else {
+                lgr.log(Level.SEVERE, ex.getMessage(), ex);
+            }
         } finally {
-            ExceptionDatabase.finallySQL();
+            try {
+                if (DatabaseConnectionHandler.getRst() != null) {
+                    DatabaseConnectionHandler.getRst().close();
+                }
+                if (DatabaseConnectionHandler.getStmt() != null) {
+                    DatabaseConnectionHandler.getStmt().close();
+                }
+                if (DatabaseConnectionHandler.getConn() != null) {
+                    DatabaseConnectionHandler.getConn().close();
+                }
+            } catch (SQLException ex) {
+                Logger lgr = Logger.getLogger(TestSelect.class.getName());
+                lgr.log(Level.WARNING, ex.getMessage(), ex);
+            }
         }
+        return datas;
     }
 }

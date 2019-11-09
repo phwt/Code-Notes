@@ -31,14 +31,12 @@ public class TestSelect {
 
             con = DriverManager.getConnection(url);
             st = con.createStatement();
-            rs = st.executeQuery("SELECT * FROM APP.EXCEPTION_DB");
-
+            
+            rs = st.executeQuery("SELECT * FROM APP.EXCEPTION_PYTHON");
             while (rs.next()) {
-                System.out.print(rs.getInt(1));
+                System.out.print(rs.getString(1));
                 System.out.print(" ");
-                System.out.print(rs.getString(2));
-//                System.out.print(" ");
-//                System.out.println(rs.getString(3));
+                System.out.println(rs.getString(2));
             }
 
             DriverManager.getConnection("jdbc:derby:;shutdown=true");
@@ -46,14 +44,10 @@ public class TestSelect {
         } catch (SQLException ex) {
 
             Logger lgr = Logger.getLogger(TestSelect.class.getName());
-
             if (((ex.getErrorCode() == 50000)
                     && ("XJ015".equals(ex.getSQLState())))) {
-
                 lgr.log(Level.INFO, "Derby shut down normally", ex);
-
             } else {
-
                 lgr.log(Level.SEVERE, ex.getMessage(), ex);
             }
 
