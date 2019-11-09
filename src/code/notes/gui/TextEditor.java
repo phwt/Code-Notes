@@ -41,6 +41,7 @@ public class TextEditor extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         menuCloseTab = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("code/notes/Bundle"); // NOI18N
@@ -108,7 +109,16 @@ public class TextEditor extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText(bundle.getString("edit")); // NOI18N
+        jMenu2.setText(bundle.getString("tools")); // NOI18N
+
+        jMenuItem2.setText(bundle.getString("exception_lookup")); // NOI18N
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem2);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -209,6 +219,11 @@ public class TextEditor extends javax.swing.JFrame {
         editorPane.setSelectedIndex(editorPane.getTabCount()-1);
     }//GEN-LAST:event_editorPaneComponentAdded
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        new ExceptionForm().setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     public void closeTabAt(String filename){
         try{
             int index = editorPane.indexOfTab(filename);
@@ -224,6 +239,7 @@ public class TextEditor extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JMenuItem menuCloseTab;
     private javax.swing.JMenuItem menuOpen;
