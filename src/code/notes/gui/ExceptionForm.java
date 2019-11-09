@@ -155,8 +155,6 @@ public class ExceptionForm extends javax.swing.JFrame {
         String text = "";
         for (Object data : datas) {
             text += ((String[]) data)[0] + " " + ((String[]) data)[1] + "\n";
-//            System.out.print(((String[]) data)[0]);
-//            System.out.print(((String[]) data)[1]);
         }
 
         this.setTextArea(text);
