@@ -4,53 +4,45 @@
  */
 package code.notes.util;
 
-import java.sql.SQLException;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.nio.file.Paths;
+import java.sql.*;
 
 /**
  *
  * @author phwts
  */
 public class ExceptionLookup {
-    static Set datas;
-    public static Set searchException(String lang, String keyword){
+    public static String[][] searchException(String lang, String keyword) {
+        String[][] result = null;
+        Connection connect = null;
+        Statement s = null;
         try {
-            DatabaseConnectionHandler.createConnection();
-            
-            datas = DatabaseConnectionHandler.selectData("EXCEPTION_PYTHON");
-//            return datas;
-//            for(Object data : datas){
-//                System.out.print(((String[]) data)[0]);
-//                System.out.print(((String[]) data)[1]);
-//            }
-            
-            DatabaseConnectionHandler.closeConnection();
-        } catch (SQLException ex) {
-            Logger lgr = Logger.getLogger(TestSelect.class.getName());
-            if (((ex.getErrorCode() == 50000)
-                    && ("XJ015".equals(ex.getSQLState())))) {
-                lgr.log(Level.INFO, "Derby shut down normally", ex);
-            } else {
-                lgr.log(Level.SEVERE, ex.getMessage(), ex);
+            System.setProperty("derby.system.home", Paths.get(System.getProperty("user.dir"), ".derby").toAbsolutePath().toString());
+            connect = DriverManager.getConnection("jdbc:derby:exceptiondb;");
+            s = connect.createStatement();
+            String sql = "SELECT * FROM APP." + "EXCEPTION_PYTHON" + " WHERE UCASE(EXCEPTION_KEY) LIKE UCASE('%" + keyword + "%')";
+            ResultSet rst = s.executeQuery(sql);
+
+            result = new String[10][3];
+            int count = 0;
+            while (rst.next()) {
+                result[count][0] = Integer.toString(count + 1);
+                result[count][1] = rst.getString(1);
+                result[count][2] = rst.getString(2);
+                count++;
             }
-        } finally {
-            try {
-                if (DatabaseConnectionHandler.getRst() != null) {
-                    DatabaseConnectionHandler.getRst().close();
-                }
-                if (DatabaseConnectionHandler.getStmt() != null) {
-                    DatabaseConnectionHandler.getStmt().close();
-                }
-                if (DatabaseConnectionHandler.getConn() != null) {
-                    DatabaseConnectionHandler.getConn().close();
-                }
-            } catch (SQLException ex) {
-                Logger lgr = Logger.getLogger(TestSelect.class.getName());
-                lgr.log(Level.WARNING, ex.getMessage(), ex);
-            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        return datas;
+
+        try {
+            if (connect != null) {
+                s.close();
+                connect.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 }
