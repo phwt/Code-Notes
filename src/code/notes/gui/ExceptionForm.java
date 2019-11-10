@@ -10,7 +10,9 @@ import java.sql.SQLException;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTable;
 import javax.swing.UIManager;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -70,7 +72,7 @@ public class ExceptionForm extends javax.swing.JFrame {
                 {null, null, null}
             },
             new String [] {
-                "ID", "Key", "Solution"
+                "#", "Key", "Solution"
             }
         ) {
             Class[] types = new Class [] {
@@ -98,7 +100,8 @@ public class ExceptionForm extends javax.swing.JFrame {
         });
 
         testTextArea.setColumns(20);
-        testTextArea.setRows(5);
+        testTextArea.setRows(3);
+        testTextArea.setEnabled(false);
         jScrollPane2.setViewportView(testTextArea);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -132,7 +135,7 @@ public class ExceptionForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton2)
                 .addContainerGap())
@@ -151,13 +154,25 @@ public class ExceptionForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Set datas = ExceptionLookup.searchException("python", jLabel1.getText());
-        String text = "";
-        for (Object data : datas) {
-            text += ((String[]) data)[0] + " " + ((String[]) data)[1] + "\n";
-        }
+        String[][] datas = ExceptionLookup.searchException("python", jTextField1.getText());
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+                datas,
+                new String[]{
+                    "#", "Key", "Solution"
+                }
+        ) {
+            Class[] types = new Class[]{
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+            };
 
-        this.setTextArea(text);
+            public Class getColumnClass(int columnIndex) {
+                return types[columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return false;
+            }
+        });
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public void setTextArea(String text) {
