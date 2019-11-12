@@ -11,11 +11,13 @@ package code.notes.gui;
 import code.notes.Bundle;
 import code.notes.util.ExtensionTranslator;
 import code.notes.util.FileHandler;
+import code.notes.util.UserPreferences;
 import javax.swing.*;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.util.ArrayList;
 import org.fife.rsta.ac.LanguageSupportFactory;
 import org.fife.ui.rtextarea.*;
 import org.fife.ui.rsyntaxtextarea.*;
@@ -26,6 +28,16 @@ public class SingleEditor extends JPanel {
     private TextEditor textEditor;
     private String content, path;
     private boolean saved = true;
+    private static ArrayList<SingleEditor> editorPool = new ArrayList<SingleEditor>();
+    
+    
+    private static void addEditor(SingleEditor editor){
+        editorPool.add(editor);
+    }
+    
+    public static ArrayList<SingleEditor> getEditors(){
+        return editorPool;
+    }
 
     public SingleEditor(TextEditor textEditor) {
         this.path = "";
@@ -41,7 +53,7 @@ public class SingleEditor extends JPanel {
 
     public void init() {
         this.setLayout(new BorderLayout());
-
+        SingleEditor.addEditor(this);
         textArea = new RSyntaxTextArea(20, 60);
         setExtension();
         textArea.setCodeFoldingEnabled(true);
@@ -50,8 +62,7 @@ public class SingleEditor extends JPanel {
         LanguageSupportFactory.get().register(textArea);
         setContent(FileHandler.open(path));
         
-        Font font = new Font("Leelawadee", Font.PLAIN, 16);
-        textArea.setFont(font);
+        this.refreshStyles();
         
         textArea.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -65,6 +76,17 @@ public class SingleEditor extends JPanel {
 
         textArea.setText(getContent());
     }
+    
+    public void refreshStyles() {
+        Font font = new Font("Leelawadee", Font.PLAIN, 16);
+        textArea.setFont(font);
+        
+        textArea.setTabSize(UserPreferences.getTabSize());
+        textArea.setTabsEmulated(UserPreferences.isTabEmulated());
+        textArea.setAutoIndentEnabled(UserPreferences.isAutoIndent());
+        textArea.setWhitespaceVisible(UserPreferences.isWtspVisible());
+    }
+    
     
     public void setExtension(){
         String syntaxConstant = ExtensionTranslator.getConstant(getFileName());

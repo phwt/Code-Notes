@@ -50,27 +50,12 @@ public class SettingsForm extends javax.swing.JFrame {
         checkbox_autoindent.setSelected(UserPreferences.isAutoIndent());
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("code/notes/Bundle"); // NOI18N
         checkbox_autoindent.setText(bundle.getString("settings_auto_indent")); // NOI18N
-        checkbox_autoindent.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkbox_autoindentActionPerformed(evt);
-            }
-        });
 
         checkbox_tab.setSelected(UserPreferences.isTabEmulated());
         checkbox_tab.setText(bundle.getString("settings_translate_tab")); // NOI18N
-        checkbox_tab.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkbox_tabActionPerformed(evt);
-            }
-        });
 
         checkbox_wtsp.setSelected(UserPreferences.isWtspVisible());
         checkbox_wtsp.setText(bundle.getString("settings_whitespace")); // NOI18N
-        checkbox_wtsp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkbox_wtspActionPerformed(evt);
-            }
-        });
 
         spinner_tab.setValue((Integer) UserPreferences.getTabSize());
 
@@ -99,11 +84,6 @@ public class SettingsForm extends javax.swing.JFrame {
 
         txtf_path.setText(UserPreferences.getDirPath());
         txtf_path.setName(""); // NOI18N
-        txtf_path.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtf_pathActionPerformed(evt);
-            }
-        });
 
         jLabel1.setText(bundle.getString("settings_dir_root")); // NOI18N
 
@@ -177,18 +157,6 @@ public class SettingsForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void checkbox_autoindentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkbox_autoindentActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_checkbox_autoindentActionPerformed
-
-    private void checkbox_tabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkbox_tabActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_checkbox_tabActionPerformed
-
-    private void checkbox_wtspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkbox_wtspActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_checkbox_wtspActionPerformed
-
     private void btn_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_saveActionPerformed
         // TODO add your handling code here:
         UserPreferences.setAutoIndent(checkbox_autoindent.isSelected());
@@ -196,6 +164,11 @@ public class SettingsForm extends javax.swing.JFrame {
         UserPreferences.setWtspVisible(checkbox_wtsp.isSelected());
         UserPreferences.setTabSize((int) spinner_tab.getValue());
         UserPreferences.setDirPath(txtf_path.getText());
+        
+        SingleEditor.getEditors().forEach((editor) -> {
+            editor.refreshStyles();
+        });
+        
         this.dispose();
     }//GEN-LAST:event_btn_saveActionPerformed
 
@@ -214,10 +187,6 @@ public class SettingsForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         txtf_path.setText(FileChooser.openDirectory());
     }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void txtf_pathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtf_pathActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtf_pathActionPerformed
 
     /**
      * @param args the command line arguments

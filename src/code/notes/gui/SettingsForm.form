@@ -108,9 +108,6 @@
           <ResourceString bundle="code/notes/Bundle.properties" key="settings_auto_indent" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkbox_autoindentActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JCheckBox" name="checkbox_tab">
       <Properties>
@@ -121,9 +118,6 @@
           <ResourceString bundle="code/notes/Bundle.properties" key="settings_translate_tab" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkbox_tabActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JCheckBox" name="checkbox_wtsp">
       <Properties>
@@ -134,9 +128,6 @@
           <ResourceString bundle="code/notes/Bundle.properties" key="settings_whitespace" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkbox_wtspActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JSpinner" name="spinner_tab">
       <Properties>
@@ -189,9 +180,6 @@
         </Property>
         <Property name="name" type="java.lang.String" value="" noResource="true"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtf_pathActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
