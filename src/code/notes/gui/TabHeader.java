@@ -6,14 +6,18 @@ package code.notes.gui;
 
 import code.notes.Bundle;
 import java.awt.Color;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author phwts
  */
 public class TabHeader extends javax.swing.JPanel {
+
     private String filename;
     private final TextEditor editor;
+    private boolean save_status = true;
+
     /**
      * Creates new form TabHeader
      */
@@ -82,8 +86,31 @@ public class TabHeader extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private boolean showNotice() {
+        Object[] options = {
+            Bundle.get("go_back"),
+            Bundle.get("leave")
+        };
+        int n = JOptionPane.showOptionDialog(editor,
+                Bundle.get("save_notice"),
+                Bundle.get("warning"),
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.WARNING_MESSAGE,
+                null,
+                options,
+                options[1]
+        );
+        return n != 0;
+    }
+
     private void btnCloseTabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseTabMousePressed
-        editor.closeTabAt(filename);
+        if (!this.save_status) {
+            if (this.showNotice()) {
+                editor.closeTabAt(filename);
+            }
+        }else{
+            editor.closeTabAt(filename);
+        }
     }//GEN-LAST:event_btnCloseTabMousePressed
 
     private void btnCloseTabMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseTabMouseEntered
@@ -96,6 +123,7 @@ public class TabHeader extends javax.swing.JPanel {
 
     public void setFilename(String filename, boolean saved) {
         this.filename = filename;
+        this.save_status = saved;
         labelFileName.setText(filename + ((!saved) ? "*" : ""));
     }
 
