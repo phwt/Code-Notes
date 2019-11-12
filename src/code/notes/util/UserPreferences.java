@@ -28,11 +28,11 @@ public class UserPreferences {
     }
 
     public static boolean isTabEmulated() {
-        return prefs.getBoolean("tab_emulated", true);
+        return prefs.getBoolean("tab_emulated", false);
     }
 
     public static boolean isWtspVisible() {
-        return prefs.getBoolean("whitespace_visible", true);
+        return prefs.getBoolean("whitespace_visible", false);
     }
 
     public static int getTabSize() {
