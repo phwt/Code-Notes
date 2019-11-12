@@ -20,11 +20,22 @@ public class FileChooser {
         Action details = fileChooser.getActionMap().get("viewTypeDetails");
         fileChooser.setMultiSelectionEnabled(true);
         details.actionPerformed(null);
-        
+
         if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
             File[] files = fileChooser.getSelectedFiles();
             return files;
 //            return fileChooser.getSelectedFile().getAbsolutePath();
+        }
+        return null;
+    }
+
+    public static String openDirectory() {
+        Action details = fileChooser.getActionMap().get("viewTypeDetails");
+        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        details.actionPerformed(null);
+
+        if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+            return fileChooser.getSelectedFile().getAbsolutePath();
         }
         return null;
     }
@@ -37,7 +48,7 @@ public class FileChooser {
         }
         return null;
     }
-    
+
     public static String save(String filename) {
         Action details = fileChooser.getActionMap().get("viewTypeDetails");
         details.actionPerformed(null);

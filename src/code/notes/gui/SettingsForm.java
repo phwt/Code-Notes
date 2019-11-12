@@ -4,6 +4,8 @@
  */
 package code.notes.gui;
 
+import code.notes.util.FileChooser;
+import code.notes.util.UserPreferences;
 import javax.swing.UIManager;
 
 /**
@@ -28,61 +30,87 @@ public class SettingsForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
-        jSpinner1 = new javax.swing.JSpinner();
+        checkbox_autoindent = new javax.swing.JCheckBox();
+        checkbox_tab = new javax.swing.JCheckBox();
+        checkbox_wtsp = new javax.swing.JCheckBox();
+        spinner_tab = new javax.swing.JSpinner();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btn_save = new javax.swing.JButton();
+        brn_reset = new javax.swing.JButton();
+        btn_close = new javax.swing.JButton();
+        txtf_path = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Settings");
         setLocationByPlatform(true);
         setResizable(false);
 
+        checkbox_autoindent.setSelected(UserPreferences.isAutoIndent());
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("code/notes/Bundle"); // NOI18N
-        jCheckBox1.setText(bundle.getString("settings_auto_indent")); // NOI18N
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+        checkbox_autoindent.setText(bundle.getString("settings_auto_indent")); // NOI18N
+        checkbox_autoindent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
+                checkbox_autoindentActionPerformed(evt);
             }
         });
 
-        jCheckBox2.setText(bundle.getString("settings_translate_tab")); // NOI18N
-        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
+        checkbox_tab.setSelected(UserPreferences.isTabEmulated());
+        checkbox_tab.setText(bundle.getString("settings_translate_tab")); // NOI18N
+        checkbox_tab.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox2ActionPerformed(evt);
+                checkbox_tabActionPerformed(evt);
             }
         });
 
-        jCheckBox3.setText(bundle.getString("settings_whitespace")); // NOI18N
-        jCheckBox3.addActionListener(new java.awt.event.ActionListener() {
+        checkbox_wtsp.setSelected(UserPreferences.isWtspVisible());
+        checkbox_wtsp.setText(bundle.getString("settings_whitespace")); // NOI18N
+        checkbox_wtsp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox3ActionPerformed(evt);
+                checkbox_wtspActionPerformed(evt);
             }
         });
+
+        spinner_tab.setValue((Integer) UserPreferences.getTabSize());
 
         jLabel2.setText(bundle.getString("settings_tab_size")); // NOI18N
 
-        jButton1.setText(bundle.getString("save")); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btn_save.setText(bundle.getString("save")); // NOI18N
+        btn_save.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btn_saveActionPerformed(evt);
             }
         });
 
-        jButton2.setText(bundle.getString("reset_default")); // NOI18N
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        brn_reset.setText(bundle.getString("reset_default")); // NOI18N
+        brn_reset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                brn_resetActionPerformed(evt);
             }
         });
 
-        jButton3.setText(bundle.getString("cancle")); // NOI18N
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btn_close.setText(bundle.getString("cancel")); // NOI18N
+        btn_close.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btn_closeActionPerformed(evt);
+            }
+        });
+
+        txtf_path.setText(UserPreferences.getDirPath());
+        txtf_path.setName(""); // NOI18N
+        txtf_path.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtf_pathActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText(bundle.getString("settings_dir_root")); // NOI18N
+
+        jButton4.setText(bundle.getString("settings_browse")); // NOI18N
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
             }
         });
 
@@ -92,71 +120,104 @@ public class SettingsForm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCheckBox1)
-                    .addComponent(jCheckBox2)
-                    .addComponent(jCheckBox3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(brn_reset)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                        .addComponent(btn_save, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_close, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(checkbox_autoindent)
+                            .addGap(65, 65, 65)
+                            .addComponent(spinner_tab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel2))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(jLabel1)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtf_path, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(checkbox_tab)
+                                        .addComponent(checkbox_wtsp))
+                                    .addGap(173, 173, 173)))
+                            .addComponent(jButton4))))
+                .addContainerGap(9, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jCheckBox1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCheckBox2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCheckBox3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3)
-                        .addGap(12, 12, 12)
-                        .addComponent(jButton2)))
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(checkbox_autoindent)
+                    .addComponent(spinner_tab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkbox_tab)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkbox_wtsp)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtf_path)
+                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_close)
+                    .addComponent(brn_reset)
+                    .addComponent(btn_save))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+    private void checkbox_autoindentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkbox_autoindentActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
+    }//GEN-LAST:event_checkbox_autoindentActionPerformed
 
-    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
+    private void checkbox_tabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkbox_tabActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox2ActionPerformed
+    }//GEN-LAST:event_checkbox_tabActionPerformed
 
-    private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
+    private void checkbox_wtspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkbox_wtspActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox3ActionPerformed
+    }//GEN-LAST:event_checkbox_wtspActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btn_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_saveActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        UserPreferences.setAutoIndent(checkbox_autoindent.isSelected());
+        UserPreferences.setTabEmulated(checkbox_tab.isSelected());
+        UserPreferences.setWtspVisible(checkbox_wtsp.isSelected());
+        UserPreferences.setTabSize((int) spinner_tab.getValue());
+        UserPreferences.setDirPath(txtf_path.getText());
+        this.dispose();
+    }//GEN-LAST:event_btn_saveActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void brn_resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brn_resetActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+        UserPreferences.resetPreferences();
+        this.dispose();
+    }//GEN-LAST:event_brn_resetActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btn_closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_closeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btn_closeActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        txtf_path.setText(FileChooser.openDirectory());
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void txtf_pathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtf_pathActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtf_pathActionPerformed
 
     /**
      * @param args the command line arguments
@@ -179,13 +240,16 @@ public class SettingsForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
+    private javax.swing.JButton brn_reset;
+    private javax.swing.JButton btn_close;
+    private javax.swing.JButton btn_save;
+    private javax.swing.JCheckBox checkbox_autoindent;
+    private javax.swing.JCheckBox checkbox_tab;
+    private javax.swing.JCheckBox checkbox_wtsp;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JSpinner jSpinner1;
+    private javax.swing.JSpinner spinner_tab;
+    private javax.swing.JTextField txtf_path;
     // End of variables declaration//GEN-END:variables
 }
