@@ -4,6 +4,7 @@
  */
 package code.notes.util;
 
+import code.notes.gui.MockGUI;
 import java.nio.file.Paths;
 import java.sql.*;
 
@@ -12,6 +13,19 @@ import java.sql.*;
  * @author phwts
  */
 public class ExceptionLookup {
+    public static void search(String lang, String keyword) {
+        String s1 = keyword;
+        int index = 0;
+        String[] keywords = s1.split("[, ?.@+=:]+");
+        for (String words : keywords) {
+            String[][] data = MockDatabase.searchException(lang, words);
+            for (String[] w : data) {
+                if(w[index] != null){
+                    MockGUI.displayText(w[index]);
+            }}
+        }
+    }
+    
     public static String[][] searchException(String lang, String keyword) {
         String[][] result = null;
         Connection connect = null;
