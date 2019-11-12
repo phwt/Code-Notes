@@ -13,6 +13,7 @@ import code.notes.util.ExtensionTranslator;
 import code.notes.util.FileHandler;
 import javax.swing.*;
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import org.fife.rsta.ac.LanguageSupportFactory;
@@ -48,6 +49,9 @@ public class SingleEditor extends JPanel {
         this.add(sp);
         LanguageSupportFactory.get().register(textArea);
         setContent(FileHandler.open(path));
+        
+        Font font = new Font("Leelawadee", Font.PLAIN, 16);
+        textArea.setFont(font);
         
         textArea.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
