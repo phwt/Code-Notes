@@ -5,6 +5,7 @@
 package code.notes.util;
 
 import code.notes.gui.MockGUI;
+import code.notes.util.MockDatabase;
 import java.nio.file.Paths;
 import java.sql.*;
 

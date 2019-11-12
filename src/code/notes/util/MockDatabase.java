@@ -2,7 +2,7 @@
  * Code-Notes | MockDatabase.java
  * Created | 11:17:36 AM Nov 11, 2019
  */
-package code.notes.database;
+package code.notes.util;
 
 /**
  *
