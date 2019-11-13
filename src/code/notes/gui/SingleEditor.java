@@ -7,6 +7,7 @@ package code.notes.gui;
 import code.notes.main.CodeNotes;
 import code.notes.util.FileChooser;
 import code.notes.util.FileHandler;
+import code.notes.util.UserPreferences;
 import java.awt.event.KeyEvent;
 import java.nio.file.Path;
 import javax.swing.event.DocumentEvent;
@@ -27,6 +28,7 @@ public class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextArea {
      */
     public SingleEditor() {
         super(20, 60);
+        this.refreshStyles();
         this.setCodeFoldingEnabled(true);
 
         this.HEADER = new TabHeader(this, "New File");
@@ -40,6 +42,7 @@ public class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextArea {
      */
     public SingleEditor(Path path) {
         super(20, 60);
+        this.refreshStyles();
         this.setCodeFoldingEnabled(true);
 
         this.path = path;
@@ -117,5 +120,12 @@ public class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextArea {
         this.setPath(save_path);
         this.HEADER.setHeader(getFileName());
         saveTrue();
+    }
+    
+    public void refreshStyles() {
+        this.setTabSize(UserPreferences.getTabSize());
+        this.setTabsEmulated(UserPreferences.isTabEmulated());
+        this.setAutoIndentEnabled(UserPreferences.isAutoIndent());
+        this.setWhitespaceVisible(UserPreferences.isWtspVisible());
     }
 }

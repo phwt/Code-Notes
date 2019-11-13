@@ -4,6 +4,7 @@
  */
 package code.notes.gui;
 
+import code.notes.main.CodeNotes;
 import code.notes.util.FileChooser;
 import code.notes.util.UserPreferences;
 import javax.swing.UIManager;
@@ -165,9 +166,9 @@ public class SettingsForm extends javax.swing.JFrame {
         UserPreferences.setTabSize((int) spinner_tab.getValue());
         UserPreferences.setDirPath(txtf_path.getText());
         
-//        SingleEditor.getEditors().forEach((editor) -> {
-//            editor.refreshStyles();
-//        });
+        CodeNotes.text_editor.getEditorPool().forEach((editor) -> {
+           editor.refreshStyles() ;
+        });
         
         this.dispose();
     }//GEN-LAST:event_btn_saveActionPerformed
@@ -175,6 +176,9 @@ public class SettingsForm extends javax.swing.JFrame {
     private void brn_resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brn_resetActionPerformed
         // TODO add your handling code here:
         UserPreferences.resetPreferences();
+        CodeNotes.text_editor.getEditorPool().forEach((editor) -> {
+           editor.refreshStyles() ;
+        });
         this.dispose();
     }//GEN-LAST:event_brn_resetActionPerformed
 

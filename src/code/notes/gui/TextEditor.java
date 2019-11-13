@@ -46,6 +46,10 @@ public final class TextEditor extends javax.swing.JTabbedPane {
     public int getEditorIndex(SingleEditor editor) {
         return editor_pool.indexOf(editor);
     }
+    
+    public ArrayList<SingleEditor> getEditorPool() {
+        return editor_pool;
+    }
 
     /**
      * Add new tab
