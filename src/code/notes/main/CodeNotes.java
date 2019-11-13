@@ -13,7 +13,7 @@ import javax.swing.UIManager;
  * @author phwts
  */
 public class CodeNotes extends javax.swing.JFrame {
-    TextEditor text_editor = new TextEditor();
+    public static TextEditor text_editor = new TextEditor();
     /**
      * Creates new form CodeNotes
      */
@@ -39,6 +39,7 @@ public class CodeNotes extends javax.swing.JFrame {
         menu_open = new javax.swing.JMenuItem();
         menu_save = new javax.swing.JMenuItem();
         menu_saveas = new javax.swing.JMenuItem();
+        menu_closetab = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -77,6 +78,15 @@ public class CodeNotes extends javax.swing.JFrame {
         });
         menu_file.add(menu_saveas);
 
+        menu_closetab.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_W, java.awt.event.InputEvent.CTRL_MASK));
+        menu_closetab.setText("Close Tab");
+        menu_closetab.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_closetabActionPerformed(evt);
+            }
+        });
+        menu_file.add(menu_closetab);
+
         jMenuBar1.add(menu_file);
 
         jMenu2.setText("Edit");
@@ -114,11 +124,14 @@ public class CodeNotes extends javax.swing.JFrame {
         text_editor.getActiveEditor().saveAs();
     }//GEN-LAST:event_menu_saveasActionPerformed
 
+    private void menu_closetabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_closetabActionPerformed
+        text_editor.closeTab();
+    }//GEN-LAST:event_menu_closetabActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
@@ -139,6 +152,7 @@ public class CodeNotes extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JMenuItem menu_closetab;
     private javax.swing.JMenu menu_file;
     private javax.swing.JMenuItem menu_open;
     private javax.swing.JMenuItem menu_save;
