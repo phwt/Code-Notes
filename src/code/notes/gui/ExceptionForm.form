@@ -132,10 +132,13 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTextArea" name="testTextArea">
+        <Component class="javax.swing.JTextArea" name="resultTextArea">
           <Properties>
-            <Property name="columns" type="int" value="20"/>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="columns" type="int" value="10"/>
+            <Property name="lineWrap" type="boolean" value="true"/>
             <Property name="rows" type="int" value="3"/>
+            <Property name="tabSize" type="int" value="4"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>

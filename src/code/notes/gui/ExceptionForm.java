@@ -5,7 +5,10 @@
 package code.notes.gui;
 
 import code.notes.util.ExceptionLookup;
+import javax.swing.JTable;
 import javax.swing.UIManager;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -18,6 +21,16 @@ public class ExceptionForm extends javax.swing.JFrame {
      */
     public ExceptionForm() {
         initComponents();
+        
+        jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                try {
+                    resultTextArea.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString());
+                } catch (NullPointerException ex) {
+                    //do nothing
+                }
+            }
+        });
     }
 
     /**
@@ -36,7 +49,7 @@ public class ExceptionForm extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        testTextArea = new javax.swing.JTextArea();
+        resultTextArea = new javax.swing.JTextArea();
         jComboBox1 = new javax.swing.JComboBox<>();
 
         setTitle("Exception Lookup");
@@ -94,10 +107,13 @@ public class ExceptionForm extends javax.swing.JFrame {
             }
         });
 
-        testTextArea.setColumns(20);
-        testTextArea.setRows(3);
-        testTextArea.setEnabled(false);
-        jScrollPane2.setViewportView(testTextArea);
+        resultTextArea.setEditable(false);
+        resultTextArea.setColumns(10);
+        resultTextArea.setLineWrap(true);
+        resultTextArea.setRows(3);
+        resultTextArea.setTabSize(4);
+        resultTextArea.setEnabled(false);
+        jScrollPane2.setViewportView(resultTextArea);
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Python", "Java", "JavaScript" }));
 
@@ -173,10 +189,14 @@ public class ExceptionForm extends javax.swing.JFrame {
                 return false;
             }
         });
+        jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(1);
+        jTable1.getColumnModel().getColumn(1).setPreferredWidth(100);
+        jTable1.getColumnModel().getColumn(2).setMinWidth(100);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public void setTextArea(String text) {
-        testTextArea.setText(text);
+        resultTextArea.setText(text);
     }
 
     /**
@@ -196,11 +216,11 @@ public class ExceptionForm extends javax.swing.JFrame {
         }
 
         /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new ExceptionForm().setVisible(true);
-//            }
-//        });
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new ExceptionForm().setVisible(true);
+            }
+        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -212,6 +232,6 @@ public class ExceptionForm extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextArea testTextArea;
+    private javax.swing.JTextArea resultTextArea;
     // End of variables declaration//GEN-END:variables
 }
