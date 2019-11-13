@@ -53,14 +53,17 @@ public class FileChooser {
         return null;
     }
 
-    @Deprecated
-    public static String openDirectory() {
+    /**
+     * Show file chooser open dialog with directory selection
+     * @return Path of selected directory
+     */
+    public static Path openDirectory() {
         Action details = FILE_CHOOSER.getActionMap().get("viewTypeDetails");
         FILE_CHOOSER.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         details.actionPerformed(null);
 
         if (FILE_CHOOSER.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-            return FILE_CHOOSER.getSelectedFile().getAbsolutePath();
+            return FILE_CHOOSER.getSelectedFile().toPath();
         }
         return null;
     }
