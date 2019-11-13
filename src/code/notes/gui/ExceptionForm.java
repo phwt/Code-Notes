@@ -26,7 +26,7 @@ public class ExceptionForm extends javax.swing.JFrame {
             public void valueChanged(ListSelectionEvent event) {
                 try {
                     resultTextArea.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString());
-                } catch (NullPointerException ex) {
+                } catch (Exception ex) {
                     //do nothing
                 }
             }
@@ -50,7 +50,7 @@ public class ExceptionForm extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         resultTextArea = new javax.swing.JTextArea();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        combo_lang = new javax.swing.JComboBox<>();
 
         setTitle("Exception Lookup");
         setLocationByPlatform(true);
@@ -60,6 +60,11 @@ public class ExceptionForm extends javax.swing.JFrame {
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
+            }
+        });
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField1KeyPressed(evt);
             }
         });
 
@@ -115,7 +120,7 @@ public class ExceptionForm extends javax.swing.JFrame {
         resultTextArea.setEnabled(false);
         jScrollPane2.setViewportView(resultTextArea);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Python", "Java", "JavaScript" }));
+        combo_lang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Python", "Java" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -129,7 +134,7 @@ public class ExceptionForm extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(combo_lang, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -147,7 +152,7 @@ public class ExceptionForm extends javax.swing.JFrame {
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTextField1)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(combo_lang, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -170,7 +175,7 @@ public class ExceptionForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String[][] datas = ExceptionLookup.searchException("python", jTextField1.getText());
+        String[][] datas = ExceptionLookup.searchException(String.valueOf(combo_lang.getSelectedItem()), jTextField1.getText());
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
                 datas,
                 new String[]{
@@ -195,6 +200,12 @@ public class ExceptionForm extends javax.swing.JFrame {
         jTable1.getColumnModel().getColumn(2).setMinWidth(100);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+        if(evt.getKeyCode() == 10){
+            jButton1.doClick();
+        }
+    }//GEN-LAST:event_jTextField1KeyPressed
+
     public void setTextArea(String text) {
         resultTextArea.setText(text);
     }
@@ -211,17 +222,17 @@ public class ExceptionForm extends javax.swing.JFrame {
         }
 
         /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new ExceptionForm().setVisible(true);
-//            }
-//        });
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new ExceptionForm().setVisible(true);
+            }
+        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> combo_lang;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
