@@ -15,15 +15,19 @@ import javax.swing.JFileChooser;
  */
 public class FileChooser {
 
-    private static JFileChooser file_chooser = new JFileChooser();
+    private static final JFileChooser FILE_CHOOSER = new JFileChooser();
 
+    /**
+     * Show file chooser open dialog with multiple files selection
+     * @return Paths of all selected files
+     */
     public static Path[] openFiles() {
-        Action details = file_chooser.getActionMap().get("viewTypeDetails");
-        file_chooser.setMultiSelectionEnabled(true);
+        Action details = FILE_CHOOSER.getActionMap().get("viewTypeDetails");
+        FILE_CHOOSER.setMultiSelectionEnabled(true);
         details.actionPerformed(null);
 
-        if (file_chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-            File[] files = file_chooser.getSelectedFiles();
+        if (FILE_CHOOSER.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+            File[] files = FILE_CHOOSER.getSelectedFiles();
             Path[] paths = new Path[files.length];
             
             for(int i=0; i<files.length; i++){
@@ -35,43 +39,56 @@ public class FileChooser {
         return null;
     }
     
+    /**
+     * Show file chooser open dialog with single file selection
+     * @return Path of selected file
+     */
     public static Path openFile() {
-        Action details = file_chooser.getActionMap().get("viewTypeDetails");
+        Action details = FILE_CHOOSER.getActionMap().get("viewTypeDetails");
         details.actionPerformed(null);
 
-        if (file_chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-            return file_chooser.getSelectedFile().toPath();
+        if (FILE_CHOOSER.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+            return FILE_CHOOSER.getSelectedFile().toPath();
         }
         return null;
     }
 
     @Deprecated
     public static String openDirectory() {
-        Action details = file_chooser.getActionMap().get("viewTypeDetails");
-        file_chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        Action details = FILE_CHOOSER.getActionMap().get("viewTypeDetails");
+        FILE_CHOOSER.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         details.actionPerformed(null);
 
-        if (file_chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-            return file_chooser.getSelectedFile().getAbsolutePath();
+        if (FILE_CHOOSER.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+            return FILE_CHOOSER.getSelectedFile().getAbsolutePath();
         }
         return null;
     }
 
+    /**
+     * Show file chooser save dialog
+     * @return Path of selected file
+     */
     public static Path save() {
-        Action details = file_chooser.getActionMap().get("viewTypeDetails");
+        Action details = FILE_CHOOSER.getActionMap().get("viewTypeDetails");
         details.actionPerformed(null);
-        if (file_chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
-            return file_chooser.getSelectedFile().toPath();
+        if (FILE_CHOOSER.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+            return FILE_CHOOSER.getSelectedFile().toPath();
         }
         return null;
     }
     
+    /**
+     * Show file chooser save dialog with predefined filename
+     * @param filename Filename to be shown
+     * @return Path of selected file
+     */
     public static Path save(String filename) {
-        Action details = file_chooser.getActionMap().get("viewTypeDetails");
+        Action details = FILE_CHOOSER.getActionMap().get("viewTypeDetails");
         details.actionPerformed(null);
-        file_chooser.setSelectedFile(new File(filename));
-        if (file_chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
-            return file_chooser.getSelectedFile().toPath();
+        FILE_CHOOSER.setSelectedFile(new File(filename));
+        if (FILE_CHOOSER.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+            return FILE_CHOOSER.getSelectedFile().toPath();
         }
         return null;
     }
