@@ -9,6 +9,8 @@ import code.notes.util.FileChooser;
 import code.notes.util.FileHandler;
 import java.awt.event.KeyEvent;
 import java.nio.file.Path;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 /**
  *
@@ -17,7 +19,7 @@ import java.nio.file.Path;
 public class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextArea {
 
     private final TabHeader HEADER;
-    private Path path;
+    private Path path = null;
     private boolean save_state = true;
 
     /**
@@ -33,6 +35,7 @@ public class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextArea {
 
     /**
      * Create RSyntaxTextArea with content from path
+     *
      * @param path Path assigned to text area
      */
     public SingleEditor(Path path) {
@@ -47,28 +50,32 @@ public class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextArea {
     }
 
     private void addChangeListener() {
-        this.addKeyListener(new java.awt.event.KeyAdapter() {
+        this.getDocument().addDocumentListener(new DocumentListener() {
+
             @Override
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                textAreaKeyTyped(evt);
-            }
-            private void textAreaKeyTyped(KeyEvent evt) {
+            public void removeUpdate(DocumentEvent e) { }
+
+            @Override
+            public void insertUpdate(DocumentEvent e) { }
+
+            @Override
+            public void changedUpdate(DocumentEvent arg0) {
                 saveFalse();
             }
         });
     }
-    
+
     private void saveTrue() {
         this.save_state = true;
         HEADER.refresh();
     }
-    
+
     private void saveFalse() {
         this.save_state = false;
         HEADER.refresh();
     }
-    
-    public boolean getSaveState(){
+
+    public boolean getSaveState() {
         return save_state;
     }
 
@@ -81,6 +88,9 @@ public class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextArea {
     }
 
     public String getFileName() {
+        if (path == null) {
+            return "New File";
+        }
         return String.valueOf(path.getFileName());
     }
 
@@ -89,9 +99,13 @@ public class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextArea {
     }
 
     public void save() {
-        // TODO: Redirect to save as for invalid path
-        FileHandler.save(this.path, this.getText());
-        saveTrue();
+        if (path == null) {
+            saveAs();
+        } else {
+            FileHandler.save(this.path, this.getText());
+            saveTrue();
+        }
+
     }
 
     public void saveAs() {
