@@ -5,6 +5,7 @@
 package code.notes.gui;
 
 import code.notes.Bundle;
+import code.notes.main.CodeNotes;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 
@@ -13,23 +14,28 @@ import javax.swing.JOptionPane;
  * @author phwts
  */
 public class TabHeader extends javax.swing.JPanel {
+
     private final SingleEditor editor;
-    
+    private String header;
+
     /**
      * Creates new form TabHeader
+     *
      * @param editor Editor assigned to this header
      * @param filename Filename displayed in header
      */
     public TabHeader(SingleEditor editor, String filename) {
         initComponents();
         this.editor = editor;
-        this.setHeader(filename);
-        
+        this.header = filename;
+        this.setHeader(header);
+
     }
-    
-    public void setHeader(String filename){
+
+    public void setHeader(String filename) {
         label_filename.setText(filename);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -82,7 +88,7 @@ public class TabHeader extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_closeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_closeMousePressed
-        this.editor.close();
+        CodeNotes.text_editor.closeTab(editor);
     }//GEN-LAST:event_btn_closeMousePressed
 
     private void btn_closeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_closeMouseExited
@@ -97,4 +103,12 @@ public class TabHeader extends javax.swing.JPanel {
     private javax.swing.JLabel btn_close;
     private javax.swing.JLabel label_filename;
     // End of variables declaration//GEN-END:variables
+
+    void refresh() {
+        if (!editor.getSaveState()) {
+            this.setHeader(header + " *");
+        } else {
+            this.setHeader(header);
+        }
+    }
 }
