@@ -5,7 +5,9 @@
 package code.notes.gui;
 
 import code.notes.Bundle;
+import code.notes.main.CodeNotes;
 import java.awt.Color;
+import java.awt.Font;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,25 +16,25 @@ import javax.swing.JOptionPane;
  */
 public class TabHeader extends javax.swing.JPanel {
 
-    private String filename;
-    private final TextEditor editor;
-    private boolean save_status = true;
+    private final SingleEditor editor;
+    private String header;
 
     /**
      * Creates new form TabHeader
+     *
+     * @param editor Editor assigned to this header
+     * @param filename Filename displayed in header
      */
-    public TabHeader(TextEditor editor) {
+    public TabHeader(SingleEditor editor, String filename) {
         initComponents();
         this.editor = editor;
-        this.filename = Bundle.get("new_file");
-        labelFileName.setText(filename);
+        this.header = filename;
+        this.setHeader(header);
+
     }
 
-    public TabHeader(TextEditor editor, String filename) {
-        initComponents();
-        this.editor = editor;
-        this.filename = filename;
-        labelFileName.setText(filename);
+    public void setHeader(String filename) {
+        label_filename.setText(filename);
     }
 
     /**
@@ -44,27 +46,28 @@ public class TabHeader extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        labelFileName = new javax.swing.JLabel();
-        btnCloseTab = new javax.swing.JLabel();
+        label_filename = new javax.swing.JLabel();
+        btn_close = new javax.swing.JLabel();
 
         setOpaque(false);
 
-        labelFileName.setText("File Name");
+        label_filename.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        label_filename.setText("File Name");
 
-        btnCloseTab.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnCloseTab.setText("X");
-        btnCloseTab.setAlignmentY(0.0F);
-        btnCloseTab.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCloseTab.setIconTextGap(0);
-        btnCloseTab.addMouseListener(new java.awt.event.MouseAdapter() {
+        btn_close.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btn_close.setText("X");
+        btn_close.setAlignmentY(0.0F);
+        btn_close.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_close.setIconTextGap(0);
+        btn_close.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnCloseTabMouseEntered(evt);
+                btn_closeMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnCloseTabMouseExited(evt);
+                btn_closeMouseExited(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnCloseTabMousePressed(evt);
+                btn_closeMousePressed(evt);
             }
         });
 
@@ -73,62 +76,52 @@ public class TabHeader extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(labelFileName)
+                .addComponent(label_filename)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCloseTab)
+                .addComponent(btn_close)
                 .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(labelFileName)
-                .addComponent(btnCloseTab))
+                .addComponent(label_filename)
+                .addComponent(btn_close))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private boolean showNotice() {
-        Object[] options = {
-            Bundle.get("go_back"),
-            Bundle.get("leave")
-        };
-        int n = JOptionPane.showOptionDialog(editor,
-                Bundle.get("save_notice"),
-                Bundle.get("warning"),
-                JOptionPane.YES_NO_CANCEL_OPTION,
-                JOptionPane.WARNING_MESSAGE,
-                null,
-                options,
-                options[1]
-        );
-        return n != 0;
-    }
+    private void btn_closeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_closeMousePressed
+        CodeNotes.text_editor.closeTab(editor);
+    }//GEN-LAST:event_btn_closeMousePressed
 
-    private void btnCloseTabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseTabMousePressed
-        if (!this.save_status) {
-            if (this.showNotice()) {
-                editor.closeTabAt(filename);
-            }
-        }else{
-            editor.closeTabAt(filename);
-        }
-    }//GEN-LAST:event_btnCloseTabMousePressed
+    private void btn_closeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_closeMouseExited
+        btn_close.setForeground(Color.DARK_GRAY);
+    }//GEN-LAST:event_btn_closeMouseExited
 
-    private void btnCloseTabMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseTabMouseEntered
-        btnCloseTab.setForeground(Color.red);
-    }//GEN-LAST:event_btnCloseTabMouseEntered
-
-    private void btnCloseTabMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseTabMouseExited
-        btnCloseTab.setForeground(Color.DARK_GRAY);
-    }//GEN-LAST:event_btnCloseTabMouseExited
-
-    public void setFilename(String filename, boolean saved) {
-        this.filename = filename;
-        this.save_status = saved;
-        labelFileName.setText(filename + ((!saved) ? "*" : ""));
-    }
+    private void btn_closeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_closeMouseEntered
+        btn_close.setForeground(Color.red);
+    }//GEN-LAST:event_btn_closeMouseEntered
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel btnCloseTab;
-    private javax.swing.JLabel labelFileName;
+    private javax.swing.JLabel btn_close;
+    private javax.swing.JLabel label_filename;
     // End of variables declaration//GEN-END:variables
+
+    private void headerPlain() {
+        label_filename.setFont(new Font("Dialog", Font.PLAIN, 12));
+    }
+    
+    private void headerBold() {
+        label_filename.setFont(new Font("Dialog", Font.BOLD, 12));
+    }
+    
+    /**
+     * Refresh header to match the saved status of the editor
+     */
+    void refresh() {
+        if (!editor.getSaveState()) {
+            this.headerBold();
+        } else {
+            this.headerPlain();
+        }
+    }
 }

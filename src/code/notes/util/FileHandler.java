@@ -5,6 +5,8 @@
 package code.notes.util;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
 import java.util.*;
 
 /**
@@ -13,8 +15,13 @@ import java.util.*;
  */
 public class FileHandler {
 
-    public static String open(String path) {
-        File file = new File(path);
+    /**
+     * Get file contents from specified path
+     * @param path Path to the file
+     * @return File contents
+     */
+    public static String open(Path path) {
+        File file = path.toFile();
         Scanner scanner;
         try {
             scanner = new Scanner(file);
@@ -30,14 +37,19 @@ public class FileHandler {
         return file_content;
     }
 
-    public static void save(String content, String path) {
+    /**
+     * Save contents to specified path
+     * @param path Path to the file
+     * @param content File contents
+     */
+    public static void save(Path path, String content) {
 
-        File file = new File(path);
+        File file = path.toFile();
         try { file.createNewFile(); } catch (IOException ex) { return; }
 
-        FileWriter fileWriter;
+        Writer fileWriter;
         try {
-            fileWriter = new FileWriter(file);
+            fileWriter = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8);
             fileWriter.write(content);
             fileWriter.close();
         } catch (IOException ex) {

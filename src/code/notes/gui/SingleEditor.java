@@ -4,129 +4,128 @@
  */
 package code.notes.gui;
 
+import code.notes.main.CodeNotes;
+import code.notes.util.FileChooser;
+import code.notes.util.FileHandler;
+import code.notes.util.UserPreferences;
+import java.awt.event.KeyEvent;
+import java.nio.file.Path;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
 /**
  *
  * @author phwts
  */
-import code.notes.Bundle;
-import code.notes.util.ExtensionTranslator;
-import code.notes.util.FileHandler;
-import code.notes.util.UserPreferences;
-import javax.swing.*;
-import java.awt.BorderLayout;
-import java.awt.Font;
-import java.awt.event.KeyEvent;
-import java.io.File;
-import java.util.ArrayList;
-import org.fife.rsta.ac.LanguageSupportFactory;
-import org.fife.ui.rtextarea.*;
-import org.fife.ui.rsyntaxtextarea.*;
+public class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextArea {
 
-public class SingleEditor extends JPanel {
+    private final TabHeader HEADER;
+    private Path path = null;
+    private boolean save_state = true;
 
-    private RSyntaxTextArea textArea;
-    private TextEditor textEditor;
-    private String content, path;
-    private boolean saved = true;
-    private static ArrayList<SingleEditor> editorPool = new ArrayList<SingleEditor>();
-    
-    
-    private static void addEditor(SingleEditor editor){
-        editorPool.add(editor);
-    }
-    
-    public static ArrayList<SingleEditor> getEditors(){
-        return editorPool;
-    }
-
-    public SingleEditor(TextEditor textEditor) {
-        this.path = "";
-        this.textEditor = textEditor;
-        init();
-    }
-
-    public SingleEditor(TextEditor textEditor, String path) {
-        this.path = path;
-        this.textEditor = textEditor;
-        init();
-    }
-
-    public void init() {
-        this.setLayout(new BorderLayout());
-        SingleEditor.addEditor(this);
-        textArea = new RSyntaxTextArea(20, 60);
-        setExtension();
-        textArea.setCodeFoldingEnabled(true);
-        RTextScrollPane sp = new RTextScrollPane(textArea);
-        this.add(sp);
-        LanguageSupportFactory.get().register(textArea);
-        setContent(FileHandler.open(path));
-        
+    /**
+     * Create RSyntaxTextArea empty content
+     */
+    public SingleEditor() {
+        super(20, 60);
         this.refreshStyles();
-        
-        textArea.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                textAreaKeyTyped(evt);
-            }
+        this.setCodeFoldingEnabled(true);
 
-            private void textAreaKeyTyped(KeyEvent evt) {
+        this.HEADER = new TabHeader(this, "New File");
+        this.addChangeListener();
+    }
+
+    /**
+     * Create RSyntaxTextArea with content from path
+     *
+     * @param path Path assigned to text area
+     */
+    public SingleEditor(Path path) {
+        super(20, 60);
+        this.refreshStyles();
+        this.setCodeFoldingEnabled(true);
+
+        this.path = path;
+        this.HEADER = new TabHeader(this, this.getFileName());
+        this.setText(FileHandler.open(path));
+        this.HEADER.setHeader(getFileName());
+        this.addChangeListener();
+    }
+
+    private void addChangeListener() {
+        this.getDocument().addDocumentListener(new DocumentListener() {
+
+            @Override
+            public void removeUpdate(DocumentEvent e) { }
+
+            @Override
+            public void insertUpdate(DocumentEvent e) { }
+
+            @Override
+            public void changedUpdate(DocumentEvent arg0) {
                 saveFalse();
             }
         });
-
-        textArea.setText(getContent());
-    }
-    
-    public void refreshStyles() {
-        Font font = new Font("Leelawadee", Font.PLAIN, 16);
-        textArea.setFont(font);
-        
-        textArea.setTabSize(UserPreferences.getTabSize());
-        textArea.setTabsEmulated(UserPreferences.isTabEmulated());
-        textArea.setAutoIndentEnabled(UserPreferences.isAutoIndent());
-        textArea.setWhitespaceVisible(UserPreferences.isWtspVisible());
-    }
-    
-    
-    public void setExtension(){
-        String syntaxConstant = ExtensionTranslator.getConstant(getFileName());
-        textArea.setSyntaxEditingStyle(syntaxConstant);
     }
 
-    public String getFileName() {
-        return (!path.isEmpty()) ? new File(path).getName() : Bundle.get("new_file") + " " + TextEditor.newfile_count;
+    private void saveTrue() {
+        this.save_state = true;
+        HEADER.refresh();
     }
 
-    public String getContent() {
-        return content;
+    private void saveFalse() {
+        this.save_state = false;
+        HEADER.refresh();
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public boolean getSaveState() {
+        return save_state;
     }
 
-    public RSyntaxTextArea getTextArea() {
-        return textArea;
-    }
-
-    public String getPath() {
+    public Path getPath() {
         return path;
     }
 
-    public void setPath(String path) {
+    public void setPath(Path path) {
         this.path = path;
     }
-    
-    public void saveTrue(){
-        saved = true;
-        textEditor.updateHeader(getFileName(), true);
-    }
-    public void saveFalse(){
-        saved = false;
-        textEditor.updateHeader(getFileName(), isSaved());
+
+    public String getFileName() {
+        if (path == null) {
+            return "New File";
+        }
+        return String.valueOf(path.getFileName());
     }
 
-    public boolean isSaved() {
-        return saved;
+    public TabHeader getHeader() {
+        return HEADER;
+    }
+
+    public void save() {
+        if (path == null) {
+            saveAs();
+        } else {
+            FileHandler.save(this.path, this.getText());
+            saveTrue();
+        }
+
+    }
+
+    public void saveAs() {
+        Path save_path = FileChooser.save(this.getFileName());
+        if (save_path == null) {
+            return;
+        }
+        FileHandler.save(save_path, this.getText());
+        this.setPath(save_path);
+        this.HEADER.setHeader(getFileName());
+        saveTrue();
+    }
+    
+    public void refreshStyles() {
+        this.setTabSize(UserPreferences.getTabSize());
+        this.setTabsEmulated(UserPreferences.isTabEmulated());
+        this.setAutoIndentEnabled(UserPreferences.isAutoIndent());
+        this.setWhitespaceVisible(UserPreferences.isWtspVisible());
     }
 }
