@@ -42,7 +42,7 @@ public class ExceptionLookup {
                     table_name = "EXCEPTION_PYTHON";
                     break;
                 case "java":
-                    table_name = "EXCEPTION_JAVA";
+                    table_name = "EXCEPTION_J";
                     break;
                 default:
                     return null;
