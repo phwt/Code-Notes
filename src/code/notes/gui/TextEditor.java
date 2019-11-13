@@ -129,7 +129,6 @@ public final class TextEditor extends javax.swing.JTabbedPane {
                     editor.save();
                     break;
                 case 1:
-                    editor.saveAs();
                     break;
                 case 2:
                     return false;
