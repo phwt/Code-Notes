@@ -5,6 +5,7 @@
 package code.notes.util;
 
 import java.io.File;
+import java.nio.file.Path;
 import javax.swing.Action;
 import javax.swing.JFileChooser;
 
@@ -14,47 +15,83 @@ import javax.swing.JFileChooser;
  */
 public class FileChooser {
 
-    static JFileChooser fileChooser = new JFileChooser();
+    private static final JFileChooser FILE_CHOOSER = new JFileChooser();
 
-    public static File[] open() {
-        Action details = fileChooser.getActionMap().get("viewTypeDetails");
-        fileChooser.setMultiSelectionEnabled(true);
+    /**
+     * Show file chooser open dialog with multiple files selection
+     * @return Paths of all selected files
+     */
+    public static Path[] openFiles() {
+        Action details = FILE_CHOOSER.getActionMap().get("viewTypeDetails");
+        FILE_CHOOSER.setMultiSelectionEnabled(true);
         details.actionPerformed(null);
 
-        if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-            File[] files = fileChooser.getSelectedFiles();
-            return files;
-//            return fileChooser.getSelectedFile().getAbsolutePath();
+        if (FILE_CHOOSER.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+            File[] files = FILE_CHOOSER.getSelectedFiles();
+            Path[] paths = new Path[files.length];
+            
+            for(int i=0; i<files.length; i++){
+                paths[i] = files[i].toPath();
+            }
+            
+            return paths;
+        }
+        return null;
+    }
+    
+    /**
+     * Show file chooser open dialog with single file selection
+     * @return Path of selected file
+     */
+    public static Path openFile() {
+        Action details = FILE_CHOOSER.getActionMap().get("viewTypeDetails");
+        details.actionPerformed(null);
+
+        if (FILE_CHOOSER.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+            return FILE_CHOOSER.getSelectedFile().toPath();
         }
         return null;
     }
 
-    public static String openDirectory() {
-        Action details = fileChooser.getActionMap().get("viewTypeDetails");
-        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+    /**
+     * Show file chooser open dialog with directory selection
+     * @return Path of selected directory
+     */
+    public static Path openDirectory() {
+        Action details = FILE_CHOOSER.getActionMap().get("viewTypeDetails");
+        FILE_CHOOSER.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         details.actionPerformed(null);
 
-        if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-            return fileChooser.getSelectedFile().getAbsolutePath();
+        if (FILE_CHOOSER.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+            return FILE_CHOOSER.getSelectedFile().toPath();
         }
         return null;
     }
 
-    public static String save() {
-        Action details = fileChooser.getActionMap().get("viewTypeDetails");
+    /**
+     * Show file chooser save dialog
+     * @return Path of selected file
+     */
+    public static Path save() {
+        Action details = FILE_CHOOSER.getActionMap().get("viewTypeDetails");
         details.actionPerformed(null);
-        if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
-            return fileChooser.getSelectedFile().getAbsolutePath();
+        if (FILE_CHOOSER.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+            return FILE_CHOOSER.getSelectedFile().toPath();
         }
         return null;
     }
-
-    public static String save(String filename) {
-        Action details = fileChooser.getActionMap().get("viewTypeDetails");
+    
+    /**
+     * Show file chooser save dialog with predefined filename
+     * @param filename Filename to be shown
+     * @return Path of selected file
+     */
+    public static Path save(String filename) {
+        Action details = FILE_CHOOSER.getActionMap().get("viewTypeDetails");
         details.actionPerformed(null);
-        fileChooser.setSelectedFile(new File(filename));
-        if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
-            return fileChooser.getSelectedFile().getAbsolutePath();
+        FILE_CHOOSER.setSelectedFile(new File(filename));
+        if (FILE_CHOOSER.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+            return FILE_CHOOSER.getSelectedFile().toPath();
         }
         return null;
     }
