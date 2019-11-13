@@ -38,6 +38,7 @@ public class CodeNotes extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         menu_file = new javax.swing.JMenu();
         menu_open = new javax.swing.JMenuItem();
+        menu_newfile = new javax.swing.JMenuItem();
         menu_save = new javax.swing.JMenuItem();
         menu_saveas = new javax.swing.JMenuItem();
         menu_closetab = new javax.swing.JMenuItem();
@@ -60,6 +61,15 @@ public class CodeNotes extends javax.swing.JFrame {
             }
         });
         menu_file.add(menu_open);
+
+        menu_newfile.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
+        menu_newfile.setText(bundle.getString("new_file")); // NOI18N
+        menu_newfile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_newfileActionPerformed(evt);
+            }
+        });
+        menu_file.add(menu_newfile);
 
         menu_save.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         menu_save.setText(bundle.getString("save")); // NOI18N
@@ -131,6 +141,10 @@ public class CodeNotes extends javax.swing.JFrame {
         text_editor.closeTab();
     }//GEN-LAST:event_menu_closetabActionPerformed
 
+    private void menu_newfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_newfileActionPerformed
+        text_editor.addTab();
+    }//GEN-LAST:event_menu_newfileActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -157,6 +171,7 @@ public class CodeNotes extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuItem menu_closetab;
     private javax.swing.JMenu menu_file;
+    private javax.swing.JMenuItem menu_newfile;
     private javax.swing.JMenuItem menu_open;
     private javax.swing.JMenuItem menu_save;
     private javax.swing.JMenuItem menu_saveas;
