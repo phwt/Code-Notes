@@ -35,7 +35,20 @@ public class ExceptionLookup {
             System.setProperty("derby.system.home", Paths.get(System.getProperty("user.dir"), ".derby").toAbsolutePath().toString());
             connect = DriverManager.getConnection("jdbc:derby:exceptiondb;");
             s = connect.createStatement();
-            String sql = "SELECT * FROM APP." + "EXCEPTION_PYTHON" + " WHERE UCASE(EXCEPTION_KEY) LIKE UCASE('%" + keyword + "%')";
+            
+            String table_name;
+            switch(lang.toLowerCase()){
+                case "python":
+                    table_name = "EXCEPTION_PYTHON";
+                    break;
+                case "java":
+                    table_name = "EXCEPTION_JAVA";
+                    break;
+                default:
+                    return null;
+            }
+            
+            String sql = "SELECT * FROM APP." + table_name + " WHERE UCASE(EXCEPTION_KEY) LIKE UCASE('%" + keyword + "%')";
             ResultSet rst = s.executeQuery(sql);
 
             result = new String[10][3];
