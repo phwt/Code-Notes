@@ -5,6 +5,7 @@
 package code.notes.util;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 /**
@@ -35,9 +36,10 @@ public class FileHandler {
         File file = new File(path);
         try { file.createNewFile(); } catch (IOException ex) { return; }
 
-        FileWriter fileWriter;
+        Writer fileWriter;
         try {
-            fileWriter = new FileWriter(file);
+//            fileWriter = new FileWriter(file);
+            fileWriter = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8);
             fileWriter.write(content);
             fileWriter.close();
         } catch (IOException ex) {
