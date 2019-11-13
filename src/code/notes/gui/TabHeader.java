@@ -7,6 +7,7 @@ package code.notes.gui;
 import code.notes.Bundle;
 import code.notes.main.CodeNotes;
 import java.awt.Color;
+import java.awt.Font;
 import javax.swing.JOptionPane;
 
 /**
@@ -50,6 +51,7 @@ public class TabHeader extends javax.swing.JPanel {
 
         setOpaque(false);
 
+        label_filename.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         label_filename.setText("File Name");
 
         btn_close.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -104,14 +106,22 @@ public class TabHeader extends javax.swing.JPanel {
     private javax.swing.JLabel label_filename;
     // End of variables declaration//GEN-END:variables
 
+    private void headerPlain() {
+        label_filename.setFont(new Font("Dialog", Font.PLAIN, 12));
+    }
+    
+    private void headerBold() {
+        label_filename.setFont(new Font("Dialog", Font.BOLD, 12));
+    }
+    
     /**
      * Refresh header to match the saved status of the editor
      */
     void refresh() {
         if (!editor.getSaveState()) {
-            this.setHeader(header + " *");
+            this.headerBold();
         } else {
-            this.setHeader(header);
+            this.headerPlain();
         }
     }
 }
