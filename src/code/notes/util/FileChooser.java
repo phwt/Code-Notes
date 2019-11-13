@@ -5,6 +5,7 @@
 package code.notes.util;
 
 import java.io.File;
+import java.nio.file.Path;
 import javax.swing.Action;
 import javax.swing.JFileChooser;
 
@@ -16,6 +17,7 @@ public class FileChooser {
 
     private static JFileChooser file_chooser = new JFileChooser();
 
+    @Deprecated
     public static File[] openFiles() {
         Action details = file_chooser.getActionMap().get("viewTypeDetails");
         file_chooser.setMultiSelectionEnabled(true);
@@ -27,7 +29,18 @@ public class FileChooser {
         }
         return null;
     }
+    
+    public static Path openFile() {
+        Action details = file_chooser.getActionMap().get("viewTypeDetails");
+        details.actionPerformed(null);
 
+        if (file_chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+            return file_chooser.getSelectedFile().toPath();
+        }
+        return null;
+    }
+
+    @Deprecated
     public static String openDirectory() {
         Action details = file_chooser.getActionMap().get("viewTypeDetails");
         file_chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -39,6 +52,7 @@ public class FileChooser {
         return null;
     }
 
+    @Deprecated
     public static String save() {
         Action details = file_chooser.getActionMap().get("viewTypeDetails");
         details.actionPerformed(null);
@@ -48,6 +62,7 @@ public class FileChooser {
         return null;
     }
 
+    @Deprecated
     public static String save(String filename) {
         Action details = file_chooser.getActionMap().get("viewTypeDetails");
         details.actionPerformed(null);

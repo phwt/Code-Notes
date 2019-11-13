@@ -13,28 +13,13 @@ import javax.swing.JOptionPane;
  * @author phwts
  */
 public class TabHeader extends javax.swing.JPanel {
-
-    private String filename;
-    private final TextEditor editor;
-    private boolean save_status = true;
-
     /**
      * Creates new form TabHeader
      */
-    public TabHeader(TextEditor editor) {
+    public TabHeader(String filename) {
         initComponents();
-        this.editor = editor;
-        this.filename = Bundle.get("new_file");
-        labelFileName.setText(filename);
+        label_filename.setText(filename);
     }
-
-    public TabHeader(TextEditor editor, String filename) {
-        initComponents();
-        this.editor = editor;
-        this.filename = filename;
-        labelFileName.setText(filename);
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -44,27 +29,27 @@ public class TabHeader extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        labelFileName = new javax.swing.JLabel();
-        btnCloseTab = new javax.swing.JLabel();
+        label_filename = new javax.swing.JLabel();
+        btn_close = new javax.swing.JLabel();
 
         setOpaque(false);
 
-        labelFileName.setText("File Name");
+        label_filename.setText("File Name");
 
-        btnCloseTab.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnCloseTab.setText("X");
-        btnCloseTab.setAlignmentY(0.0F);
-        btnCloseTab.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCloseTab.setIconTextGap(0);
-        btnCloseTab.addMouseListener(new java.awt.event.MouseAdapter() {
+        btn_close.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btn_close.setText("X");
+        btn_close.setAlignmentY(0.0F);
+        btn_close.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_close.setIconTextGap(0);
+        btn_close.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnCloseTabMouseEntered(evt);
+                btn_closeMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnCloseTabMouseExited(evt);
+                btn_closeMouseExited(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnCloseTabMousePressed(evt);
+                btn_closeMousePressed(evt);
             }
         });
 
@@ -73,62 +58,33 @@ public class TabHeader extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(labelFileName)
+                .addComponent(label_filename)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCloseTab)
+                .addComponent(btn_close)
                 .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(labelFileName)
-                .addComponent(btnCloseTab))
+                .addComponent(label_filename)
+                .addComponent(btn_close))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private boolean showNotice() {
-        Object[] options = {
-            Bundle.get("go_back"),
-            Bundle.get("leave")
-        };
-        int n = JOptionPane.showOptionDialog(editor,
-                Bundle.get("save_notice"),
-                Bundle.get("warning"),
-                JOptionPane.YES_NO_CANCEL_OPTION,
-                JOptionPane.WARNING_MESSAGE,
-                null,
-                options,
-                options[1]
-        );
-        return n != 0;
-    }
+    private void btn_closeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_closeMousePressed
 
-    private void btnCloseTabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseTabMousePressed
-        if (!this.save_status) {
-            if (this.showNotice()) {
-                editor.closeTabAt(filename);
-            }
-        }else{
-            editor.closeTabAt(filename);
-        }
-    }//GEN-LAST:event_btnCloseTabMousePressed
+    }//GEN-LAST:event_btn_closeMousePressed
 
-    private void btnCloseTabMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseTabMouseEntered
-        btnCloseTab.setForeground(Color.red);
-    }//GEN-LAST:event_btnCloseTabMouseEntered
+    private void btn_closeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_closeMouseExited
+        btn_close.setForeground(Color.DARK_GRAY);
+    }//GEN-LAST:event_btn_closeMouseExited
 
-    private void btnCloseTabMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseTabMouseExited
-        btnCloseTab.setForeground(Color.DARK_GRAY);
-    }//GEN-LAST:event_btnCloseTabMouseExited
-
-    public void setFilename(String filename, boolean saved) {
-        this.filename = filename;
-        this.save_status = saved;
-        labelFileName.setText(filename + ((!saved) ? "*" : ""));
-    }
+    private void btn_closeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_closeMouseEntered
+        btn_close.setForeground(Color.red);
+    }//GEN-LAST:event_btn_closeMouseEntered
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel btnCloseTab;
-    private javax.swing.JLabel labelFileName;
+    private javax.swing.JLabel btn_close;
+    private javax.swing.JLabel label_filename;
     // End of variables declaration//GEN-END:variables
 }

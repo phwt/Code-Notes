@@ -4,129 +4,45 @@
  */
 package code.notes.gui;
 
+import java.nio.file.Path;
+
 /**
  *
  * @author phwts
  */
-import code.notes.Bundle;
-import code.notes.util.ExtensionTranslator;
-import code.notes.util.FileHandler;
-import code.notes.util.UserPreferences;
-import javax.swing.*;
-import java.awt.BorderLayout;
-import java.awt.Font;
-import java.awt.event.KeyEvent;
-import java.io.File;
-import java.util.ArrayList;
-import org.fife.rsta.ac.LanguageSupportFactory;
-import org.fife.ui.rtextarea.*;
-import org.fife.ui.rsyntaxtextarea.*;
 
-public class SingleEditor extends JPanel {
-
-    private RSyntaxTextArea textArea;
-    private TextEditor textEditor;
-    private String content, path;
-    private boolean saved = true;
-    private static ArrayList<SingleEditor> editorPool = new ArrayList<SingleEditor>();
+public class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextArea {
+    private final TabHeader HEADER;
+    private Path path;
     
-    
-    private static void addEditor(SingleEditor editor){
-        editorPool.add(editor);
+    public SingleEditor() {
+        super(20, 60);
+        this.setCodeFoldingEnabled(true);
+        
+        this.HEADER = new TabHeader("New File");
     }
     
-    public static ArrayList<SingleEditor> getEditors(){
-        return editorPool;
-    }
-
-    public SingleEditor(TextEditor textEditor) {
-        this.path = "";
-        this.textEditor = textEditor;
-        init();
-    }
-
-    public SingleEditor(TextEditor textEditor, String path) {
+    public SingleEditor(Path path) {
+        super(20, 60);
+        this.setCodeFoldingEnabled(true);
+        
         this.path = path;
-        this.textEditor = textEditor;
-        init();
+        this.HEADER = new TabHeader(this.getFilename());
     }
 
-    public void init() {
-        this.setLayout(new BorderLayout());
-        SingleEditor.addEditor(this);
-        textArea = new RSyntaxTextArea(20, 60);
-        setExtension();
-        textArea.setCodeFoldingEnabled(true);
-        RTextScrollPane sp = new RTextScrollPane(textArea);
-        this.add(sp);
-        LanguageSupportFactory.get().register(textArea);
-        setContent(FileHandler.open(path));
-        
-        this.refreshStyles();
-        
-        textArea.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                textAreaKeyTyped(evt);
-            }
-
-            private void textAreaKeyTyped(KeyEvent evt) {
-                saveFalse();
-            }
-        });
-
-        textArea.setText(getContent());
-    }
-    
-    public void refreshStyles() {
-//        Font font = new Font("Leelawadee", Font.PLAIN, 16);
-//        textArea.setFont(font);
-        
-        textArea.setTabSize(UserPreferences.getTabSize());
-        textArea.setTabsEmulated(UserPreferences.isTabEmulated());
-        textArea.setAutoIndentEnabled(UserPreferences.isAutoIndent());
-        textArea.setWhitespaceVisible(UserPreferences.isWtspVisible());
-    }
-    
-    
-    public void setExtension(){
-        String syntaxConstant = ExtensionTranslator.getConstant(getFileName());
-        textArea.setSyntaxEditingStyle(syntaxConstant);
-    }
-
-    public String getFileName() {
-        return (!path.isEmpty()) ? new File(path).getName() : Bundle.get("new_file") + " " + TextEditor.newfile_count;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public RSyntaxTextArea getTextArea() {
-        return textArea;
-    }
-
-    public String getPath() {
+    public Path getPath() {
         return path;
     }
 
-    public void setPath(String path) {
+    public void setPath(Path path) {
         this.path = path;
     }
     
-    public void saveTrue(){
-        saved = true;
-        textEditor.updateHeader(getFileName(), true);
-    }
-    public void saveFalse(){
-        saved = false;
-        textEditor.updateHeader(getFileName(), isSaved());
+    public String getFilename(){
+        return String.valueOf(path.getFileName());
     }
 
-    public boolean isSaved() {
-        return saved;
+    public TabHeader getHeader() {
+        return HEADER;
     }
 }

@@ -165,9 +165,9 @@ public class SettingsForm extends javax.swing.JFrame {
         UserPreferences.setTabSize((int) spinner_tab.getValue());
         UserPreferences.setDirPath(txtf_path.getText());
         
-        SingleEditor.getEditors().forEach((editor) -> {
-            editor.refreshStyles();
-        });
+//        SingleEditor.getEditors().forEach((editor) -> {
+//            editor.refreshStyles();
+//        });
         
         this.dispose();
     }//GEN-LAST:event_btn_saveActionPerformed
