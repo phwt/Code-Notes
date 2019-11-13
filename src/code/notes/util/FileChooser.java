@@ -52,23 +52,21 @@ public class FileChooser {
         return null;
     }
 
-    @Deprecated
-    public static String save() {
+    public static Path save() {
         Action details = file_chooser.getActionMap().get("viewTypeDetails");
         details.actionPerformed(null);
         if (file_chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
-            return file_chooser.getSelectedFile().getAbsolutePath();
+            return file_chooser.getSelectedFile().toPath();
         }
         return null;
     }
-
-    @Deprecated
-    public static String save(String filename) {
+    
+    public static Path save(String filename) {
         Action details = file_chooser.getActionMap().get("viewTypeDetails");
         details.actionPerformed(null);
         file_chooser.setSelectedFile(new File(filename));
         if (file_chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
-            return file_chooser.getSelectedFile().getAbsolutePath();
+            return file_chooser.getSelectedFile().toPath();
         }
         return null;
     }
