@@ -13,11 +13,21 @@ import javax.swing.JOptionPane;
  * @author phwts
  */
 public class TabHeader extends javax.swing.JPanel {
+    private final SingleEditor editor;
+    
     /**
      * Creates new form TabHeader
+     * @param editor Editor assigned to this header
+     * @param filename Filename displayed in header
      */
-    public TabHeader(String filename) {
+    public TabHeader(SingleEditor editor, String filename) {
         initComponents();
+        this.editor = editor;
+        this.setHeader(filename);
+        
+    }
+    
+    public void setHeader(String filename){
         label_filename.setText(filename);
     }
     /**
@@ -72,7 +82,7 @@ public class TabHeader extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_closeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_closeMousePressed
-
+        this.editor.close();
     }//GEN-LAST:event_btn_closeMousePressed
 
     private void btn_closeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_closeMouseExited
