@@ -6,6 +6,7 @@ package code.notes.main;
 
 import code.notes.gui.TextEditor;
 import code.notes.util.FileChooser;
+import java.nio.file.Path;
 import javax.swing.UIManager;
 
 /**
@@ -113,7 +114,9 @@ public class CodeNotes extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menu_openActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_openActionPerformed
-        text_editor.addTab(FileChooser.openFile());
+        for(Path path: FileChooser.openFiles()){
+            text_editor.addTab(path);
+        }
     }//GEN-LAST:event_menu_openActionPerformed
 
     private void menu_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_saveActionPerformed

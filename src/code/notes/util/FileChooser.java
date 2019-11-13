@@ -17,15 +17,20 @@ public class FileChooser {
 
     private static JFileChooser file_chooser = new JFileChooser();
 
-    @Deprecated
-    public static File[] openFiles() {
+    public static Path[] openFiles() {
         Action details = file_chooser.getActionMap().get("viewTypeDetails");
         file_chooser.setMultiSelectionEnabled(true);
         details.actionPerformed(null);
 
         if (file_chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
             File[] files = file_chooser.getSelectedFiles();
-            return files;
+            Path[] paths = new Path[files.length];
+            
+            for(int i=0; i<files.length; i++){
+                paths[i] = files[i].toPath();
+            }
+            
+            return paths;
         }
         return null;
     }
