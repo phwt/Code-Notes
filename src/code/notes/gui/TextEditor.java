@@ -164,7 +164,7 @@ public class TextEditor extends javax.swing.JFrame {
     }
 
     private void menuOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuOpenActionPerformed
-        File[] paths = FileChooser.open();
+        File[] paths = FileChooser.openFiles();
         if (paths == null) {
             return;
         }
@@ -181,7 +181,7 @@ public class TextEditor extends javax.swing.JFrame {
             menuSaveAsActionPerformed(evt);
             return;
         }
-        FileHandler.save(currentText, singleEditor.getPath());
+        FileHandler.save(singleEditor.getPath(), currentText);
     }//GEN-LAST:event_menuSaveActionPerformed
 
     private void menuSaveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSaveAsActionPerformed
@@ -195,7 +195,7 @@ public class TextEditor extends javax.swing.JFrame {
         
         String currentText = singleEditor.getTextArea().getText();
 
-        FileHandler.save(currentText, path);
+        FileHandler.save(path, currentText);
         singleEditor.setContent(currentText);
 
         singleEditor.setPath(path);

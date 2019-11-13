@@ -31,7 +31,7 @@ public class FileHandler {
         return file_content;
     }
 
-    public static void save(String content, String path) {
+    public static void save(String path, String content) {
 
         File file = new File(path);
         try { file.createNewFile(); } catch (IOException ex) { return; }
