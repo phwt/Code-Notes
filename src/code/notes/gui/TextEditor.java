@@ -4,16 +4,20 @@
  */
 package code.notes.gui;
 
+import code.notes.Bundle;
 import code.notes.util.FileChooser;
 import code.notes.util.FileHandler;
 import java.io.File;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author phwts
  */
 public class TextEditor extends javax.swing.JFrame {
+
     public static int newfile_count = 0;
+
     /**
      * Creates new form TextEditor
      */
@@ -154,15 +158,17 @@ public class TextEditor extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
     public SingleEditor getCurrentEditor() {
         return (SingleEditor) editorPane.getSelectedComponent();
     }
 
     private void menuOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuOpenActionPerformed
         File[] paths = FileChooser.open();
-        if(paths == null)return;
-        for(File file : paths){
+        if (paths == null) {
+            return;
+        }
+        for (File file : paths) {
             addNewTab(file.getAbsolutePath());
         }
     }//GEN-LAST:event_menuOpenActionPerformed
@@ -180,33 +186,36 @@ public class TextEditor extends javax.swing.JFrame {
 
     private void menuSaveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSaveAsActionPerformed
         SingleEditor singleEditor = getCurrentEditor();
-        
+        int index = editorPane.indexOfTab(singleEditor.getFileName());
         String path = FileChooser.save(singleEditor.getFileName());
+
+        if (path == null) {
+            return;
+        }
         
-        if(path == null)return;
         String currentText = singleEditor.getTextArea().getText();
 
         FileHandler.save(currentText, path);
         singleEditor.setContent(currentText);
 
-        int index = editorPane.indexOfTab(singleEditor.getFileName());
         singleEditor.setPath(path);
+        
         singleEditor.saveTrue();
-        ((TabHeader) editorPane.getTabComponentAt(index)).setFilename(singleEditor.getFileName(), true);
+        ((TabHeader) editorPane.getTabComponentAt(index)).setFilename(path, true);
         getCurrentEditor().setExtension();
     }//GEN-LAST:event_menuSaveAsActionPerformed
-    
+
     private void addNewTab(String path) {
         SingleEditor singleEditor = new SingleEditor(this, path);
-        
+
         String filename = singleEditor.getFileName();
-        
+
         int index = editorPane.indexOfTab(filename);
-        if(index != -1){
+        if (index != -1) {
             editorPane.setSelectedIndex(index);
             return;
         }
-        
+
         editorPane.addTab(filename, singleEditor);
         index = editorPane.indexOfTab(filename);
         editorPane.setTabComponentAt(index, new TabHeader(this, filename));
@@ -215,18 +224,18 @@ public class TextEditor extends javax.swing.JFrame {
     private void addEmptyTab() {
         newfile_count++;
         SingleEditor singleEditor = new SingleEditor(this);
-        
+
         editorPane.addTab(singleEditor.getFileName(), singleEditor);
-        
+
         int index = editorPane.indexOfTab(singleEditor.getFileName());
         editorPane.setTabComponentAt(index, new TabHeader(this, "New File " + newfile_count));
     }
 
-    public void updateHeader(String filename, boolean saved){
+    public void updateHeader(String filename, boolean saved) {
         int index = editorPane.indexOfTab(filename);
         ((TabHeader) editorPane.getTabComponentAt(index)).setFilename(filename, saved);
     }
-    
+
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         addEmptyTab();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
@@ -236,28 +245,27 @@ public class TextEditor extends javax.swing.JFrame {
     }//GEN-LAST:event_menuCloseTabActionPerformed
 
     private void editorPaneComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_editorPaneComponentAdded
-        editorPane.setSelectedIndex(editorPane.getTabCount()-1);
+        editorPane.setSelectedIndex(editorPane.getTabCount() - 1);
     }//GEN-LAST:event_editorPaneComponentAdded
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
         new ExceptionForm().setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        // TODO add your handling code here:
         new SettingsForm().setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
-    public void closeTabAt(String filename){
-        try{
+    public void closeTabAt(String filename) {
+        
+        try {
             int index = editorPane.indexOfTab(filename);
             editorPane.removeTabAt(index);
-        }catch(Exception ex){
-            editorPane.removeTabAt(editorPane.getTabCount()-1);
+        } catch (Exception ex) {
+            editorPane.removeTabAt(editorPane.getTabCount() - 1);
         }
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane editorPane;
     private javax.swing.JMenu jMenu1;
