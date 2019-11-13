@@ -94,7 +94,7 @@ public class SingleEditor extends JPanel {
     }
 
     public String getFileName() {
-        return (!path.isEmpty()) ? new File(path).getName() : Bundle.get("new_file");
+        return (!path.isEmpty()) ? new File(path).getName() : Bundle.get("new_file") + " " + TextEditor.newfile_count;
     }
 
     public String getContent() {

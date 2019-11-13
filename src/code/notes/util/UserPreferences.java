@@ -17,8 +17,8 @@ public class UserPreferences {
 
     public static void resetPreferences() {
         setAutoIndent(true);
-        setTabEmulated(true);
-        setWtspVisible(true);
+        setTabEmulated(false);
+        setWtspVisible(false);
         setTabSize(4);
         setDirPath("/");
     }

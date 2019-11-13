@@ -13,7 +13,7 @@ import java.io.File;
  * @author phwts
  */
 public class TextEditor extends javax.swing.JFrame {
-
+    public static int newfile_count = 0;
     /**
      * Creates new form TextEditor
      */
@@ -213,11 +213,13 @@ public class TextEditor extends javax.swing.JFrame {
     }
 
     private void addEmptyTab() {
+        newfile_count++;
         SingleEditor singleEditor = new SingleEditor(this);
         
         editorPane.addTab(singleEditor.getFileName(), singleEditor);
+        
         int index = editorPane.indexOfTab(singleEditor.getFileName());
-        editorPane.setTabComponentAt(index, new TabHeader(this));
+        editorPane.setTabComponentAt(index, new TabHeader(this, "New File " + newfile_count));
     }
 
     public void updateHeader(String filename, boolean saved){
