@@ -24,30 +24,44 @@ public final class TextEditor extends javax.swing.JTabbedPane{
         editor_pool.add(editor);
     }
     
+    public void removeEditor(SingleEditor editor) {
+        editor_pool.remove(editor);
+    }
+    
     public int getEditorIndex(SingleEditor editor){
         return editor_pool.indexOf(editor);
     }
     
-//    public void init() {
-//        this.addTab("New Tab", makeTextPanel("dude"));
-//        this.addTab("New Tab 2", makeTextPanel("not cool"));
-//    }
-    
     public void addTab(){
         SingleEditor new_editor = new SingleEditor();
-        
-        this.addEditor(new_editor);
-        
-        this.addTab("", new RTextScrollPane(new_editor));
-        this.setTabComponentAt(getEditorIndex(new_editor), new_editor.getHeader());
+        this.addEditorTab(new_editor);
     }
     
     public void addTab(Path path){
         SingleEditor new_editor = new SingleEditor(path);
-        
-        this.addEditor(new_editor);
-
-        this.addTab("", new RTextScrollPane(new_editor));
-        this.setTabComponentAt(getEditorIndex(new_editor), new_editor.getHeader());
+        this.addEditorTab(new_editor);
+    }
+    
+    public void addEditorTab(SingleEditor editor) {
+        this.addEditor(editor);
+        int index = getEditorIndex(editor);
+        this.addTab("", new RTextScrollPane(editor));
+        this.setTabComponentAt(index, editor.getHeader());
+        this.setSelectedIndex(index);
+    }
+    
+    public void closeTab(){
+        SingleEditor editor = getActiveEditor();
+        this.removeTabAt(this.getEditorIndex(editor));
+        removeEditor(editor);
+    }
+    
+    public void closeTab(SingleEditor editor){
+        this.removeTabAt(this.getEditorIndex(editor));
+        removeEditor(editor);
+    }
+    
+    public SingleEditor getActiveEditor() {
+        return editor_pool.get(this.getSelectedIndex());
     }
 }
