@@ -4,6 +4,8 @@
  */
 package code.notes.main;
 
+import code.notes.gui.ExceptionForm;
+import code.notes.gui.SettingsForm;
 import code.notes.gui.TextEditor;
 import code.notes.util.FileChooser;
 import java.nio.file.Path;
@@ -43,6 +45,8 @@ public class CodeNotes extends javax.swing.JFrame {
         menu_saveas = new javax.swing.JMenuItem();
         menu_closetab = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        menu_lookup = new javax.swing.JMenuItem();
+        menu_perferences = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -100,7 +104,24 @@ public class CodeNotes extends javax.swing.JFrame {
 
         jMenuBar1.add(menu_file);
 
-        jMenu2.setText("Edit");
+        jMenu2.setText(bundle.getString("tools")); // NOI18N
+
+        menu_lookup.setText(bundle.getString("exception_lookup")); // NOI18N
+        menu_lookup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_lookupActionPerformed(evt);
+            }
+        });
+        jMenu2.add(menu_lookup);
+
+        menu_perferences.setText(bundle.getString("preferences")); // NOI18N
+        menu_perferences.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_perferencesActionPerformed(evt);
+            }
+        });
+        jMenu2.add(menu_perferences);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -145,6 +166,14 @@ public class CodeNotes extends javax.swing.JFrame {
         text_editor.addTab();
     }//GEN-LAST:event_menu_newfileActionPerformed
 
+    private void menu_lookupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_lookupActionPerformed
+        new ExceptionForm().setVisible(true);
+    }//GEN-LAST:event_menu_lookupActionPerformed
+
+    private void menu_perferencesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_perferencesActionPerformed
+        new SettingsForm().setVisible(true);
+    }//GEN-LAST:event_menu_perferencesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -171,8 +200,10 @@ public class CodeNotes extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuItem menu_closetab;
     private javax.swing.JMenu menu_file;
+    private javax.swing.JMenuItem menu_lookup;
     private javax.swing.JMenuItem menu_newfile;
     private javax.swing.JMenuItem menu_open;
+    private javax.swing.JMenuItem menu_perferences;
     private javax.swing.JMenuItem menu_save;
     private javax.swing.JMenuItem menu_saveas;
     // End of variables declaration//GEN-END:variables
