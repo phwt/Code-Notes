@@ -78,8 +78,8 @@ public class SingleEditor extends JPanel {
     }
     
     public void refreshStyles() {
-        Font font = new Font("Leelawadee", Font.PLAIN, 16);
-        textArea.setFont(font);
+//        Font font = new Font("Leelawadee", Font.PLAIN, 16);
+//        textArea.setFont(font);
         
         textArea.setTabSize(UserPreferences.getTabSize());
         textArea.setTabsEmulated(UserPreferences.isTabEmulated());
