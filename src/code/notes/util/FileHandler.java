@@ -15,6 +15,11 @@ import java.util.*;
  */
 public class FileHandler {
 
+    /**
+     * Get file contents from specified path
+     * @param path Path to the file
+     * @return File contents
+     */
     public static String open(Path path) {
         File file = path.toFile();
         Scanner scanner;
@@ -32,6 +37,11 @@ public class FileHandler {
         return file_content;
     }
 
+    /**
+     * Save contents to specified path
+     * @param path Path to the file
+     * @param content File contents
+     */
     public static void save(Path path, String content) {
 
         File file = path.toFile();

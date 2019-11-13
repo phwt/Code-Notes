@@ -20,6 +20,9 @@ public class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextArea {
     private Path path;
     private boolean save_state = true;
 
+    /**
+     * Create RSyntaxTextArea empty content
+     */
     public SingleEditor() {
         super(20, 60);
         this.setCodeFoldingEnabled(true);
@@ -28,6 +31,10 @@ public class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextArea {
         this.addChangeListener();
     }
 
+    /**
+     * Create RSyntaxTextArea with content from path
+     * @param path Path assigned to text area
+     */
     public SingleEditor(Path path) {
         super(20, 60);
         this.setCodeFoldingEnabled(true);
@@ -41,6 +48,7 @@ public class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextArea {
 
     private void addChangeListener() {
         this.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 textAreaKeyTyped(evt);
             }
@@ -81,6 +89,7 @@ public class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextArea {
     }
 
     public void save() {
+        // TODO: Redirect to save as for invalid path
         FileHandler.save(this.path, this.getText());
         saveTrue();
     }

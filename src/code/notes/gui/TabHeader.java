@@ -104,6 +104,9 @@ public class TabHeader extends javax.swing.JPanel {
     private javax.swing.JLabel label_filename;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * Refresh header to match the saved status of the editor
+     */
     void refresh() {
         if (!editor.getSaveState()) {
             this.setHeader(header + " *");
