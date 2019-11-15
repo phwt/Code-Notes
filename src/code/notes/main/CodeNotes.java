@@ -16,12 +16,13 @@ import javax.swing.UIManager;
  * @author phwts
  */
 public class CodeNotes extends javax.swing.JFrame {
-    public static TextEditor text_editor = new TextEditor();
+    public static TextEditor text_editor;
     /**
      * Creates new form CodeNotes
      */
     public CodeNotes() {
         initComponents();
+        text_editor = new TextEditor();
         editor_panel.add(text_editor);
     }
 
