@@ -15,13 +15,12 @@ import java.sql.*;
 public class ExceptionLookup {
     public static void search(String lang, String keyword) {
         String s1 = keyword;
-        int index = 0;
         String[] keywords = s1.split("[, ?.@+=:]+");
         for (String words : keywords) {
             String[][] data = MockDatabase.searchException(lang, words);
             for (String[] w : data) {
-                if(w[index] != null){
-                    MockGUI.displayText(w[index]);
+                if(w[0] != null){
+                    MockGUI.displayText(w[0]);
             }}
         }
     }
