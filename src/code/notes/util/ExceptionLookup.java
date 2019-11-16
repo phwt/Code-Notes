@@ -5,7 +5,6 @@
 package code.notes.util;
 
 import code.notes.gui.MockGUI;
-import code.notes.util.MockDatabase;
 import java.nio.file.Paths;
 import java.sql.*;
 
@@ -27,12 +26,13 @@ public class ExceptionLookup {
         }
     }
     
-    public static String[][] searchException(String lang, String keyword) {
+    public static String[][] searchException(String lang, String[] keywords) {
         String[][] result = null;
         Connection connect = null;
         Statement s = null;
         try {
-            System.setProperty("derby.system.home", Paths.get(System.getProperty("user.dir"), ".derby").toAbsolutePath().toString());
+            java.nio.file.Path user_path = Paths.get(System.getProperty("user.dir"), ".derby").toAbsolutePath();
+            System.setProperty("derby.system.home", user_path.toString());
             connect = DriverManager.getConnection("jdbc:derby:exceptiondb;");
             s = connect.createStatement();
             
@@ -48,7 +48,14 @@ public class ExceptionLookup {
                     return null;
             }
             
-            String sql = "SELECT * FROM APP." + table_name + " WHERE UCASE(EXCEPTION_KEY) LIKE UCASE('%" + keyword + "%')";
+            for(String keyword: keywords) {
+                keyword = "UCASE(EXCEPTION_KEY) LIKE UCASE('%" + keyword +"%')";
+            }
+            
+            String keyword_stmt = String.join("OR", keywords);
+            
+            String sql = "SELECT * FROM APP." + table_name + " WHERE " + keyword_stmt;
+            
             ResultSet rst = s.executeQuery(sql);
 
             result = new String[10][3];
