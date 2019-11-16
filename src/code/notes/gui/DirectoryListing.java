@@ -22,6 +22,7 @@ public class DirectoryListing extends javax.swing.JTree {
     static File fileRoot;
     static DefaultMutableTreeNode root;
     static DefaultTreeModel treeModel;
+    JTree tree = this;
 
     public DirectoryListing() {
         this.init();
@@ -43,8 +44,9 @@ public class DirectoryListing extends javax.swing.JTree {
     private Path toPath(TreePath path) {
         FileNode user_path = (FileNode) ((DefaultMutableTreeNode) path.getLastPathComponent()).getUserObject();
         File file = new File(user_path.toStringPath());
-        if (file.isDirectory())
+        if (file.isDirectory()) {
             return null;
+        }
         return file.toPath();
     }
 
@@ -67,7 +69,7 @@ public class DirectoryListing extends javax.swing.JTree {
         });
     }
 
-    public static class CreateChildNodes implements Runnable {
+    public class CreateChildNodes implements Runnable {
 
         private DefaultMutableTreeNode root;
 
@@ -80,20 +82,20 @@ public class DirectoryListing extends javax.swing.JTree {
         }
 
         @Override
-        public void run() {
+        public synchronized void run() {
             createChildren(fileRoot, root);
+            tree.expandRow(0);
+            tree.setRootVisible(false);
         }
 
-        private void createChildren(File fileRoot,
-                DefaultMutableTreeNode node) {
+        private void createChildren(File fileRoot, DefaultMutableTreeNode node) {
             File[] files = fileRoot.listFiles();
             if (files == null) {
                 return;
             }
 
             for (File file : files) {
-                DefaultMutableTreeNode childNode
-                        = new DefaultMutableTreeNode(new FileNode(file));
+                DefaultMutableTreeNode childNode = new DefaultMutableTreeNode(new FileNode(file));
                 node.add(childNode);
                 if (file.isDirectory()) {
                     createChildren(file, childNode);
