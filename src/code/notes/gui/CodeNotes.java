@@ -5,7 +5,6 @@
 package code.notes.gui;
 
 import code.notes.Bundle;
-import code.notes.gui.DirectoryListing;
 import code.notes.gui.ExceptionForm;
 import code.notes.gui.SettingsForm;
 import code.notes.gui.TextEditor;
@@ -21,7 +20,7 @@ import javax.swing.UIManager;
 public class CodeNotes extends javax.swing.JFrame {
 
     public static TextEditor text_editor;
-//    public static DirectoryListing directory_listing = new DirectoryListing();
+
     /**
      * Creates new form CodeNotes
      */
@@ -30,7 +29,6 @@ public class CodeNotes extends javax.swing.JFrame {
         text_editor = new TextEditor();
         editor_panel.add(text_editor);
         this.checkUnsavedEvent();
-//        this.jScrollPane2.add(directory_listing);
     }
 
     private void checkUnsavedEvent() {
@@ -44,8 +42,9 @@ public class CodeNotes extends javax.swing.JFrame {
                             JOptionPane.YES_NO_OPTION,
                             JOptionPane.WARNING_MESSAGE
                     );
-                    if (n == JOptionPane.YES_OPTION)
+                    if (n == JOptionPane.YES_OPTION) {
                         System.exit(0);
+                    }
                 } else {
                     System.exit(0);
                 }

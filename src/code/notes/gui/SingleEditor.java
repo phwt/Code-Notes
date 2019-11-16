@@ -8,9 +8,11 @@ import code.notes.util.ExtensionTranslator;
 import code.notes.util.FileChooser;
 import code.notes.util.FileHandler;
 import code.notes.util.UserPreferences;
+import java.io.File;
 import java.nio.file.Path;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import net.iharder.dnd.FileDrop;
 
 /**
  *
@@ -64,6 +66,14 @@ public class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextArea {
             @Override
             public void changedUpdate(DocumentEvent arg0) {
                 saveFalse();
+            }
+        });
+        
+        new FileDrop(this, new FileDrop.Listener() {
+            public void filesDropped(File[] files) {
+                for (File file : files) {
+                    CodeNotes.text_editor.addTab(file.toPath());
+                }
             }
         });
     }

@@ -5,9 +5,11 @@
 package code.notes.gui;
 
 import code.notes.Bundle;
+import java.io.File;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import net.iharder.dnd.FileDrop;
 import org.fife.ui.rtextarea.RTextScrollPane;
 
 /**
@@ -20,6 +22,13 @@ public final class TextEditor extends javax.swing.JTabbedPane {
 
     public TextEditor() {
         this.addTab();
+        new FileDrop(this, new FileDrop.Listener() {
+            public void filesDropped(File[] files) {
+                for (File file : files) {
+                    CodeNotes.text_editor.addTab(file.toPath());
+                }
+            }
+        });
     }
 
     /**
