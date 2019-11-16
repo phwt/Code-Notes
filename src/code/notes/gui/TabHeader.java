@@ -5,7 +5,6 @@
 package code.notes.gui;
 
 import code.notes.Bundle;
-import code.notes.main.CodeNotes;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JOptionPane;
