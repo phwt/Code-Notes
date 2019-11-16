@@ -49,8 +49,8 @@ public class TabHeader extends javax.swing.JPanel {
 
         setOpaque(false);
         addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                formMouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                formMousePressed(evt);
             }
         });
 
@@ -104,12 +104,19 @@ public class TabHeader extends javax.swing.JPanel {
         btn_close.setForeground(Color.red);
     }//GEN-LAST:event_btn_closeMouseEntered
 
-    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-        // TODO add your handling code here:
-        if(SwingUtilities.isMiddleMouseButton(evt)){
+    private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
+        if (SwingUtilities.isLeftMouseButton(evt)) {
+            CodeNotes.text_editor.setSelectedIndex(CodeNotes.text_editor.getEditorIndex(this.editor));
+        } else if (SwingUtilities.isMiddleMouseButton(evt)) {
             this.btn_closeMousePressed(evt);
+        } else if (SwingUtilities.isRightMouseButton(evt)) {
+            this.contextMenu();
         }
-    }//GEN-LAST:event_formMouseClicked
+    }//GEN-LAST:event_formMousePressed
+
+    private void contextMenu() {
+        // TODO
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btn_close;
@@ -119,11 +126,11 @@ public class TabHeader extends javax.swing.JPanel {
     private void headerPlain() {
         label_filename.setFont(new Font("Dialog", Font.PLAIN, 12));
     }
-    
+
     private void headerBold() {
         label_filename.setFont(new Font("Dialog", Font.BOLD, 12));
     }
-    
+
     /**
      * Refresh header to match the saved status of the editor
      */
