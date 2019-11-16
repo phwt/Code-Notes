@@ -2,13 +2,15 @@
  * Code-Notes | CodeNotes.java
  * Created | 1:27:10 PM Oct 10, 2019
  */
-package code.notes.main;
+package code.notes.gui;
 
+import code.notes.Bundle;
 import code.notes.gui.ExceptionForm;
 import code.notes.gui.SettingsForm;
 import code.notes.gui.TextEditor;
 import code.notes.util.FileChooser;
 import java.nio.file.Path;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 /**
@@ -16,7 +18,9 @@ import javax.swing.UIManager;
  * @author phwts
  */
 public class CodeNotes extends javax.swing.JFrame {
+
     public static TextEditor text_editor;
+
     /**
      * Creates new form CodeNotes
      */
@@ -24,6 +28,28 @@ public class CodeNotes extends javax.swing.JFrame {
         initComponents();
         text_editor = new TextEditor();
         editor_panel.add(text_editor);
+        this.checkUnsavedEvent();
+    }
+
+    private void checkUnsavedEvent() {
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                if (text_editor.hasUnsaved()) {
+                    int n = JOptionPane.showConfirmDialog(
+                            null,
+                            Bundle.get("save_notice_sub"), Bundle.get("save_notice_frame"),
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.WARNING_MESSAGE
+                    );
+                    if (n == JOptionPane.YES_OPTION) {
+                        System.exit(0);
+                    }
+                } else {
+                    System.exit(0);
+                }
+            }
+        });
     }
 
     /**
@@ -35,25 +61,28 @@ public class CodeNotes extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        directory_tree = new javax.swing.JTree();
         editor_panel = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        directory_listing = new code.notes.gui.DirectoryListing();
         jMenuBar1 = new javax.swing.JMenuBar();
         menu_file = new javax.swing.JMenu();
         menu_open = new javax.swing.JMenuItem();
         menu_newfile = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
         menu_save = new javax.swing.JMenuItem();
         menu_saveas = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
         menu_closetab = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         menu_lookup = new javax.swing.JMenuItem();
         menu_perferences = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jScrollPane1.setViewportView(directory_tree);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setLocationByPlatform(true);
 
         editor_panel.setLayout(new java.awt.BorderLayout());
+
+        jScrollPane2.setViewportView(directory_listing);
 
         menu_file.setText("File");
 
@@ -75,6 +104,7 @@ public class CodeNotes extends javax.swing.JFrame {
             }
         });
         menu_file.add(menu_newfile);
+        menu_file.add(jSeparator1);
 
         menu_save.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         menu_save.setText(bundle.getString("save")); // NOI18N
@@ -93,6 +123,7 @@ public class CodeNotes extends javax.swing.JFrame {
             }
         });
         menu_file.add(menu_saveas);
+        menu_file.add(jSeparator2);
 
         menu_closetab.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_W, java.awt.event.InputEvent.CTRL_MASK));
         menu_closetab.setText("Close Tab");
@@ -132,21 +163,21 @@ public class CodeNotes extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(editor_panel, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(editor_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
+            .addComponent(editor_panel, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void menu_openActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_openActionPerformed
-        for(Path path: FileChooser.openFiles()){
+        for (Path path : FileChooser.openFiles()) {
             text_editor.addTab(path);
         }
     }//GEN-LAST:event_menu_openActionPerformed
@@ -194,11 +225,13 @@ public class CodeNotes extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTree directory_tree;
+    public static code.notes.gui.DirectoryListing directory_listing;
     private javax.swing.JPanel editor_panel;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JMenuItem menu_closetab;
     private javax.swing.JMenu menu_file;
     private javax.swing.JMenuItem menu_lookup;

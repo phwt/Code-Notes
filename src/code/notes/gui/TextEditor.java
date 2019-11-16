@@ -5,9 +5,11 @@
 package code.notes.gui;
 
 import code.notes.Bundle;
+import java.io.File;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import net.iharder.dnd.FileDrop;
 import org.fife.ui.rtextarea.RTextScrollPane;
 
 /**
@@ -20,6 +22,13 @@ public final class TextEditor extends javax.swing.JTabbedPane {
 
     public TextEditor() {
         this.addTab();
+        new FileDrop(this, new FileDrop.Listener() {
+            public void filesDropped(File[] files) {
+                for (File file : files) {
+                    CodeNotes.text_editor.addTab(file.toPath());
+                }
+            }
+        });
     }
 
     /**
@@ -64,6 +73,14 @@ public final class TextEditor extends javax.swing.JTabbedPane {
      * @param path Path assigned to this tab
      */
     public void addTab(Path path) {
+        
+        for(SingleEditor editor: editor_pool) {
+            if(editor.isSameFile(path)){
+                this.setSelectedIndex(getEditorIndex(editor));
+                return;
+            }
+        }
+        
         SingleEditor new_editor = new SingleEditor(path);
         this.addEditorTab(new_editor);
     }
@@ -140,6 +157,14 @@ public final class TextEditor extends javax.swing.JTabbedPane {
             return true;
         }
         return true;
+    }
+    
+    /**
+     * Check in editor_pool if there's any SingleEditor with unsaved changes
+     * @return true if there's one or more unsaved SingleEditor / false if there is none
+     */
+    public boolean hasUnsaved() {
+        return editor_pool.stream().anyMatch((editor) -> (!editor.getSaveState()));
     }
 
     /**

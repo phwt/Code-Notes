@@ -4,14 +4,15 @@
  */
 package code.notes.gui;
 
-import code.notes.main.CodeNotes;
+import code.notes.util.ExtensionTranslator;
 import code.notes.util.FileChooser;
 import code.notes.util.FileHandler;
 import code.notes.util.UserPreferences;
-import java.awt.event.KeyEvent;
+import java.io.File;
 import java.nio.file.Path;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import net.iharder.dnd.FileDrop;
 
 /**
  *
@@ -49,6 +50,7 @@ public class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextArea {
         this.HEADER = new TabHeader(this, this.getFileName());
         this.setText(FileHandler.open(path));
         this.HEADER.setHeader(getFileName());
+        this.setSyntaxStyle();
         this.addChangeListener();
     }
 
@@ -64,6 +66,14 @@ public class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextArea {
             @Override
             public void changedUpdate(DocumentEvent arg0) {
                 saveFalse();
+            }
+        });
+        
+        new FileDrop(this, new FileDrop.Listener() {
+            public void filesDropped(File[] files) {
+                for (File file : files) {
+                    CodeNotes.text_editor.addTab(file.toPath());
+                }
             }
         });
     }
@@ -108,7 +118,6 @@ public class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextArea {
             FileHandler.save(this.path, this.getText());
             saveTrue();
         }
-
     }
 
     public void saveAs() {
@@ -120,6 +129,7 @@ public class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextArea {
         this.setPath(save_path);
         this.HEADER.setHeader(getFileName());
         saveTrue();
+        this.setSyntaxStyle();
     }
     
     public void refreshStyles() {
@@ -127,5 +137,20 @@ public class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextArea {
         this.setTabsEmulated(UserPreferences.isTabEmulated());
         this.setAutoIndentEnabled(UserPreferences.isAutoIndent());
         this.setWhitespaceVisible(UserPreferences.isWtspVisible());
+    }
+    
+    /**
+     * Set syntax highlighting to match the file extension
+     */
+    public void setSyntaxStyle() {
+        String syntaxConstant = ExtensionTranslator.getConstant(getFileName());
+        this.setSyntaxEditingStyle(syntaxConstant);
+    }
+    
+    public boolean isSameFile(Path path) {
+        if (this.path == null) {
+            return false;
+        }
+        return this.path.equals(path);
     }
 }

@@ -4,11 +4,9 @@
  */
 package code.notes.gui;
 
-import code.notes.Bundle;
-import code.notes.main.CodeNotes;
 import java.awt.Color;
 import java.awt.Font;
-import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -50,6 +48,11 @@ public class TabHeader extends javax.swing.JPanel {
         btn_close = new javax.swing.JLabel();
 
         setOpaque(false);
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                formMousePressed(evt);
+            }
+        });
 
         label_filename.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         label_filename.setText("File Name");
@@ -101,6 +104,20 @@ public class TabHeader extends javax.swing.JPanel {
         btn_close.setForeground(Color.red);
     }//GEN-LAST:event_btn_closeMouseEntered
 
+    private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
+        if (SwingUtilities.isLeftMouseButton(evt)) {
+            CodeNotes.text_editor.setSelectedIndex(CodeNotes.text_editor.getEditorIndex(this.editor));
+        } else if (SwingUtilities.isMiddleMouseButton(evt)) {
+            this.btn_closeMousePressed(evt);
+        } else if (SwingUtilities.isRightMouseButton(evt)) {
+            this.contextMenu();
+        }
+    }//GEN-LAST:event_formMousePressed
+
+    private void contextMenu() {
+        // TODO
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btn_close;
     private javax.swing.JLabel label_filename;
@@ -109,11 +126,11 @@ public class TabHeader extends javax.swing.JPanel {
     private void headerPlain() {
         label_filename.setFont(new Font("Dialog", Font.PLAIN, 12));
     }
-    
+
     private void headerBold() {
         label_filename.setFont(new Font("Dialog", Font.BOLD, 12));
     }
-    
+
     /**
      * Refresh header to match the saved status of the editor
      */
