@@ -21,7 +21,7 @@ public class ExceptionForm extends javax.swing.JFrame {
      */
     public ExceptionForm() {
         initComponents();
-        
+
         jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 try {
@@ -175,7 +175,9 @@ public class ExceptionForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String[][] datas = ExceptionLookup.searchException(String.valueOf(combo_lang.getSelectedItem()), jTextField1.getText());
+        String user_search = jTextField1.getText();
+        String[][] datas = ExceptionLookup.searchException(String.valueOf(combo_lang.getSelectedItem()), user_search);
+
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
                 datas,
                 new String[]{
@@ -201,7 +203,7 @@ public class ExceptionForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
-        if(evt.getKeyCode() == 10){
+        if (evt.getKeyCode() == 10) {
             jButton1.doClick();
         }
     }//GEN-LAST:event_jTextField1KeyPressed
