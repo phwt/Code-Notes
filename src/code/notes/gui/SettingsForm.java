@@ -4,7 +4,6 @@
  */
 package code.notes.gui;
 
-import code.notes.main.CodeNotes;
 import code.notes.util.FileChooser;
 import code.notes.util.UserPreferences;
 import javax.swing.UIManager;
@@ -169,6 +168,7 @@ public class SettingsForm extends javax.swing.JFrame {
         CodeNotes.text_editor.getEditorPool().forEach((editor) -> {
            editor.refreshStyles() ;
         });
+        CodeNotes.directory_listing.init();
         
         this.dispose();
     }//GEN-LAST:event_btn_saveActionPerformed
