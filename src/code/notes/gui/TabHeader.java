@@ -4,10 +4,9 @@
  */
 package code.notes.gui;
 
-import code.notes.Bundle;
 import java.awt.Color;
 import java.awt.Font;
-import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -49,6 +48,11 @@ public class TabHeader extends javax.swing.JPanel {
         btn_close = new javax.swing.JLabel();
 
         setOpaque(false);
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
 
         label_filename.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         label_filename.setText("File Name");
@@ -99,6 +103,13 @@ public class TabHeader extends javax.swing.JPanel {
     private void btn_closeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_closeMouseEntered
         btn_close.setForeground(Color.red);
     }//GEN-LAST:event_btn_closeMouseEntered
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        // TODO add your handling code here:
+        if(SwingUtilities.isMiddleMouseButton(evt)){
+            this.btn_closeMousePressed(evt);
+        }
+    }//GEN-LAST:event_formMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btn_close;
