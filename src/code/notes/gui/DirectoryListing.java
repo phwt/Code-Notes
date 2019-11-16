@@ -84,8 +84,8 @@ public class DirectoryListing extends javax.swing.JTree {
         @Override
         public synchronized void run() {
             createChildren(fileRoot, root);
-            tree.expandRow(0);
-            tree.setRootVisible(false);
+//            tree.expandRow(0);
+//            tree.setRootVisible(false);
         }
 
         private void createChildren(File fileRoot, DefaultMutableTreeNode node) {

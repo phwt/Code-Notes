@@ -179,6 +179,7 @@ public class SettingsForm extends javax.swing.JFrame {
         CodeNotes.text_editor.getEditorPool().forEach((editor) -> {
            editor.refreshStyles() ;
         });
+        CodeNotes.directory_listing.init();
         this.dispose();
     }//GEN-LAST:event_brn_resetActionPerformed
 
