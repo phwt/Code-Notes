@@ -2,9 +2,10 @@
  * Code-Notes | CodeNotes.java
  * Created | 1:27:10 PM Oct 10, 2019
  */
-package code.notes.main;
+package code.notes.gui;
 
 import code.notes.Bundle;
+import code.notes.gui.DirectoryListing;
 import code.notes.gui.ExceptionForm;
 import code.notes.gui.SettingsForm;
 import code.notes.gui.TextEditor;
@@ -20,7 +21,7 @@ import javax.swing.UIManager;
 public class CodeNotes extends javax.swing.JFrame {
 
     public static TextEditor text_editor;
-
+//    public static DirectoryListing directory_listing = new DirectoryListing();
     /**
      * Creates new form CodeNotes
      */
@@ -28,7 +29,8 @@ public class CodeNotes extends javax.swing.JFrame {
         initComponents();
         text_editor = new TextEditor();
         editor_panel.add(text_editor);
-        checkUnsavedEvent();
+        this.checkUnsavedEvent();
+//        this.jScrollPane2.add(directory_listing);
     }
 
     private void checkUnsavedEvent() {
@@ -60,9 +62,9 @@ public class CodeNotes extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        directory_tree = new javax.swing.JTree();
         editor_panel = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        directory_listing = new code.notes.gui.DirectoryListing();
         jMenuBar1 = new javax.swing.JMenuBar();
         menu_file = new javax.swing.JMenu();
         menu_open = new javax.swing.JMenuItem();
@@ -77,9 +79,9 @@ public class CodeNotes extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setLocationByPlatform(true);
 
-        jScrollPane1.setViewportView(directory_tree);
-
         editor_panel.setLayout(new java.awt.BorderLayout());
+
+        jScrollPane2.setViewportView(directory_listing);
 
         menu_file.setText("File");
 
@@ -158,14 +160,14 @@ public class CodeNotes extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(editor_panel, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(editor_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
+            .addComponent(editor_panel, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         pack();
@@ -220,11 +222,11 @@ public class CodeNotes extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTree directory_tree;
+    public static code.notes.gui.DirectoryListing directory_listing;
     private javax.swing.JPanel editor_panel;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JMenuItem menu_closetab;
     private javax.swing.JMenu menu_file;
     private javax.swing.JMenuItem menu_lookup;
