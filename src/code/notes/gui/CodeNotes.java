@@ -69,8 +69,10 @@ public class CodeNotes extends javax.swing.JFrame {
         menu_file = new javax.swing.JMenu();
         menu_open = new javax.swing.JMenuItem();
         menu_newfile = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
         menu_save = new javax.swing.JMenuItem();
         menu_saveas = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
         menu_closetab = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         menu_lookup = new javax.swing.JMenuItem();
@@ -103,6 +105,7 @@ public class CodeNotes extends javax.swing.JFrame {
             }
         });
         menu_file.add(menu_newfile);
+        menu_file.add(jSeparator1);
 
         menu_save.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         menu_save.setText(bundle.getString("save")); // NOI18N
@@ -121,6 +124,7 @@ public class CodeNotes extends javax.swing.JFrame {
             }
         });
         menu_file.add(menu_saveas);
+        menu_file.add(jSeparator2);
 
         menu_closetab.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_W, java.awt.event.InputEvent.CTRL_MASK));
         menu_closetab.setText("Close Tab");
@@ -227,6 +231,8 @@ public class CodeNotes extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JMenuItem menu_closetab;
     private javax.swing.JMenu menu_file;
     private javax.swing.JMenuItem menu_lookup;
