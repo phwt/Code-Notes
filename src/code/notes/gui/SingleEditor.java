@@ -146,4 +146,11 @@ public class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextArea {
         String syntaxConstant = ExtensionTranslator.getConstant(getFileName());
         this.setSyntaxEditingStyle(syntaxConstant);
     }
+    
+    public boolean isSameFile(Path path) {
+        if (this.path == null) {
+            return false;
+        }
+        return this.path.equals(path);
+    }
 }

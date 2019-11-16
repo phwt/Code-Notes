@@ -73,6 +73,14 @@ public final class TextEditor extends javax.swing.JTabbedPane {
      * @param path Path assigned to this tab
      */
     public void addTab(Path path) {
+        
+        for(SingleEditor editor: editor_pool) {
+            if(editor.isSameFile(path)){
+                this.setSelectedIndex(getEditorIndex(editor));
+                return;
+            }
+        }
+        
         SingleEditor new_editor = new SingleEditor(path);
         this.addEditorTab(new_editor);
     }
