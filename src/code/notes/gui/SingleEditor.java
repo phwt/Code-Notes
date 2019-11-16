@@ -48,8 +48,8 @@ public class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextArea {
         this.HEADER = new TabHeader(this, this.getFileName());
         this.setText(FileHandler.open(path));
         this.HEADER.setHeader(getFileName());
-        this.addChangeListener();
         this.setSyntaxStyle();
+        this.addChangeListener();
     }
 
     private void addChangeListener() {
