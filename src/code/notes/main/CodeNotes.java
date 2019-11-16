@@ -4,11 +4,13 @@
  */
 package code.notes.main;
 
+import code.notes.Bundle;
 import code.notes.gui.ExceptionForm;
 import code.notes.gui.SettingsForm;
 import code.notes.gui.TextEditor;
 import code.notes.util.FileChooser;
 import java.nio.file.Path;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 /**
@@ -16,7 +18,9 @@ import javax.swing.UIManager;
  * @author phwts
  */
 public class CodeNotes extends javax.swing.JFrame {
+
     public static TextEditor text_editor;
+
     /**
      * Creates new form CodeNotes
      */
@@ -24,6 +28,27 @@ public class CodeNotes extends javax.swing.JFrame {
         initComponents();
         text_editor = new TextEditor();
         editor_panel.add(text_editor);
+        checkUnsavedEvent();
+    }
+
+    private void checkUnsavedEvent() {
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                if (text_editor.hasUnsaved()) {
+                    int n = JOptionPane.showConfirmDialog(
+                            null,
+                            Bundle.get("save_notice_sub"), Bundle.get("save_notice_frame"),
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.WARNING_MESSAGE
+                    );
+                    if (n == JOptionPane.YES_OPTION)
+                        System.exit(0);
+                } else {
+                    System.exit(0);
+                }
+            }
+        });
     }
 
     /**
@@ -49,7 +74,8 @@ public class CodeNotes extends javax.swing.JFrame {
         menu_lookup = new javax.swing.JMenuItem();
         menu_perferences = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setLocationByPlatform(true);
 
         jScrollPane1.setViewportView(directory_tree);
 
@@ -146,7 +172,7 @@ public class CodeNotes extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menu_openActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_openActionPerformed
-        for(Path path: FileChooser.openFiles()){
+        for (Path path : FileChooser.openFiles()) {
             text_editor.addTab(path);
         }
     }//GEN-LAST:event_menu_openActionPerformed

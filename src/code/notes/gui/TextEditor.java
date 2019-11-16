@@ -141,6 +141,14 @@ public final class TextEditor extends javax.swing.JTabbedPane {
         }
         return true;
     }
+    
+    /**
+     * Check in editor_pool if there's any SingleEditor with unsaved changes
+     * @return true if there's one or more unsaved SingleEditor / false if there is none
+     */
+    public boolean hasUnsaved() {
+        return editor_pool.stream().anyMatch((editor) -> (!editor.getSaveState()));
+    }
 
     /**
      * Get active editor
