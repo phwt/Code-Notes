@@ -13,7 +13,6 @@ import java.sql.*;
  * @author phwts
  */
 public class ExceptionLookup {
-
     public static String toStatement(String keyword) {
         String[] keywords = keyword.split("[, ?.@+=:]+");
         
