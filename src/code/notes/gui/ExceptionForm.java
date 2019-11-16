@@ -22,13 +22,11 @@ public class ExceptionForm extends javax.swing.JFrame {
     public ExceptionForm() {
         initComponents();
 
-        jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent event) {
-                try {
-                    resultTextArea.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString());
-                } catch (Exception ex) {
-                    //do nothing
-                }
+        table_result.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
+            try {
+                textarea_result.setText(table_result.getValueAt(table_result.getSelectedRow(), 2).toString());
+            } catch (Exception ex) {
+                //do nothing
             }
         });
     }
@@ -42,43 +40,43 @@ public class ExceptionForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
+        texfield_search = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btn_search = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
+        table_result = new javax.swing.JTable();
+        btn_close = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        resultTextArea = new javax.swing.JTextArea();
+        textarea_result = new javax.swing.JTextArea();
         combo_lang = new javax.swing.JComboBox<>();
 
         setTitle("Exception Lookup");
         setLocationByPlatform(true);
         setResizable(false);
 
-        jTextField1.setToolTipText("Enter your keyword here");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        texfield_search.setToolTipText("Enter your keyword here");
+        texfield_search.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                texfield_searchActionPerformed(evt);
             }
         });
-        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+        texfield_search.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField1KeyPressed(evt);
+                texfield_searchKeyPressed(evt);
             }
         });
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("code/notes/Bundle"); // NOI18N
         jLabel1.setText(bundle.getString("search_label")); // NOI18N
 
-        jButton1.setText(bundle.getString("search")); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btn_search.setText(bundle.getString("search")); // NOI18N
+        btn_search.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btn_searchActionPerformed(evt);
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        table_result.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -103,22 +101,22 @@ public class ExceptionForm extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(table_result);
 
-        jButton2.setText(bundle.getString("close")); // NOI18N
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btn_close.setText(bundle.getString("close")); // NOI18N
+        btn_close.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btn_closeActionPerformed(evt);
             }
         });
 
-        resultTextArea.setEditable(false);
-        resultTextArea.setColumns(10);
-        resultTextArea.setLineWrap(true);
-        resultTextArea.setRows(3);
-        resultTextArea.setTabSize(4);
-        resultTextArea.setEnabled(false);
-        jScrollPane2.setViewportView(resultTextArea);
+        textarea_result.setEditable(false);
+        textarea_result.setColumns(10);
+        textarea_result.setLineWrap(true);
+        textarea_result.setRows(3);
+        textarea_result.setTabSize(4);
+        textarea_result.setEnabled(false);
+        jScrollPane2.setViewportView(textarea_result);
 
         combo_lang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Python", "Java" }));
 
@@ -136,12 +134,12 @@ public class ExceptionForm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(combo_lang, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(texfield_search, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1))
+                        .addComponent(btn_search))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btn_close, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -149,8 +147,8 @@ public class ExceptionForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField1)
+                    .addComponent(btn_search, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(texfield_search)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(combo_lang, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -158,27 +156,27 @@ public class ExceptionForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(btn_close)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void texfield_searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_texfield_searchActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_texfield_searchActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btn_closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_closeActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btn_closeActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String user_search = jTextField1.getText();
+    private void btn_searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchActionPerformed
+        String user_search = texfield_search.getText();
         String[][] datas = ExceptionLookup.searchException(String.valueOf(combo_lang.getSelectedItem()), user_search);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        table_result.setModel(new javax.swing.table.DefaultTableModel(
                 datas,
                 new String[]{
                     "#", "Key", "Solution"
@@ -196,20 +194,20 @@ public class ExceptionForm extends javax.swing.JFrame {
                 return false;
             }
         });
-        jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
-        jTable1.getColumnModel().getColumn(0).setPreferredWidth(1);
-        jTable1.getColumnModel().getColumn(1).setPreferredWidth(100);
-        jTable1.getColumnModel().getColumn(2).setMinWidth(100);
-    }//GEN-LAST:event_jButton1ActionPerformed
+        table_result.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+        table_result.getColumnModel().getColumn(0).setPreferredWidth(1);
+        table_result.getColumnModel().getColumn(1).setPreferredWidth(100);
+        table_result.getColumnModel().getColumn(2).setMinWidth(100);
+    }//GEN-LAST:event_btn_searchActionPerformed
 
-    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+    private void texfield_searchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_texfield_searchKeyPressed
         if (evt.getKeyCode() == 10) {
-            jButton1.doClick();
+            btn_search.doClick();
         }
-    }//GEN-LAST:event_jTextField1KeyPressed
+    }//GEN-LAST:event_texfield_searchKeyPressed
 
     public void setTextArea(String text) {
-        resultTextArea.setText(text);
+        textarea_result.setText(text);
     }
 
     /**
@@ -232,14 +230,14 @@ public class ExceptionForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_close;
+    private javax.swing.JButton btn_search;
     private javax.swing.JComboBox<String> combo_lang;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextArea resultTextArea;
+    private javax.swing.JTable table_result;
+    private javax.swing.JTextField texfield_search;
+    private javax.swing.JTextArea textarea_result;
     // End of variables declaration//GEN-END:variables
 }
