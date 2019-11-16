@@ -12,10 +12,11 @@ import java.sql.*;
  * @author phwts
  */
 public class ExceptionLookup {
+
     public static String toStatement(String keyword) {
         String[] keywords = keyword.split("[, ?.@+=:]+");
-        
-        for(int i=0; i<keywords.length; i++) {
+
+        for (int i = 0; i < keywords.length; i++) {
             keywords[i] = "UPPER(EXCEPTION_KEY) LIKE UPPER('%" + keywords[i] + "%')";
         }
 
@@ -43,7 +44,7 @@ public class ExceptionLookup {
                 default:
                     return null;
             }
-            
+
             String keyword_stmt = toStatement(keyword);
             String sql = "SELECT * FROM APP." + table_name + " WHERE " + keyword_stmt;
             System.out.println(sql);
