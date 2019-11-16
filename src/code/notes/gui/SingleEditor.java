@@ -4,11 +4,10 @@
  */
 package code.notes.gui;
 
-import code.notes.main.CodeNotes;
+import code.notes.util.ExtensionTranslator;
 import code.notes.util.FileChooser;
 import code.notes.util.FileHandler;
 import code.notes.util.UserPreferences;
-import java.awt.event.KeyEvent;
 import java.nio.file.Path;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -50,6 +49,7 @@ public class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextArea {
         this.setText(FileHandler.open(path));
         this.HEADER.setHeader(getFileName());
         this.addChangeListener();
+        this.setSyntaxStyle();
     }
 
     private void addChangeListener() {
@@ -108,7 +108,6 @@ public class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextArea {
             FileHandler.save(this.path, this.getText());
             saveTrue();
         }
-
     }
 
     public void saveAs() {
@@ -120,6 +119,7 @@ public class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextArea {
         this.setPath(save_path);
         this.HEADER.setHeader(getFileName());
         saveTrue();
+        this.setSyntaxStyle();
     }
     
     public void refreshStyles() {
@@ -127,5 +127,13 @@ public class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextArea {
         this.setTabsEmulated(UserPreferences.isTabEmulated());
         this.setAutoIndentEnabled(UserPreferences.isAutoIndent());
         this.setWhitespaceVisible(UserPreferences.isWtspVisible());
+    }
+    
+    /**
+     * Set syntax highlighting to match the file extension
+     */
+    public void setSyntaxStyle() {
+        String syntaxConstant = ExtensionTranslator.getConstant(getFileName());
+        this.setSyntaxEditingStyle(syntaxConstant);
     }
 }
