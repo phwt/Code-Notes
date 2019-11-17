@@ -4,6 +4,7 @@
  */
 package code.notes.gui;
 
+import code.notes.Bundle;
 import code.notes.util.ExceptionLookup;
 import javax.swing.JTable;
 import javax.swing.UIManager;
@@ -75,31 +76,7 @@ public class ExceptionForm extends javax.swing.JFrame {
             }
         });
 
-        table_result.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "#", "Key", "Solution"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        table_result.setModel(getStartModel());
         jScrollPane1.setViewportView(table_result);
 
         btn_close.setText(bundle.getString("close")); // NOI18N
@@ -178,7 +155,7 @@ public class ExceptionForm extends javax.swing.JFrame {
         table_result.setModel(new javax.swing.table.DefaultTableModel(
                 datas,
                 new String[]{
-                    "#", "Key", "Solution"
+                    "#", Bundle.get("key"), Bundle.get("solution")
                 }
         ) {
             Class[] types = new Class[]{
@@ -207,6 +184,34 @@ public class ExceptionForm extends javax.swing.JFrame {
 
     public void setTextArea(String text) {
         textarea_result.setText(text);
+    }
+
+    private javax.swing.table.DefaultTableModel getStartModel() {
+        return new javax.swing.table.DefaultTableModel(
+                new Object[][]{
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null}
+                },
+                new String[]{
+                    "#", Bundle.get("key"), Bundle.get("solution")
+                }
+        ) {
+            Class[] types = new Class[]{
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean[]{
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types[columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
+        };
     }
 
     /**

@@ -96,10 +96,10 @@ public class CodeNotes extends javax.swing.JFrame {
 
         jScrollPane2.setViewportView(directory_listing);
 
-        menu_file.setText("File");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("code/notes/Bundle"); // NOI18N
+        menu_file.setText(bundle.getString("menu_file")); // NOI18N
 
         menu_open.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("code/notes/Bundle"); // NOI18N
         menu_open.setText(bundle.getString("open")); // NOI18N
         menu_open.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -138,7 +138,7 @@ public class CodeNotes extends javax.swing.JFrame {
         menu_file.add(jSeparator2);
 
         menu_closetab.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_W, java.awt.event.InputEvent.CTRL_MASK));
-        menu_closetab.setText("Close Tab");
+        menu_closetab.setText(bundle.getString("menu_close_tab")); // NOI18N
         menu_closetab.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menu_closetabActionPerformed(evt);
