@@ -9,7 +9,14 @@ import code.notes.gui.ExceptionForm;
 import code.notes.gui.SettingsForm;
 import code.notes.gui.TextEditor;
 import code.notes.util.FileChooser;
+import code.notes.util.UserPreferences;
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
@@ -25,10 +32,15 @@ public class CodeNotes extends javax.swing.JFrame {
      * Creates new form CodeNotes
      */
     public CodeNotes() {
+        this.loadLocale();
         initComponents();
         text_editor = new TextEditor();
         editor_panel.add(text_editor);
         this.checkUnsavedEvent();
+    }
+
+    private void loadLocale() {
+        Bundle.setLocale(Bundle.toLocale(UserPreferences.getLocale()));
     }
 
     private void checkUnsavedEvent() {
@@ -205,6 +217,35 @@ public class CodeNotes extends javax.swing.JFrame {
     private void menu_perferencesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_perferencesActionPerformed
         new SettingsForm().setVisible(true);
     }//GEN-LAST:event_menu_perferencesActionPerformed
+
+    public static void restartApplication() {
+        final String javaBin = System.getProperty("java.home") + File.separator + "bin" + File.separator + "java";
+        final File currentJar;
+        try {
+            currentJar = new File(CodeNotes.class.getProtectionDomain().getCodeSource().getLocation().toURI());
+        } catch (URISyntaxException ex) {
+            return;
+        }
+
+        /* is it a jar file? */
+        if (!currentJar.getName().endsWith(".jar")) {
+            return;
+        }
+
+        /* Build command: java -jar application.jar */
+        final ArrayList<String> command = new ArrayList<>();
+        command.add(javaBin);
+        command.add("-jar");
+        command.add(currentJar.getPath());
+
+        final ProcessBuilder builder = new ProcessBuilder(command);
+        try {
+            builder.start();
+        } catch (IOException ex) {
+            Logger.getLogger(CodeNotes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.exit(0);
+    }
 
     /**
      * @param args the command line arguments
