@@ -32,6 +32,7 @@ public class CodeNotes extends javax.swing.JFrame {
      * Creates new form CodeNotes
      */
     public CodeNotes() {
+        super(Bundle.get("title"));
         this.loadLocale();
         initComponents();
         text_editor = new TextEditor();
