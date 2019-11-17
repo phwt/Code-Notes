@@ -13,6 +13,7 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
+import net.iharder.dnd.FileDrop;
 
 /**
  * @author Gilbert Le Blanc https://stackoverflow.com/a/23808238/
@@ -63,6 +64,17 @@ public class DirectoryListing extends javax.swing.JTree {
                         if (file_path != null) {
                             CodeNotes.text_editor.addTab(file_path);
                         }
+                    }
+                }
+            }
+        });
+        
+        new FileDrop(this, new FileDrop.Listener() {
+            public void filesDropped(File[] files) {
+                for (File file : files) {
+                    if(file.isDirectory()) {
+                        UserPreferences.setDirPath(file.getAbsolutePath());
+                        CodeNotes.directory_listing.init();
                     }
                 }
             }
