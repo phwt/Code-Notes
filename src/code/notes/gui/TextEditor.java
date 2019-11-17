@@ -18,7 +18,7 @@ import org.fife.ui.rtextarea.RTextScrollPane;
  */
 public final class TextEditor extends javax.swing.JTabbedPane {
 
-    private static ArrayList<SingleEditor> editor_pool = new ArrayList<SingleEditor>();
+    private static ArrayList<SingleEditor> editor_pool = new ArrayList<>();
 
     public TextEditor() {
         this.addTab();
@@ -111,8 +111,7 @@ public final class TextEditor extends javax.swing.JTabbedPane {
      */
     public void closeTab() {
         SingleEditor editor = getActiveEditor();
-        if(unsavedPrompt(editor))
-            removeTab(editor);
+        closeTab(editor);
     }
 
     /**
@@ -173,5 +172,55 @@ public final class TextEditor extends javax.swing.JTabbedPane {
      */
     public SingleEditor getActiveEditor() {
         return editor_pool.get(this.getSelectedIndex());
+    }
+    
+    /**
+     * Close all inactive tabs
+     * @param active_editor Currently active editor
+     */
+    public void closeInactiveTabs(SingleEditor active_editor) {
+        ArrayList<SingleEditor> marked_close = new ArrayList<>();
+        editor_pool.stream().filter((editor) -> !(editor.equals(active_editor))).forEachOrdered((editor) -> {
+            marked_close.add(editor);
+        });
+        marked_close.forEach((editor) -> {
+            closeTab(editor);
+        });
+    }
+    
+    /**
+     * Close all tabs on JTabbedPane
+     */
+    public void closeAllTabs() {
+        ArrayList<SingleEditor> marked_close = (ArrayList<SingleEditor>) editor_pool.clone();
+        marked_close.forEach((editor) -> {
+            closeTab(editor);
+        });
+    }
+    
+    /**
+     * Close all saved tabs
+     */
+    public void closeSavedTabs() {
+        ArrayList<SingleEditor> marked_close = new ArrayList<>();
+        for(SingleEditor editor: editor_pool) {
+            if(editor.getSaveState())
+                marked_close.add(editor);
+        }
+        marked_close.forEach((editor) -> {
+            closeTab(editor);
+        });
+    }
+    
+    public void closeToRight(SingleEditor active_editor) {
+        ArrayList<SingleEditor> marked_close = new ArrayList<>();
+        int active_index = editor_pool.indexOf(active_editor);
+        for(SingleEditor editor: editor_pool) {
+            if(editor_pool.indexOf(editor) > active_index)
+                marked_close.add(editor);
+        }
+        marked_close.forEach((editor) -> {
+            closeTab(editor);
+        });
     }
 }
