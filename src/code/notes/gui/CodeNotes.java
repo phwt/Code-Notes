@@ -85,9 +85,10 @@ public class CodeNotes extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        editor_panel = new javax.swing.JPanel();
+        jSplitPane1 = new javax.swing.JSplitPane();
         jScrollPane2 = new javax.swing.JScrollPane();
         directory_listing = new code.notes.gui.DirectoryListing();
+        editor_panel = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         menu_file = new javax.swing.JMenu();
         menu_open = new javax.swing.JMenuItem();
@@ -104,18 +105,25 @@ public class CodeNotes extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setLocationByPlatform(true);
 
+        jSplitPane1.setDividerLocation(150);
+        jSplitPane1.setDividerSize(5);
+
+        jScrollPane2.setViewportView(directory_listing);
+
+        jSplitPane1.setLeftComponent(jScrollPane2);
+
         javax.swing.GroupLayout editor_panelLayout = new javax.swing.GroupLayout(editor_panel);
         editor_panel.setLayout(editor_panelLayout);
         editor_panelLayout.setHorizontalGroup(
             editor_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 656, Short.MAX_VALUE)
+            .addGap(0, 677, Short.MAX_VALUE)
         );
         editor_panelLayout.setVerticalGroup(
             editor_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 502, Short.MAX_VALUE)
+            .addGap(0, 500, Short.MAX_VALUE)
         );
 
-        jScrollPane2.setViewportView(directory_listing);
+        jSplitPane1.setRightComponent(editor_panel);
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("code/notes/Bundle"); // NOI18N
         menu_file.setText(bundle.getString("menu_file")); // NOI18N
@@ -195,15 +203,11 @@ public class CodeNotes extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(editor_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jSplitPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(editor_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
+            .addComponent(jSplitPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         pack();
@@ -281,6 +285,7 @@ public class CodeNotes extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JMenuItem menu_closetab;
     private javax.swing.JMenu menu_file;
     private javax.swing.JMenuItem menu_lookup;
