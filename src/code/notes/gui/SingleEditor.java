@@ -60,6 +60,9 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
         this.loadEditorFont();
     }
     
+    /**
+     * Load DejaVu Sans Mono Thai font into the editor
+     */
     public void loadEditorFont() {
         try {
             Path font_path = Paths.get(System.getProperty("user.dir"), "font", "DejaVuSansMonoThai.ttf");
@@ -70,6 +73,9 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
         }
     }
 
+    /**
+     * Listen for content change inside the text area and for file drop
+     */
     private void addChangeListener() {
         this.getDocument().addDocumentListener(new DocumentListener() {
 
@@ -130,6 +136,10 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
         return HEADER;
     }
 
+    /**
+     * Put the contents of this editor into the path assigned to this
+     * Redirect to saveAs() if there is no path assigned
+     */
     public void save() {
         if (path == null) {
             saveAs();
@@ -139,6 +149,9 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
         }
     }
 
+    /**
+     * Put the contents of this editor into the path selected by the user
+     */
     public void saveAs() {
         Path save_path = FileChooser.save(this.getFileName());
         if (save_path == null) {
@@ -151,6 +164,9 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
         this.setSyntaxStyle();
     }
 
+    /**
+     * Refresh editor styles (indent, tab size, etc.) after preferences is modified
+     */
     public void refreshStyles() {
         this.setTabSize(UserPreferences.getTabSize());
         this.setTabsEmulated(UserPreferences.isTabEmulated());
