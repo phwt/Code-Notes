@@ -6,7 +6,6 @@ package code.notes.gui;
 
 import java.awt.Color;
 import java.awt.Font;
-import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
 
 /**

@@ -12,16 +12,9 @@ import code.notes.util.FileChooser;
 import code.notes.util.UserPreferences;
 import java.awt.BorderLayout;
 import java.awt.Font;
-import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
-import javax.swing.plaf.synth.SynthLookAndFeel;
 
 /**
  *
