@@ -171,9 +171,9 @@ public class ExceptionForm extends javax.swing.JFrame {
             }
         });
         table_result.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
-        table_result.getColumnModel().getColumn(0).setPreferredWidth(1);
-        table_result.getColumnModel().getColumn(1).setPreferredWidth(100);
-        table_result.getColumnModel().getColumn(2).setMinWidth(100);
+        table_result.getColumnModel().getColumn(0).setMaxWidth(25);
+        table_result.getColumnModel().getColumn(1).setMinWidth(50);
+        table_result.getColumnModel().getColumn(2).setMinWidth(50);
     }//GEN-LAST:event_btn_searchActionPerformed
 
     private void texfield_searchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_texfield_searchKeyPressed
