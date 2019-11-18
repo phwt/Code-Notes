@@ -5,9 +5,6 @@
 package code.notes.gui;
 
 import code.notes.Bundle;
-import code.notes.gui.ExceptionForm;
-import code.notes.gui.SettingsForm;
-import code.notes.gui.TextEditor;
 import code.notes.util.FileChooser;
 import code.notes.util.UserPreferences;
 import java.awt.BorderLayout;
@@ -260,7 +257,6 @@ public class CodeNotes extends javax.swing.JFrame {
         } catch (Exception e) {
             //Never happens
         }
-
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
