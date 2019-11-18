@@ -27,6 +27,7 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
     private final TabHeader HEADER;
     private Path path = null;
     private boolean save_state = true;
+    private Font font;
 
     /**
      * Create RSyntaxTextArea empty content
@@ -66,11 +67,15 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
     public void loadEditorFont() {
         try {
             Path font_path = Paths.get(System.getProperty("user.dir"), "font", "DejaVuSansMonoThai.ttf");
-            Font font = Font.createFont(Font.PLAIN, font_path.toFile());
-            this.setFont(font.deriveFont(14.0f));
+            font = Font.createFont(Font.PLAIN, font_path.toFile());
+            this.loadEditorFontSize();
         } catch (FontFormatException | IOException ex) {
             // Use default font
         }
+    }
+    
+    public void loadEditorFontSize() {
+        this.setFont(font.deriveFont((float) UserPreferences.getFontSize()));
     }
 
     /**

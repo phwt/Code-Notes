@@ -48,6 +48,8 @@ public class SettingsForm extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         combo_locale = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        spinner_font = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Settings");
@@ -64,7 +66,7 @@ public class SettingsForm extends javax.swing.JFrame {
         checkbox_wtsp.setSelected(UserPreferences.isWtspVisible());
         checkbox_wtsp.setText(bundle.getString("settings_whitespace")); // NOI18N
 
-        spinner_tab.setValue((Integer) UserPreferences.getTabSize());
+        spinner_tab.setValue((int) UserPreferences.getTabSize());
 
         jLabel2.setText(bundle.getString("settings_tab_size")); // NOI18N
 
@@ -106,6 +108,12 @@ public class SettingsForm extends javax.swing.JFrame {
 
         jLabel3.setText(bundle.getString("settings_locale")); // NOI18N
 
+        jLabel4.setText(bundle.getString("settings_font_size")); // NOI18N
+
+        spinner_font.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        spinner_font.setPreferredSize(new java.awt.Dimension(50, 26));
+        spinner_font.setValue((int) UserPreferences.getFontSize());
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -135,13 +143,17 @@ public class SettingsForm extends javax.swing.JFrame {
                                 .addGap(36, 36, 36)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(spinner_tab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel3)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(combo_locale, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                        .addComponent(combo_locale, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(spinner_font, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(spinner_tab, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap(9, Short.MAX_VALUE))
         );
@@ -156,10 +168,14 @@ public class SettingsForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(checkbox_tab)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(spinner_font, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(checkbox_wtsp)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(combo_locale, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(checkbox_wtsp)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -181,6 +197,7 @@ public class SettingsForm extends javax.swing.JFrame {
         UserPreferences.setTabEmulated(checkbox_tab.isSelected());
         UserPreferences.setWtspVisible(checkbox_wtsp.isSelected());
         UserPreferences.setTabSize((int) spinner_tab.getValue());
+        UserPreferences.setFontSize((int) spinner_font.getValue());
         UserPreferences.setDirPath(txtf_path.getText());
 
         String locale_current;
@@ -202,6 +219,7 @@ public class SettingsForm extends javax.swing.JFrame {
 
         CodeNotes.text_editor.getEditorPool().forEach((editor) -> {
             editor.refreshStyles();
+            editor.loadEditorFontSize();
         });
         CodeNotes.directory_listing.init();
 
@@ -267,6 +285,8 @@ public class SettingsForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JSpinner spinner_font;
     private javax.swing.JSpinner spinner_tab;
     private javax.swing.JTextField txtf_path;
     // End of variables declaration//GEN-END:variables

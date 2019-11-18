@@ -19,6 +19,7 @@ public class UserPreferences {
         setTabEmulated(false);
         setWtspVisible(false);
         setTabSize(4);
+        setFontSize(14);
         setDirPath("/");
         setLocale("en");
     }
@@ -37,6 +38,10 @@ public class UserPreferences {
 
     public static int getTabSize() {
         return prefs.getInt("tab_size", 4);
+    }
+    
+    public static int getFontSize() {
+        return prefs.getInt("font_size", 14);
     }
 
     public static String getDirPath() {
@@ -63,6 +68,10 @@ public class UserPreferences {
 
     public static void setTabSize(int size) {
         prefs.putInt("tab_size", size);
+    }
+    
+    public static void setFontSize(int size) {
+        prefs.putInt("font_size", size);
     }
 
     public static void setDirPath(String path) {
