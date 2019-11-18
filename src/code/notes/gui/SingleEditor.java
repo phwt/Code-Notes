@@ -4,7 +4,6 @@
  */
 package code.notes.gui;
 
-import static code.notes.gui.CodeNotes.setUIFont;
 import code.notes.util.ExtensionTranslator;
 import code.notes.util.FileChooser;
 import code.notes.util.FileHandler;
@@ -15,18 +14,15 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.plaf.FontUIResource;
 import net.iharder.dnd.FileDrop;
 
 /**
  *
  * @author phwts
  */
-public class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextArea {
+public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextArea {
 
     private final TabHeader HEADER;
     private Path path = null;
@@ -68,7 +64,7 @@ public class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextArea {
         try {
             Path font_path = Paths.get(System.getProperty("user.dir"), "font", "DejaVuSansMonoThai.ttf");
             Font font = Font.createFont(Font.PLAIN, font_path.toFile());
-            this.setFont(font.deriveFont(14));
+            this.setFont(font.deriveFont(14.0f));
         } catch (FontFormatException | IOException ex) {
             // Use default font
         }
@@ -92,6 +88,7 @@ public class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextArea {
         });
 
         new FileDrop(this, new FileDrop.Listener() {
+            @Override
             public void filesDropped(File[] files) {
                 for (File file : files) {
                     CodeNotes.text_editor.addTab(file.toPath());
