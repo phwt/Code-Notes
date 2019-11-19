@@ -26,21 +26,20 @@ import net.iharder.dnd.FileDrop;
  */
 public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextArea {
 
-    @Deprecated
-    private final TabHeader HEADER;
     private Path path = null;
     private boolean save_state = true;
     private Font font;
+    final private EditorTab EDITOR_TAB;
 
     /**
      * Create RSyntaxTextArea empty content
      */
-    public SingleEditor() {
+    public SingleEditor(EditorTab tab) {
         super(20, 60);
+        this.EDITOR_TAB = tab;
         this.refreshStyles();
         this.setCodeFoldingEnabled(true);
 
-        this.HEADER = new TabHeader(this, "New File");
         this.addChangeListener();
         this.loadEditorFont();
     }
@@ -50,15 +49,14 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
      *
      * @param path Path assigned to text area
      */
-    public SingleEditor(Path path) {
+    public SingleEditor(Path path, EditorTab tab) {
         super(20, 60);
+        this.EDITOR_TAB = tab;
         this.refreshStyles();
         this.setCodeFoldingEnabled(true);
 
         this.path = path;
-        this.HEADER = new TabHeader(this, this.getFileName());
         this.setText(FileHandler.open(path));
-        this.HEADER.setHeader(getFileName());
         this.setSyntaxStyle();
         this.addChangeListener();
         this.loadEditorFont();
@@ -111,16 +109,14 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
         });
     }
 
-    @Deprecated
     private void saveTrue() {
         this.save_state = true;
-        HEADER.refresh();
+        EDITOR_TAB.refresh();
     }
 
-    @Deprecated
     private void saveFalse() {
         this.save_state = false;
-        HEADER.refresh();
+        EDITOR_TAB.refresh();
     }
 
     public boolean getSaveState() {
@@ -140,11 +136,6 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
             return "New File";
         }
         return String.valueOf(path.getFileName());
-    }
-    
-    @Deprecated
-    public TabHeader getHeader() {
-        return HEADER;
     }
 
     /**
@@ -170,7 +161,6 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
         }
         FileHandler.save(save_path, this.getText());
         this.setPath(save_path);
-        this.HEADER.setHeader(getFileName());
         saveTrue();
         this.setSyntaxStyle();
     }

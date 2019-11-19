@@ -19,13 +19,13 @@ public class EditorTab extends javafx.scene.control.Tab {
     private final SingleEditor EDITOR;
 
     public EditorTab() {
-        EDITOR = new SingleEditor();
+        EDITOR = new SingleEditor(this);
         this.createEditor(EDITOR);
         this.setText(EDITOR.getFileName());
     }
 
     public EditorTab(Path path) {
-        EDITOR = new SingleEditor(path);
+        EDITOR = new SingleEditor(path, this);
         this.createEditor(EDITOR);
         this.setText(EDITOR.getFileName());
     }
@@ -38,6 +38,10 @@ public class EditorTab extends javafx.scene.control.Tab {
 
     public SingleEditor getEDITOR() {
         return EDITOR;
+    }
+    
+    public void refresh() {
+        this.setText(EDITOR.getFileName());
     }
 
 }
