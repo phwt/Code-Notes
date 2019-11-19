@@ -28,7 +28,7 @@ public class CodeNotes extends Application {
         stage.setScene(scene);
         stage.show();
         
-        this.STAGE = stage;
+        CodeNotes.STAGE = stage;
     }
 
     /**
