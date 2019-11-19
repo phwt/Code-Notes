@@ -56,6 +56,7 @@ public class EditorTab extends javafx.scene.control.Tab {
         alert.showAndWait().ifPresent(response -> {
             if (response.equals(btn_save)) {
                 EDITOR.save();
+                FXMLMainController.removeTabPool(this);
             } else if (response.equals(btn_savent)) {
                 // Do nothing
             } else if (response.equals(btn_cancel)) {
