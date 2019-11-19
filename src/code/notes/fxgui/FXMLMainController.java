@@ -13,8 +13,12 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TabPane;
+import javafx.stage.Stage;
 
 /**
  *
@@ -52,12 +56,23 @@ public class FXMLMainController implements Initializable {
         EditorTab selected_tab = (EditorTab) tab_pane.getSelectionModel().getSelectedItem();
         selected_tab.getEDITOR().saveAs();
     }
+    
+    @FXML
+    private void handleExceptionLookupmenu(ActionEvent event) throws Exception{
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLExceptionLookup.fxml"));
+        
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        
+        stage.setScene(scene);
+        stage.show();
+    }
 
     /**
      * Add SingleEditor to editor_pool
      * @param tab
      */
-    public void addTabPool(EditorTab tab) {
+    public static void addTabPool(EditorTab tab) {
         tab_pool.add(tab);
     }
 
@@ -65,7 +80,7 @@ public class FXMLMainController implements Initializable {
      * Remove SingleEditor from editor_pool
      * @param tab
      */
-    public void removeTabPool(EditorTab tab) {
+    public static void removeTabPool(EditorTab tab) {
         tab_pool.remove(tab);
     }
     
