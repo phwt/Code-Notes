@@ -13,7 +13,6 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 
 /**
@@ -66,16 +65,6 @@ public class FXMLMainController implements Initializable {
     public void removeTabPool(EditorTab tab) {
         tab_pool.remove(tab);
     }
-
-//    /**
-//     * Get tab index of specified editor
-//     * @param editor Specified editor
-//     * @return Position of editor on tab
-//     */
-//    @Deprecated
-//    public int getEditorIndex(SingleEditor editor) {
-//        return editor_pool.indexOf(editor);
-//    }
     
     public ArrayList<EditorTab> getTabPool() {
         return tab_pool;
@@ -106,7 +95,7 @@ public class FXMLMainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        addTab();
     }
 
 }
