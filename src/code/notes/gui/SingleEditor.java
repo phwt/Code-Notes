@@ -15,7 +15,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import javafx.scene.control.Tab;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import net.iharder.dnd.FileDrop;
@@ -31,6 +30,16 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
     private Font font;
     final private EditorTab EDITOR_TAB;
 
+    @Deprecated
+    public SingleEditor() {
+        EDITOR_TAB = null;
+    }
+    
+    @Deprecated
+    public SingleEditor(Path path) {
+        this();
+    }
+    
     /**
      * Create RSyntaxTextArea empty content
      */
@@ -188,5 +197,10 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
             return false;
         }
         return this.path.equals(path);
+    }
+    
+    @Deprecated
+    public java.awt.Component getHeader() {
+        return null;
     }
 }
