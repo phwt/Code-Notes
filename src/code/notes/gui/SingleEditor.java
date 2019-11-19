@@ -111,11 +111,13 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
         });
     }
 
+    @Deprecated
     private void saveTrue() {
         this.save_state = true;
         HEADER.refresh();
     }
 
+    @Deprecated
     private void saveFalse() {
         this.save_state = false;
         HEADER.refresh();
