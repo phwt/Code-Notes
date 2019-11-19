@@ -5,19 +5,16 @@
  */
 package code.notes.fxgui;
 
-import code.notes.gui.SingleEditor;
+import code.notes.util.FileChooser;
 import java.net.URL;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.layout.StackPane;
-import org.fife.ui.rtextarea.RTextScrollPane;
 
 /**
  *
@@ -25,7 +22,7 @@ import org.fife.ui.rtextarea.RTextScrollPane;
  */
 public class FXMLMainController implements Initializable {
 
-    private static ArrayList<EditorTab> tab_pool = new ArrayList<>();
+    private static final ArrayList<EditorTab> tab_pool = new ArrayList<>();
 
     @FXML
     private TabPane tab_pane;
@@ -33,6 +30,25 @@ public class FXMLMainController implements Initializable {
     @FXML
     private void handleNewFileAction(ActionEvent event) {
         addTab();
+    }
+    
+    @FXML
+    private void handleOpenAction(ActionEvent event) {
+        for (Path path : FileChooser.openFiles()) {
+            this.addTab(path);
+        }
+    }
+    
+    @FXML
+    private void handleSaveAction(ActionEvent event) {
+        EditorTab selected_tab = (EditorTab) tab_pane.getSelectionModel().getSelectedItem();
+        selected_tab.getEDITOR().save();
+    }
+    
+    @FXML
+    private void handleSaveAsAction(ActionEvent event) {
+        EditorTab selected_tab = (EditorTab) tab_pane.getSelectionModel().getSelectedItem();
+        selected_tab.getEDITOR().saveAs();
     }
 
     /**
