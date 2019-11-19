@@ -5,7 +5,7 @@
 package code.notes.gui;
 
 import code.notes.Bundle;
-import code.notes.util.FileChooser;
+import code.notes.util.FileChooserDialog;
 import code.notes.util.UserPreferences;
 import java.nio.file.Path;
 import javax.swing.JOptionPane;
@@ -242,7 +242,7 @@ public class SettingsForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_closeActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        Path path = FileChooser.openDirectory();
+        Path path = FileChooserDialog.openDirectory();
         if(path == null) {
             return;
         }

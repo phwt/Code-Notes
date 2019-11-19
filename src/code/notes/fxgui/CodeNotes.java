@@ -17,6 +17,8 @@ import javafx.stage.Stage;
  */
 public class CodeNotes extends Application {
     
+    public static Stage STAGE;
+    
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("FXMLMain.fxml"));
@@ -25,6 +27,8 @@ public class CodeNotes extends Application {
         
         stage.setScene(scene);
         stage.show();
+        
+        this.STAGE = stage;
     }
 
     /**

@@ -5,7 +5,7 @@
 package code.notes.gui;
 
 import code.notes.Bundle;
-import code.notes.util.FileChooser;
+import code.notes.util.FileChooserDialog;
 import code.notes.util.UserPreferences;
 import java.awt.BorderLayout;
 import java.awt.Font;
@@ -204,7 +204,7 @@ public class CodeNotes extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menu_openActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_openActionPerformed
-        for (Path path : FileChooser.openFiles()) {
+        for (Path path : FileChooserDialog.openFiles()) {
             text_editor.addTab(path);
         }
     }//GEN-LAST:event_menu_openActionPerformed

@@ -5,10 +5,11 @@
  */
 package code.notes.fxgui;
 
-import code.notes.util.FileChooser;
+import code.notes.util.FileChooserDialog;
 import java.net.URL;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -33,9 +34,11 @@ public class FXMLMainController implements Initializable {
     
     @FXML
     private void handleOpenAction(ActionEvent event) {
-        for (Path path : FileChooser.openFiles()) {
-            this.addTab(path);
-        }
+        // TODO: Make addTab handle multiple files by itself
+        List<Path> paths = FileChooserDialog.openFiles(CodeNotes.STAGE);
+        if(paths != null)
+            for (Path path : paths)
+                this.addTab(path);
     }
     
     @FXML

@@ -6,7 +6,7 @@ package code.notes.gui;
 
 import code.notes.fxgui.EditorTab;
 import code.notes.util.ExtensionTranslator;
-import code.notes.util.FileChooser;
+import code.notes.util.FileChooserDialog;
 import code.notes.util.FileHandler;
 import code.notes.util.UserPreferences;
 import java.awt.Font;
@@ -164,10 +164,10 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
      * Put the contents of this editor into the path selected by the user
      */
     public void saveAs() {
-        Path save_path = FileChooser.save(this.getFileName());
-        if (save_path == null) {
+//        Path save_path = FileChooserDialog.save(getPath(), code.notes.fxgui.CodeNotes.STAGE);
+        Path save_path = FileChooserDialog.save(code.notes.fxgui.CodeNotes.STAGE);
+        if (save_path == null)
             return;
-        }
         FileHandler.save(save_path, this.getText());
         this.setPath(save_path);
         saveTrue();
