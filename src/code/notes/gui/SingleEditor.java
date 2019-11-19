@@ -4,6 +4,7 @@
  */
 package code.notes.gui;
 
+import code.notes.fxgui.EditorTab;
 import code.notes.util.ExtensionTranslator;
 import code.notes.util.FileChooser;
 import code.notes.util.FileHandler;
@@ -14,6 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import javafx.scene.control.Tab;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import net.iharder.dnd.FileDrop;
@@ -24,6 +26,7 @@ import net.iharder.dnd.FileDrop;
  */
 public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextArea {
 
+    @Deprecated
     private final TabHeader HEADER;
     private Path path = null;
     private boolean save_state = true;
@@ -136,7 +139,8 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
         }
         return String.valueOf(path.getFileName());
     }
-
+    
+    @Deprecated
     public TabHeader getHeader() {
         return HEADER;
     }
