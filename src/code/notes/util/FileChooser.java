@@ -15,19 +15,20 @@ import javax.swing.JFileChooser;
  */
 public class FileChooser {
 
-    private static final JFileChooser FILE_CHOOSER = new JFileChooser();
+    @Deprecated
+    private static final JFileChooser JFILE_CHOOSER = new JFileChooser();
 
     /**
      * Show file chooser open dialog with multiple files selection
      * @return Paths of all selected files
      */
     public static Path[] openFiles() {
-        Action details = FILE_CHOOSER.getActionMap().get("viewTypeDetails");
-        FILE_CHOOSER.setMultiSelectionEnabled(true);
+        Action details = JFILE_CHOOSER.getActionMap().get("viewTypeDetails");
+        JFILE_CHOOSER.setMultiSelectionEnabled(true);
         details.actionPerformed(null);
 
-        if (FILE_CHOOSER.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-            File[] files = FILE_CHOOSER.getSelectedFiles();
+        if (JFILE_CHOOSER.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+            File[] files = JFILE_CHOOSER.getSelectedFiles();
             Path[] paths = new Path[files.length];
             
             for(int i=0; i<files.length; i++){
@@ -44,11 +45,11 @@ public class FileChooser {
      * @return Path of selected file
      */
     public static Path openFile() {
-        Action details = FILE_CHOOSER.getActionMap().get("viewTypeDetails");
+        Action details = JFILE_CHOOSER.getActionMap().get("viewTypeDetails");
         details.actionPerformed(null);
 
-        if (FILE_CHOOSER.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-            return FILE_CHOOSER.getSelectedFile().toPath();
+        if (JFILE_CHOOSER.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+            return JFILE_CHOOSER.getSelectedFile().toPath();
         }
         return null;
     }
@@ -58,12 +59,12 @@ public class FileChooser {
      * @return Path of selected directory
      */
     public static Path openDirectory() {
-        Action details = FILE_CHOOSER.getActionMap().get("viewTypeDetails");
-        FILE_CHOOSER.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        Action details = JFILE_CHOOSER.getActionMap().get("viewTypeDetails");
+        JFILE_CHOOSER.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         details.actionPerformed(null);
 
-        if (FILE_CHOOSER.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-            return FILE_CHOOSER.getSelectedFile().toPath();
+        if (JFILE_CHOOSER.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+            return JFILE_CHOOSER.getSelectedFile().toPath();
         }
         return null;
     }
@@ -73,10 +74,10 @@ public class FileChooser {
      * @return Path of selected file
      */
     public static Path save() {
-        Action details = FILE_CHOOSER.getActionMap().get("viewTypeDetails");
+        Action details = JFILE_CHOOSER.getActionMap().get("viewTypeDetails");
         details.actionPerformed(null);
-        if (FILE_CHOOSER.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
-            return FILE_CHOOSER.getSelectedFile().toPath();
+        if (JFILE_CHOOSER.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+            return JFILE_CHOOSER.getSelectedFile().toPath();
         }
         return null;
     }
@@ -87,11 +88,11 @@ public class FileChooser {
      * @return Path of selected file
      */
     public static Path save(String filename) {
-        Action details = FILE_CHOOSER.getActionMap().get("viewTypeDetails");
+        Action details = JFILE_CHOOSER.getActionMap().get("viewTypeDetails");
         details.actionPerformed(null);
-        FILE_CHOOSER.setSelectedFile(new File(filename));
-        if (FILE_CHOOSER.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
-            return FILE_CHOOSER.getSelectedFile().toPath();
+        JFILE_CHOOSER.setSelectedFile(new File(filename));
+        if (JFILE_CHOOSER.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+            return JFILE_CHOOSER.getSelectedFile().toPath();
         }
         return null;
     }
