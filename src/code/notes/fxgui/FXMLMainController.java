@@ -91,12 +91,10 @@ public class FXMLMainController implements Initializable {
 
     private void addTab(Path path) {
         for (EditorTab editor : tab_pool) {
-            // TODO: Check for duplicate tab
-//            if (editor.isSameFile(path)) {
-//                tab_pane.getSelectionModel().select(getEditorIndex(editor));
-//                return;
-//                tab_pane.setSelectedIndex(getEditorIndex(editor));
-//            }
+            if (editor.getEDITOR().isSameFile(path)) {
+                tab_pane.getSelectionModel().select(editor);
+                return;
+            }
         }
         
         EditorTab editor_tab = new EditorTab(path);
