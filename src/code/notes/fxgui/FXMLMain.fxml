@@ -43,7 +43,8 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Tool">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#handleExceptionLookupmenu" text="Exception Lookup" />
+              <MenuItem mnemonicParsing="false" onAction="#handleExceptionLookupMenu" text="Exception Lookup" />
+                  <MenuItem mnemonicParsing="false" onAction="#handlePreferencesMenu" text="Preferences" />
             </items>
           </Menu>
         </menus>

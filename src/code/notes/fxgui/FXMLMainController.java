@@ -58,8 +58,19 @@ public class FXMLMainController implements Initializable {
     }
     
     @FXML
-    private void handleExceptionLookupmenu(ActionEvent event) throws Exception{
+    private void handleExceptionLookupMenu(ActionEvent event) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("FXMLExceptionLookup.fxml"));
+        
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    @FXML
+    private void handlePreferencesMenu(ActionEvent event) throws Exception{
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLPreferences.fxml"));
         
         Scene scene = new Scene(root);
         Stage stage = new Stage();
