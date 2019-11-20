@@ -26,7 +26,7 @@ import javafx.stage.Stage;
  */
 public class FXMLMainController implements Initializable {
 
-    private static final ArrayList<EditorTab> tab_pool = new ArrayList<>();
+    private static final ArrayList<EditorTab> TAB_POOL = new ArrayList<>();
 
     @FXML
     private TabPane tab_pane;
@@ -86,7 +86,7 @@ public class FXMLMainController implements Initializable {
      * @param tab
      */
     public static void addTabPool(EditorTab tab) {
-        tab_pool.add(tab);
+        TAB_POOL.add(tab);
     }
 
     /**
@@ -94,11 +94,11 @@ public class FXMLMainController implements Initializable {
      * @param tab
      */
     public static void removeTabPool(EditorTab tab) {
-        tab_pool.remove(tab);
+        TAB_POOL.remove(tab);
     }
     
-    public ArrayList<EditorTab> getTabPool() {
-        return tab_pool;
+    public static ArrayList<EditorTab> getTabPool() {
+        return TAB_POOL;
     }
 
     private void addTab() {
@@ -110,7 +110,7 @@ public class FXMLMainController implements Initializable {
     }
 
     private void addTab(Path path) {
-        for (EditorTab editor : tab_pool) {
+        for (EditorTab editor : TAB_POOL) {
             if (editor.getEDITOR().isSameFile(path)) {
                 tab_pane.getSelectionModel().select(editor);
                 return;
