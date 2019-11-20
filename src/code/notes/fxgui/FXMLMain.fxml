@@ -13,38 +13,38 @@
         <menus>
           <Menu mnemonicParsing="false" text="%menu_file">
             <items>
-                  <MenuItem mnemonicParsing="false" onAction="#handleOpenAction" text="Open">
+                  <MenuItem mnemonicParsing="false" onAction="#handleOpenAction" text="%open">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
                   </MenuItem>
-              <MenuItem mnemonicParsing="false" onAction="#handleNewFileAction" text="New File">
+              <MenuItem mnemonicParsing="false" onAction="#handleNewFileAction" text="%new_file">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator></MenuItem>
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" onAction="#handleSaveAction" text="Save">
+                  <MenuItem mnemonicParsing="false" onAction="#handleSaveAction" text="%save">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
                   </MenuItem>
-                  <MenuItem mnemonicParsing="false" onAction="#handleSaveAsAction" text="Save As">
+                  <MenuItem mnemonicParsing="false" onAction="#handleSaveAsAction" text="%save_as">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
                      </accelerator>
                   </MenuItem>
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem disable="true" mnemonicParsing="false" text="Close Tab">
+                  <MenuItem disable="true" mnemonicParsing="false" text="%menu_close_tab">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="W" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
                   </MenuItem>
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Tool">
+          <Menu mnemonicParsing="false" text="%tools">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#handleExceptionLookupMenu" text="Exception Lookup" />
-                  <MenuItem mnemonicParsing="false" onAction="#handlePreferencesMenu" text="Preferences" />
+              <MenuItem mnemonicParsing="false" onAction="#handleExceptionLookupMenu" text="%exception_lookup" />
+                  <MenuItem mnemonicParsing="false" onAction="#handlePreferencesMenu" text="%preferences" />
             </items>
           </Menu>
         </menus>

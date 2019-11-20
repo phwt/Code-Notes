@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
@@ -10,64 +11,103 @@
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="458.0" prefWidth="425.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="code.notes.fxgui.FXMLPreferencesController">
    <children>
-      <CheckBox fx:id="box_autoindent" layoutX="24.0" layoutY="49.0" mnemonicParsing="false" text="Enable Auto-Indent">
+      <CheckBox fx:id="box_autoindent" layoutX="24.0" layoutY="49.0" mnemonicParsing="false" text="%settings_auto_indent">
          <font>
             <Font size="14.0" />
          </font>
       </CheckBox>
-      <Label layoutX="14.0" layoutY="14.0" text="Editor">
+      <Label layoutX="14.0" layoutY="14.0" text="%prefs_section_editor">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
-      <CheckBox fx:id="box_translatetab" layoutX="24.0" layoutY="79.0" mnemonicParsing="false" text="Translate Tab to Space">
+      <CheckBox fx:id="box_translatetab" layoutX="24.0" layoutY="79.0" mnemonicParsing="false" text="%settings_translate_tab">
          <font>
             <Font size="14.0" />
          </font>
       </CheckBox>
-      <CheckBox fx:id="box_wtsp" layoutX="24.0" layoutY="109.0" mnemonicParsing="false" text="Whitespace Visible">
+      <CheckBox fx:id="box_wtsp" layoutX="24.0" layoutY="109.0" mnemonicParsing="false" text="%settings_whitespace">
          <font>
             <Font size="14.0" />
          </font>
       </CheckBox>
-
-      <Label layoutX="24.0" layoutY="141.0" text="Indent Size: ">
-         <font>
-            <Font size="14.0" />
-         </font></Label>
-      <Label layoutX="22.0" layoutY="176.0" text="Font Family: ">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <Label layoutX="14.0" layoutY="220.0" text="Directory Listing">
+      <Label layoutX="14.0" layoutY="220.0" text="%prefs_section_dirlist">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="field_dir_path" editable="false" layoutX="24.0" layoutY="275.0" prefHeight="25.0" prefWidth="311.0" />
-      <Label layoutX="22.0" layoutY="255.0" text="Root Path:">
+      <Label layoutX="22.0" layoutY="255.0" text="%settings_dir_root">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Button layoutX="345.0" layoutY="275.0" mnemonicParsing="false" onAction="#handleBrowseAction" text="Browse" />
-      <Label layoutX="15.0" layoutY="320.0" text="General">
+      <Label layoutX="15.0" layoutY="320.0" text="%prefs_section_general">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
       <ComboBox fx:id="combo_locale" layoutX="25.0" layoutY="372.0" prefHeight="25.0" prefWidth="374.0" />
-      <Label layoutX="24.0" layoutY="352.0" text="Locale:">
+      <Label layoutX="24.0" layoutY="352.0" text="%settings_locale">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Button layoutX="195.0" layoutY="417.0" mnemonicParsing="false" onAction="#handleRestoreAction" text="Restore Defaults" />
-      <Button layoutX="308.0" layoutY="417.0" mnemonicParsing="false" onAction="#handleSaveAction" text="Save" />
-      <Button layoutX="359.0" layoutY="417.0" mnemonicParsing="false" onAction="#handleCancelAction" text="Cancel" />
-      <ComboBox fx:id="combo_font_size" layoutX="338.0" layoutY="174.0" prefHeight="25.0" prefWidth="65.0" />
-      <ComboBox fx:id="combo_font_fam" disable="true" layoutX="108.0" layoutY="174.0" prefHeight="25.0" prefWidth="225.0" />
-      <ComboBox fx:id="combo_indent" layoutX="108.0" layoutY="139.0" prefHeight="25.0" prefWidth="65.0" />
+      <HBox alignment="CENTER_RIGHT" layoutX="3.0" layoutY="422.0" prefHeight="25.0" prefWidth="411.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#handleRestoreAction" text="%reset_default">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#handleSaveAction" text="%save">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#handleCancelAction" text="%cancel" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" layoutX="22.0" layoutY="139.0" prefHeight="25.0" prefWidth="384.0">
+         <children>
+      
+            <Label text="%settings_tab_size">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </Label>
+            <ComboBox fx:id="combo_indent" prefHeight="25.0" prefWidth="65.0" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" layoutX="22.0" layoutY="172.0" prefHeight="25.0" prefWidth="384.0">
+         <children>
+            <Label text="%settings_font_family">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </Label>
+            <ComboBox fx:id="combo_font_fam" disable="true" prefHeight="25.0" prefWidth="166.0">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </ComboBox>
+            <ComboBox fx:id="combo_font_size" prefHeight="25.0" prefWidth="65.0" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" layoutX="22.0" layoutY="275.0" prefHeight="25.0" prefWidth="384.0">
+         <children>
+            <TextField fx:id="field_dir_path" editable="false" prefHeight="25.0" prefWidth="311.0">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </TextField>
+            <Button mnemonicParsing="false" onAction="#handleBrowseAction" text="%settings_browse" />
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

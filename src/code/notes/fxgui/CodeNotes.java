@@ -5,6 +5,8 @@
  */
 package code.notes.fxgui;
 
+import code.notes.Bundle;
+import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -21,8 +23,8 @@ public class CodeNotes extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLMain.fxml"));
-        
+        ResourceBundle resources = ResourceBundle.getBundle("code.notes.Bundle", Bundle.getLocale());
+        Parent root = new FXMLLoader().load(getClass().getResource("FXMLMain.fxml"), resources);
         Scene scene = new Scene(root);
         
         stage.setScene(scene);
@@ -35,6 +37,7 @@ public class CodeNotes extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+//        code.notes.util.UserPreferences.resetPreferences();
         launch(args);
     }
     
