@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -92,27 +95,38 @@ public class FXMLMainController implements Initializable {
     }
 
     private void loadTree() {
-        
+
         System.out.println(UserPreferences.getDirPath());
-        
+
 //        Path path = Paths.get("K:/Files/GitHub/Code-Notes-FX/nbproject/private");
         Path path = Paths.get("K:/Files");
 //        Path path = Paths.get(UserPreferences.getDirPath());
-        DirectoryNode dir_node = new DirectoryNode(path);
+
+        TreeItem dir_node = new TreeItem(path.getFileName().toString());
         dir_tree.setRoot(dir_node);
         dir_tree.setShowRoot(false);
         createTree(path, dir_node);
     }
 
-    private void createTree(Path root_path, DirectoryNode parent) {
+    private void createTree(Path root_path, TreeItem parent) {
         if (root_path.toFile().isDirectory()) {
-            DirectoryNode node = new DirectoryNode(root_path);
+            TreeItem node = new TreeItem(root_path.getFileName().toString());
             parent.getChildren().add(node);
             for (File f : root_path.toFile().listFiles()) {
-                createTree(f.toPath(), node);
+                TreeItem mock_node = new TreeItem("mock");
+                node.getChildren().add(mock_node);
+                
+                node.addEventHandler(TreeItem.branchExpandedEvent(), new EventHandler() {
+                    @Override
+                    public void handle(Event event) {
+                        createTree(f.toPath(), node);
+                        node.getChildren().remove(mock_node);
+                        node.removeEventHandler(TreeItem.branchExpandedEvent(), this);
+                    }
+                });
             }
         } else {
-            parent.getChildren().add(new DirectoryNode(root_path));
+            parent.getChildren().add(new TreeItem(root_path.getFileName().toString()));
         }
     }
 
