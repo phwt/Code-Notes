@@ -45,7 +45,7 @@ public class FXMLPreferencesController implements Initializable {
     @FXML
     private void handleBrowseAction(ActionEvent e) {
         Path path = FileChooserDialog.openDirectory((Stage) box_autoindent.getScene().getWindow());
-        if(path != null) {
+        if (path != null) {
             field_dir_path.setText(path.toString());
         }
     }
@@ -53,6 +53,7 @@ public class FXMLPreferencesController implements Initializable {
     @FXML
     private void handleRestoreAction(ActionEvent e) {
         UserPreferences.resetPreferences();
+        refreshEditors();
         handleCancelAction(e);
     }
 
@@ -62,15 +63,8 @@ public class FXMLPreferencesController implements Initializable {
         UserPreferences.setTabEmulated(box_translatetab.isSelected());
         UserPreferences.setWtspVisible(box_wtsp.isSelected());
 
-        int indent = 0;
-        int font_size = 0;
-        try {
-            indent = Integer.valueOf((String) combo_indent.getSelectionModel().getSelectedItem());
-            font_size = Integer.valueOf((String) combo_font_size.getSelectionModel().getSelectedItem());
-        } catch (ClassCastException ex) {
-            indent = ((int) combo_indent.getSelectionModel().getSelectedItem());
-            font_size = ((int) combo_font_size.getSelectionModel().getSelectedItem());
-        }
+        int indent = Integer.valueOf((String) combo_indent.getSelectionModel().getSelectedItem());
+        int font_size = Integer.valueOf((String) combo_font_size.getSelectionModel().getSelectedItem());
 
         UserPreferences.setTabSize(indent);
         UserPreferences.setFontSize(font_size);
@@ -78,7 +72,7 @@ public class FXMLPreferencesController implements Initializable {
         UserPreferences.setFontFamily((String) combo_font_fam.getSelectionModel().getSelectedItem());
 
         UserPreferences.setDirPath(field_dir_path.getText());
-        
+
         switch (((String) combo_locale.getSelectionModel().getSelectedItem()).toLowerCase()) {
             case "english":
                 UserPreferences.setLocale("en");
@@ -87,7 +81,7 @@ public class FXMLPreferencesController implements Initializable {
                 UserPreferences.setLocale("th");
                 break;
         }
-        
+        refreshEditors();
         handleCancelAction(e);
     }
 
@@ -122,18 +116,25 @@ public class FXMLPreferencesController implements Initializable {
         for (int i = 2; i <= 16; i *= 2) {
             combo_indent.getItems().add(i);
         }
-        combo_font_size.getItems().addAll(8, 9, 10, 11, 12, 14, 16, 18, 20, 22, 24, 26, 28, 36, 48, 72);
+        combo_font_size.getItems().addAll("8", "9", "10", "11", "12", "14", "16", "18", "20", "22", "24", "26", "28", "36", "48", "72");
         combo_locale.getItems().addAll("English", "ภาษาไทย");
         this.loadFonts();
     }
 
     private void loadFonts() {
-        String fonts[] = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
+//        String fonts[] = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
 
         combo_font_fam.getItems().add("DejaVu Sans Mono Thai");
-        for (int i = 0; i < fonts.length; i++) {
-            combo_font_fam.getItems().add(fonts[i]);
-        }
+//        for (int i = 0; i < fonts.length; i++) {
+//            combo_font_fam.getItems().add(fonts[i]);
+//        }
+    }
+
+    private void refreshEditors() {
+        FXMLMainController.getTabPool().forEach((tab) -> {
+            System.out.println("one");
+            tab.getEDITOR().refreshStyles();
+        });
     }
 
     /**

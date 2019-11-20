@@ -46,11 +46,11 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
     public SingleEditor(EditorTab tab) {
         super(20, 60);
         this.EDITOR_TAB = tab;
+        this.loadEditorFont();
         this.refreshStyles();
         this.setCodeFoldingEnabled(true);
 
         this.addChangeListener();
-        this.loadEditorFont();
     }
 
     /**
@@ -61,6 +61,7 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
     public SingleEditor(Path path, EditorTab tab) {
         super(20, 60);
         this.EDITOR_TAB = tab;
+        this.loadEditorFont();
         this.refreshStyles();
         this.setCodeFoldingEnabled(true);
 
@@ -68,7 +69,6 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
         this.setText(FileHandler.open(path));
         this.setSyntaxStyle();
         this.addChangeListener();
-        this.loadEditorFont();
     }
     
     /**
@@ -182,6 +182,7 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
         this.setTabsEmulated(UserPreferences.isTabEmulated());
         this.setAutoIndentEnabled(UserPreferences.isAutoIndent());
         this.setWhitespaceVisible(UserPreferences.isWtspVisible());
+        this.loadEditorFontSize();
     }
 
     /**

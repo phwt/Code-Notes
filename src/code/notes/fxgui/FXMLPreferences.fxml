@@ -67,7 +67,7 @@
       <Button layoutX="308.0" layoutY="417.0" mnemonicParsing="false" onAction="#handleSaveAction" text="Save" />
       <Button layoutX="359.0" layoutY="417.0" mnemonicParsing="false" onAction="#handleCancelAction" text="Cancel" />
       <ComboBox fx:id="combo_font_size" layoutX="338.0" layoutY="174.0" prefHeight="25.0" prefWidth="65.0" />
-      <ComboBox fx:id="combo_font_fam" layoutX="108.0" layoutY="174.0" prefHeight="25.0" prefWidth="225.0" />
+      <ComboBox fx:id="combo_font_fam" disable="true" layoutX="108.0" layoutY="174.0" prefHeight="25.0" prefWidth="225.0" />
       <ComboBox fx:id="combo_indent" layoutX="108.0" layoutY="139.0" prefHeight="25.0" prefWidth="65.0" />
    </children>
 </AnchorPane>
