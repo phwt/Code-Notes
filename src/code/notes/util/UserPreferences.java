@@ -20,6 +20,7 @@ public class UserPreferences {
         setWtspVisible(false);
         setTabSize(4);
         setFontSize(14);
+        setFontFamily("DejaVu Sans Mono Thai");
         setDirPath("/");
         setLocale("en");
     }
@@ -42,6 +43,10 @@ public class UserPreferences {
     
     public static int getFontSize() {
         return prefs.getInt("font_size", 14);
+    }
+    
+    public static String getFontFamily() {
+        return prefs.get("font_family", "DejaVu Sans Mono Thai");
     }
 
     public static String getDirPath() {
@@ -72,6 +77,10 @@ public class UserPreferences {
     
     public static void setFontSize(int size) {
         prefs.putInt("font_size", size);
+    }
+    
+    public static void setFontFamily(String font) {
+        prefs.put("font_family", font);
     }
 
     public static void setDirPath(String path) {
