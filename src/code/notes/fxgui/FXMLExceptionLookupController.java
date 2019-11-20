@@ -17,9 +17,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -29,11 +33,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class FXMLExceptionLookupController implements Initializable {
 
     @FXML
-    private Button search_btn;
-    @FXML
     private TextField search_kw;
     @FXML
     private ComboBox combo_lang;
+    @FXML
+    private TextArea result_area;
+    @FXML
+    private Button close_btn;
 
     @FXML
     private TableView result_table;
@@ -48,12 +54,22 @@ public class FXMLExceptionLookupController implements Initializable {
 
     @FXML
     private void handleSearchAction(ActionEvent e) {
-        String selected_lang = (String) combo_lang.getValue();
-        String user_search = search_kw.getText();
-        if (!selected_lang.isEmpty()) {
+        if (!combo_lang.getSelectionModel().isEmpty()) {
+            String selected_lang = (String) combo_lang.getValue();
+            String user_search = search_kw.getText();
             row_data = ExceptionLookup.searchException(selected_lang, user_search);
             result_table.setItems(row_data);
         }
+    }
+
+    @FXML
+    private void handleCloseAction(ActionEvent e) {
+        Stage stage = (Stage) close_btn.getScene().getWindow();
+        stage.close();
+    }
+
+    private void showSelectionData(ExceptionModel model) {
+        result_area.setText(model.getSolution());
     }
 
     /**
@@ -74,6 +90,16 @@ public class FXMLExceptionLookupController implements Initializable {
         col_id.setMaxWidth(1f * Integer.MAX_VALUE * 10);
         col_key.setMaxWidth(1f * Integer.MAX_VALUE * 30);
         col_sol.setMaxWidth(1f * Integer.MAX_VALUE * 60);
+
+        result_table.setRowFactory(tv -> {
+            TableRow<ExceptionModel> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY) {
+                    showSelectionData(row.getItem());
+                }
+            });
+            return row;
+        });
     }
 
 }

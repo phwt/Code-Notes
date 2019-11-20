@@ -23,8 +23,8 @@
       </Label>
       <TextField fx:id="search_kw" layoutX="242.0" layoutY="12.0" prefHeight="25.0" prefWidth="294.0" />
       <ComboBox fx:id="combo_lang" layoutX="139.0" layoutY="12.0" prefHeight="25.0" prefWidth="96.0" promptText="Language" />
-      <Button fx:id="search_btn" layoutX="541.0" layoutY="12.0" mnemonicParsing="false" onAction="#handleSearchAction" text="Search" />
-      <TextArea editable="false" layoutX="14.0" layoutY="229.0" prefHeight="69.0" prefWidth="578.0" />
-      <Button layoutX="548.0" layoutY="305.0" mnemonicParsing="false" text="Close" />
+      <Button layoutX="541.0" layoutY="12.0" mnemonicParsing="false" onAction="#handleSearchAction" text="Search" />
+      <TextArea fx:id="result_area" editable="false" layoutX="14.0" layoutY="229.0" prefHeight="69.0" prefWidth="578.0" />
+      <Button fx:id="close_btn" layoutX="548.0" layoutY="305.0" mnemonicParsing="false" onAction="#handleCloseAction" text="Close" />
    </children>
 </AnchorPane>
