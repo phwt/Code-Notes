@@ -51,7 +51,7 @@
       </MenuBar>
       <SplitPane dividerPositions="0.29797979797979796" layoutY="27.0" prefHeight="614.0" prefWidth="896.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="27.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="628.0" prefWidth="715.0" />
+          <AnchorPane maxWidth="400.0" minWidth="100.0" prefWidth="200.0" />
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="588.0" prefWidth="628.0">
                <children>
                   <TabPane fx:id="tab_pane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="ALL_TABS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
