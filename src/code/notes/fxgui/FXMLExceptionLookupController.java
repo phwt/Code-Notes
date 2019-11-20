@@ -51,7 +51,7 @@ public class FXMLExceptionLookupController implements Initializable {
         String selected_lang = (String) combo_lang.getValue();
         String user_search = search_kw.getText();
         if (!selected_lang.isEmpty()) {
-            row_data = ExceptionLookup.searchException(selected_lang, user_search);        
+            row_data = ExceptionLookup.searchException(selected_lang, user_search);
             result_table.setItems(row_data);
         }
     }
@@ -69,6 +69,11 @@ public class FXMLExceptionLookupController implements Initializable {
         col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
         col_key.setCellValueFactory(new PropertyValueFactory<>("key"));
         col_sol.setCellValueFactory(new PropertyValueFactory<>("solution"));
+
+        result_table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        col_id.setMaxWidth(1f * Integer.MAX_VALUE * 10);
+        col_key.setMaxWidth(1f * Integer.MAX_VALUE * 30);
+        col_sol.setMaxWidth(1f * Integer.MAX_VALUE * 60);
     }
 
 }
