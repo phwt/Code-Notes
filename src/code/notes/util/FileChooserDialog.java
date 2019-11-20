@@ -22,8 +22,6 @@ public class FileChooserDialog {
 
     @Deprecated
     private static final JFileChooser JFILE_CHOOSER = new JFileChooser();
-//    private static final FileChooser FILE_CHOOSER = new FileChooser();
-//    private static final DirectoryChooser DIR_CHOOSER = new DirectoryChooser();
 
     /**
      * Show file chooser open dialog with multiple files selection
