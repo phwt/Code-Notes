@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -96,22 +97,23 @@ public class FXMLMainController implements Initializable {
         stage.show();
     }
 
-    private void loadTree() {
-        File root_path = new File(UserPreferences.getDirPath());
+    public void loadTree() {
+        if (!UserPreferences.getDirPath().isEmpty()) {
+            File root_path = new File(UserPreferences.getDirPath());
+            TreeItem dir_node = new TreeItem(root_path.getName());
+            dir_tree.setRoot(dir_node);
+            dir_tree.setShowRoot(false);
 
-        TreeItem dir_node = new TreeItem(root_path.getName());
-        dir_tree.setRoot(dir_node);
-        dir_tree.setShowRoot(false);
-
-        for (File file : root_path.listFiles()) {
-            createTree(file, dir_node);
+            for (File file : root_path.listFiles()) {
+                createTree(file, dir_node);
+            }
         }
     }
 
     private void createTree(File root_file, TreeItem parent) {
         try {
             DosFileAttributes attr = Files.readAttributes(root_file.toPath(), DosFileAttributes.class);
-            if(attr.isSystem() || attr.isHidden() || attr.isReadOnly()) {
+            if (attr.isSystem() || attr.isHidden() || attr.isReadOnly()) {
                 // Do nothing
             } else if (root_file.isDirectory()) {
                 TreeItem node = new TreeItem(root_file.getName());
@@ -119,7 +121,7 @@ public class FXMLMainController implements Initializable {
                 for (File f : root_file.listFiles()) {
                     TreeItem placeholder = new TreeItem();
                     node.getChildren().add(placeholder);
-                    
+
                     node.addEventHandler(TreeItem.branchExpandedEvent(), new EventHandler() {
                         @Override
                         public void handle(Event event) {
@@ -181,11 +183,20 @@ public class FXMLMainController implements Initializable {
 
         addTabPool(editor_tab);
     }
+    
+    private void addFileListener() {
+         UserPreferences.getPrefs().addPreferenceChangeListener((e) -> {
+            if (e.getKey().equals("dir_path")) {
+                loadTree();
+            }
+        });
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         addTab();
         loadTree();
+        addFileListener();
     }
 
 }
