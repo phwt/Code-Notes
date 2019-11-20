@@ -4,8 +4,11 @@
  */
 package code.notes.util;
 
+import code.notes.fxgui.ExceptionModel;
 import java.nio.file.Paths;
 import java.sql.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  *
@@ -27,8 +30,8 @@ public class ExceptionLookup {
         return " WHERE " + String.join(" OR ", keywords);
     }
 
-    public static String[][] searchException(String lang, String keyword) {
-        String[][] result = new String[30][3];
+    public static ObservableList<ExceptionModel> searchException(String lang, String keyword) {
+        ObservableList<ExceptionModel> row_data = FXCollections.observableArrayList();
         Connection connect = null;
         Statement s = null;
         try {
@@ -55,9 +58,11 @@ public class ExceptionLookup {
 
             int count = 0;
             while (rst.next()) {
-                result[count][0] = Integer.toString(count + 1);
-                result[count][1] = rst.getString(1);
-                result[count][2] = rst.getString(2);
+                row_data.add(new ExceptionModel(
+                        count + 1,
+                        rst.getString(1),
+                        rst.getString(2)
+                ));
                 count++;
             }
         } catch (SQLException e) {
@@ -72,6 +77,6 @@ public class ExceptionLookup {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return result;
+        return row_data;
     }
 }
