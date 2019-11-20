@@ -5,20 +5,22 @@
  */
 package code.notes.fxgui;
 
-import code.notes.util.DirectoryNode;
 import code.notes.util.FileChooserDialog;
 import code.notes.util.UserPreferences;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.attribute.DosFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -95,38 +97,43 @@ public class FXMLMainController implements Initializable {
     }
 
     private void loadTree() {
+        File root_path = new File(UserPreferences.getDirPath());
 
-        System.out.println(UserPreferences.getDirPath());
-
-//        Path path = Paths.get("K:/Files/GitHub/Code-Notes-FX/nbproject/private");
-        Path path = Paths.get("K:/Files");
-//        Path path = Paths.get(UserPreferences.getDirPath());
-
-        TreeItem dir_node = new TreeItem(path.getFileName().toString());
+        TreeItem dir_node = new TreeItem(root_path.getName());
         dir_tree.setRoot(dir_node);
         dir_tree.setShowRoot(false);
-        createTree(path, dir_node);
+
+        for (File file : root_path.listFiles()) {
+            createTree(file, dir_node);
+        }
     }
 
-    private void createTree(Path root_path, TreeItem parent) {
-        if (root_path.toFile().isDirectory()) {
-            TreeItem node = new TreeItem(root_path.getFileName().toString());
-            parent.getChildren().add(node);
-            for (File f : root_path.toFile().listFiles()) {
-                TreeItem mock_node = new TreeItem("mock");
-                node.getChildren().add(mock_node);
-                
-                node.addEventHandler(TreeItem.branchExpandedEvent(), new EventHandler() {
-                    @Override
-                    public void handle(Event event) {
-                        createTree(f.toPath(), node);
-                        node.getChildren().remove(mock_node);
-                        node.removeEventHandler(TreeItem.branchExpandedEvent(), this);
-                    }
-                });
+    private void createTree(File root_path, TreeItem parent) {
+        try {
+            DosFileAttributes attr = Files.readAttributes(root_path.toPath(), DosFileAttributes.class);
+            if(attr.isSystem() || attr.isHidden() || attr.isReadOnly()) {
+                // Do nothing
+            } else if (root_path.isDirectory()) {
+                TreeItem node = new TreeItem(root_path.getName());
+                parent.getChildren().add(node);
+                for (File f : root_path.listFiles()) {
+                    TreeItem mock_node = new TreeItem();
+                    node.getChildren().add(mock_node);
+                    
+                    node.addEventHandler(TreeItem.branchExpandedEvent(), new EventHandler() {
+                        @Override
+                        public void handle(Event event) {
+                            createTree(f, node);
+                            node.getChildren().remove(mock_node);
+                            node.removeEventHandler(TreeItem.branchExpandedEvent(), this);
+                        }
+                    });
+                }
+            } else {
+                parent.getChildren().add(new TreeItem(root_path.getName()));
             }
-        } else {
-            parent.getChildren().add(new TreeItem(root_path.getFileName().toString()));
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLMainController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
