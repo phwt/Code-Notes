@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import javax.swing.UIManager;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import net.iharder.dnd.FileDrop;
@@ -45,6 +46,7 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
      */
     public SingleEditor(EditorTab tab) {
         super(20, 60);
+        this.setLAF();
         this.EDITOR_TAB = tab;
         this.loadEditorFont();
         this.refreshStyles();
@@ -60,6 +62,7 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
      */
     public SingleEditor(Path path, EditorTab tab) {
         super(20, 60);
+        this.setLAF();
         this.EDITOR_TAB = tab;
         this.loadEditorFont();
         this.refreshStyles();
@@ -69,6 +72,14 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
         this.setText(FileHandler.open(path));
         this.setSyntaxStyle();
         this.addChangeListener();
+    }
+    
+    private void setLAF() {
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            //Never happens
+        }
     }
     
     /**
