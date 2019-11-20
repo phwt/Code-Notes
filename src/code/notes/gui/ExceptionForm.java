@@ -152,7 +152,8 @@ public class ExceptionForm extends javax.swing.JFrame {
 
     private void btn_searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchActionPerformed
         String user_search = texfield_search.getText();
-        String[][] datas = ExceptionLookup.searchException(String.valueOf(combo_lang.getSelectedItem()), user_search);
+//        String[][] datas = ExceptionLookup.searchException(String.valueOf(combo_lang.getSelectedItem()), user_search);
+        String[][] datas = null;
 
         table_result.setModel(new javax.swing.table.DefaultTableModel(
                 datas,
