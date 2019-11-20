@@ -6,9 +6,7 @@ package code.notes.fxgui;
 
 import code.notes.util.ExceptionLookup;
 import java.net.URL;
-import java.util.Collection;
 import java.util.ResourceBundle;
-import javafx.beans.InvalidationListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
