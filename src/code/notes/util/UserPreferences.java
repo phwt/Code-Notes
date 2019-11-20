@@ -21,8 +21,12 @@ public class UserPreferences {
         setTabSize(4);
         setFontSize(14);
         setFontFamily("DejaVu Sans Mono Thai");
-        setDirPath("/");
+        setDirPath("");
         setLocale("en");
+    }
+    
+    public static Preferences getPrefs() {
+        return prefs;
     }
 
     public static boolean isAutoIndent() {
@@ -50,7 +54,7 @@ public class UserPreferences {
     }
 
     public static String getDirPath() {
-        return prefs.get("dir_path", "/");
+        return prefs.get("dir_path", "");
     }
     
     public static String getLocale() {
