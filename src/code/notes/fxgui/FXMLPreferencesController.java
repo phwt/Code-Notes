@@ -4,9 +4,11 @@
  */
 package code.notes.fxgui;
 
+import code.notes.util.FileChooserDialog;
 import code.notes.util.UserPreferences;
 import java.awt.GraphicsEnvironment;
 import java.net.URL;
+import java.nio.file.Path;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -42,7 +44,10 @@ public class FXMLPreferencesController implements Initializable {
 
     @FXML
     private void handleBrowseAction(ActionEvent e) {
-        System.out.println("browse");
+        Path path = FileChooserDialog.openDirectory((Stage) box_autoindent.getScene().getWindow());
+        if(path != null) {
+            field_dir_path.setText(path.toString());
+        }
     }
 
     @FXML
