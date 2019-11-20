@@ -45,7 +45,7 @@
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="field_dir_path" layoutX="24.0" layoutY="275.0" prefHeight="25.0" prefWidth="311.0" />
+      <TextField fx:id="field_dir_path" editable="false" layoutX="24.0" layoutY="275.0" prefHeight="25.0" prefWidth="311.0" />
       <Label layoutX="22.0" layoutY="255.0" text="Root Path:">
          <font>
             <Font size="14.0" />
