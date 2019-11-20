@@ -4,6 +4,7 @@
  */
 package code.notes;
 
+import code.notes.util.UserPreferences;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -15,7 +16,7 @@ public class Bundle {
 
     public static final Locale THAI = new Locale("th", "TH");
 
-    public  static Locale toLocale(String string_locale) {
+    public static Locale toLocale(String string_locale) {
         switch (string_locale) {
             case "en":
                 return Locale.ENGLISH;
@@ -25,7 +26,12 @@ public class Bundle {
                 return null;
         }
     }
+    
+    public static Locale getLocale() {
+        return toLocale(UserPreferences.getLocale());
+    }
 
+    @Deprecated
     public static void setLocale(Locale locale) {
         Locale.setDefault(locale);
         ResourceBundle.clearCache();
@@ -34,6 +40,11 @@ public class Bundle {
     public static String get(String key) {
         ResourceBundle bundle = ResourceBundle.getBundle("code/notes/Bundle");
         return bundle.getString(key);
+    }
+
+    @Deprecated
+    public static void refreshLocale() {
+        setLocale(toLocale(UserPreferences.getLocale()));
     }
 
 }

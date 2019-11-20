@@ -5,6 +5,7 @@
  */
 package code.notes.fxgui;
 
+import code.notes.Bundle;
 import code.notes.util.FileChooserDialog;
 import code.notes.util.UserPreferences;
 import java.io.File;
@@ -19,8 +20,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -42,11 +41,13 @@ import javafx.stage.Stage;
 public class FXMLMainController implements Initializable {
 
     private static final ArrayList<EditorTab> TAB_POOL = new ArrayList<>();
-
+    private final ResourceBundle resources = ResourceBundle.getBundle("code.notes.Bundle", Bundle.getLocale());
+    
     @FXML
     private TabPane tab_pane;
     @FXML
     private TreeView dir_tree;
+    private ResourceBundle bundle;
 
     @FXML
     private void handleNewFileAction(ActionEvent event) {
@@ -78,7 +79,7 @@ public class FXMLMainController implements Initializable {
 
     @FXML
     private void handleExceptionLookupMenu(ActionEvent event) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLExceptionLookup.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLExceptionLookup.fxml"), resources);
 
         Scene scene = new Scene(root);
         Stage stage = new Stage();
@@ -107,7 +108,7 @@ public class FXMLMainController implements Initializable {
 
     @FXML
     private void handlePreferencesMenu(ActionEvent event) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLPreferences.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLPreferences.fxml"), resources);
 
         Scene scene = new Scene(root);
         Stage stage = new Stage();
@@ -216,6 +217,7 @@ public class FXMLMainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        bundle = rb;
         addTab();
         loadTree();
         addFileListener();
