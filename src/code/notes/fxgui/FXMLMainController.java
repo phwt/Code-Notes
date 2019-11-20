@@ -65,6 +65,7 @@ public class FXMLMainController implements Initializable {
         Stage stage = new Stage();
         
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
     
@@ -76,6 +77,7 @@ public class FXMLMainController implements Initializable {
         Stage stage = new Stage();
         
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 
