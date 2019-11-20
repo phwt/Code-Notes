@@ -12,13 +12,15 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.attribute.DosFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -30,6 +32,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 /**
@@ -83,6 +86,23 @@ public class FXMLMainController implements Initializable {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
+    }
+
+    @FXML
+    private void handleTreeClickAction(MouseEvent event) {
+        if (event.getClickCount() == 2) {
+            StringBuilder pathBuilder = new StringBuilder();
+            for (TreeItem<String> item = (TreeItem<String>) dir_tree.getSelectionModel().getSelectedItem();
+                    item != null; item = item.getParent()) {
+
+                pathBuilder.insert(0, item.getValue());
+                pathBuilder.insert(0, "/");
+            }
+            String path = pathBuilder.toString();
+            path = UserPreferences.getDirPath() + path.substring(2, path.length());
+            path = path.replace("\\", "/");
+            addTab(Paths.get(path));
+        }
     }
 
     @FXML
@@ -170,22 +190,24 @@ public class FXMLMainController implements Initializable {
     }
 
     private void addTab(Path path) {
-        for (EditorTab editor : TAB_POOL) {
-            if (editor.getEDITOR().isSameFile(path)) {
-                tab_pane.getSelectionModel().select(editor);
-                return;
+        if (path.toFile().isFile()) {
+            for (EditorTab editor : TAB_POOL) {
+                if (editor.getEDITOR().isSameFile(path)) {
+                    tab_pane.getSelectionModel().select(editor);
+                    return;
+                }
             }
+
+            EditorTab editor_tab = new EditorTab(path);
+            tab_pane.getTabs().add(editor_tab);
+            tab_pane.getSelectionModel().select(editor_tab);
+
+            addTabPool(editor_tab);
         }
-
-        EditorTab editor_tab = new EditorTab(path);
-        tab_pane.getTabs().add(editor_tab);
-        tab_pane.getSelectionModel().select(editor_tab);
-
-        addTabPool(editor_tab);
     }
-    
+
     private void addFileListener() {
-         UserPreferences.getPrefs().addPreferenceChangeListener((e) -> {
+        UserPreferences.getPrefs().addPreferenceChangeListener((e) -> {
             if (e.getKey().equals("dir_path")) {
                 loadTree();
             }
