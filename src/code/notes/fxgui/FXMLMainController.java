@@ -108,29 +108,29 @@ public class FXMLMainController implements Initializable {
         }
     }
 
-    private void createTree(File root_path, TreeItem parent) {
+    private void createTree(File root_file, TreeItem parent) {
         try {
-            DosFileAttributes attr = Files.readAttributes(root_path.toPath(), DosFileAttributes.class);
+            DosFileAttributes attr = Files.readAttributes(root_file.toPath(), DosFileAttributes.class);
             if(attr.isSystem() || attr.isHidden() || attr.isReadOnly()) {
                 // Do nothing
-            } else if (root_path.isDirectory()) {
-                TreeItem node = new TreeItem(root_path.getName());
+            } else if (root_file.isDirectory()) {
+                TreeItem node = new TreeItem(root_file.getName());
                 parent.getChildren().add(node);
-                for (File f : root_path.listFiles()) {
-                    TreeItem mock_node = new TreeItem();
-                    node.getChildren().add(mock_node);
+                for (File f : root_file.listFiles()) {
+                    TreeItem placeholder = new TreeItem();
+                    node.getChildren().add(placeholder);
                     
                     node.addEventHandler(TreeItem.branchExpandedEvent(), new EventHandler() {
                         @Override
                         public void handle(Event event) {
                             createTree(f, node);
-                            node.getChildren().remove(mock_node);
+                            node.getChildren().remove(placeholder);
                             node.removeEventHandler(TreeItem.branchExpandedEvent(), this);
                         }
                     });
                 }
             } else {
-                parent.getChildren().add(new TreeItem(root_path.getName()));
+                parent.getChildren().add(new TreeItem(root_file.getName()));
             }
         } catch (IOException ex) {
             Logger.getLogger(FXMLMainController.class.getName()).log(Level.SEVERE, null, ex);
