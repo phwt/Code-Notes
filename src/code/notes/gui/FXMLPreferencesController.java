@@ -4,15 +4,17 @@
  */
 package code.notes.gui;
 
+import code.notes.Bundle;
 import code.notes.util.FileChooserDialog;
 import code.notes.util.UserPreferences;
-import java.awt.GraphicsEnvironment;
 import java.net.URL;
 import java.nio.file.Path;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -41,6 +43,8 @@ public class FXMLPreferencesController implements Initializable {
     private TextField field_dir_path;
     @FXML
     private ComboBox combo_locale;
+
+    private String current_locale;
 
     @FXML
     private void handleBrowseAction(ActionEvent e) {
@@ -73,13 +77,22 @@ public class FXMLPreferencesController implements Initializable {
 
         UserPreferences.setDirPath(field_dir_path.getText());
 
-        switch (((String) combo_locale.getSelectionModel().getSelectedItem()).toLowerCase()) {
-            case "english":
-                UserPreferences.setLocale("en");
-                break;
-            case "ภาษาไทย":
-                UserPreferences.setLocale("th");
-                break;
+        String new_locale = ((String) combo_locale.getSelectionModel().getSelectedItem()).toLowerCase();
+        if (!new_locale.equals(current_locale)) {
+            Alert alert = new Alert(
+                    AlertType.INFORMATION,
+                    Bundle.get("locale_notice_sub")
+            );
+            alert.showAndWait();
+
+            switch (new_locale) {
+                case "english":
+                    UserPreferences.setLocale("en");
+                    break;
+                case "ภาษาไทย":
+                    UserPreferences.setLocale("th");
+                    break;
+            }
         }
         refreshEditors();
         handleCancelAction(e);
@@ -110,6 +123,7 @@ public class FXMLPreferencesController implements Initializable {
                 combo_locale.getSelectionModel().select("ภาษาไทย");
                 break;
         }
+        current_locale = (String) combo_locale.getSelectionModel().getSelectedItem();
     }
 
     private void loadForms() {
@@ -131,8 +145,8 @@ public class FXMLPreferencesController implements Initializable {
     }
 
     private void refreshEditors() {
+        // TODO: Fix thread problem
         FXMLMainController.getTabPool().forEach((tab) -> {
-            System.out.println("one");
             tab.getEDITOR().refreshStyles();
         });
     }
