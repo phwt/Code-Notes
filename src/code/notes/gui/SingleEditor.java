@@ -30,16 +30,6 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
     private boolean save_state = true;
     private Font font;
     final private EditorTab EDITOR_TAB;
-
-    @Deprecated
-    public SingleEditor() {
-        EDITOR_TAB = null;
-    }
-    
-    @Deprecated
-    public SingleEditor(Path path) {
-        this();
-    }
     
     /**
      * Create RSyntaxTextArea empty content
@@ -119,14 +109,14 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
             }
         });
 
-        new FileDrop(this, new FileDrop.Listener() {
-            @Override
-            public void filesDropped(File[] files) {
-                for (File file : files) {
-                    CodeNotes.text_editor.addTab(file.toPath());
-                }
-            }
-        });
+//        new FileDrop(this, new FileDrop.Listener() {
+//            @Override
+//            public void filesDropped(File[] files) {
+//                for (File file : files) {
+//                    CodeNotes.text_editor.addTab(file.toPath());
+//                }
+//            }
+//        });
     }
 
     private void saveTrue() {
