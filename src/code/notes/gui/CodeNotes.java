@@ -18,19 +18,27 @@ import javafx.stage.Stage;
  * @author phwts
  */
 public class CodeNotes extends Application {
-    
+
     public static Stage STAGE;
-    
+
     @Override
     public void start(Stage stage) throws Exception {
         ResourceBundle resources = ResourceBundle.getBundle("code.notes.Bundle", Bundle.getLocale());
         Parent root = new FXMLLoader().load(getClass().getResource("FXMLMain.fxml"), resources);
         Scene scene = new Scene(root);
-        
+
         stage.setScene(scene);
         stage.show();
         stage.setTitle("Code-Notes");
         CodeNotes.STAGE = stage;
+
+        stage.setOnCloseRequest(e -> {
+            for (EditorTab tab : FXMLMainController.getTabPool()) {
+                if (!tab.getEDITOR().getSaveState()) {
+                    tab.unsavedPrompt(e);
+                }
+            }
+        });
     }
 
     /**
@@ -40,5 +48,5 @@ public class CodeNotes extends Application {
 //        code.notes.util.UserPreferences.resetPreferences();
         launch(args);
     }
-    
+
 }
