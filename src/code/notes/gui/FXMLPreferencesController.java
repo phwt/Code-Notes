@@ -45,6 +45,7 @@ public class FXMLPreferencesController implements Initializable {
     private ComboBox combo_locale;
 
     private String current_locale;
+    private String current_path;
 
     @FXML
     private void handleBrowseAction(ActionEvent e) {
@@ -74,10 +75,13 @@ public class FXMLPreferencesController implements Initializable {
         UserPreferences.setFontSize(font_size);
 
         UserPreferences.setFontFamily((String) combo_font_fam.getSelectionModel().getSelectedItem());
+        
+        String new_path = field_dir_path.getText();
+        if (!new_path.equals(current_path)){
+            UserPreferences.setDirPath(new_path);
+        }
 
-        UserPreferences.setDirPath(field_dir_path.getText());
-
-        String new_locale = ((String) combo_locale.getSelectionModel().getSelectedItem()).toLowerCase();
+        String new_locale = ((String) combo_locale.getSelectionModel().getSelectedItem());
         if (!new_locale.equals(current_locale)) {
             Alert alert = new Alert(
                     AlertType.INFORMATION,
@@ -85,7 +89,7 @@ public class FXMLPreferencesController implements Initializable {
             );
             alert.showAndWait();
 
-            switch (new_locale) {
+            switch (new_locale.toLowerCase()) {
                 case "english":
                     UserPreferences.setLocale("en");
                     break;
@@ -114,6 +118,7 @@ public class FXMLPreferencesController implements Initializable {
         combo_font_size.getSelectionModel().select(String.valueOf(UserPreferences.getFontSize()));
 
         field_dir_path.setText(UserPreferences.getDirPath());
+        current_path = UserPreferences.getDirPath();
 
         switch (UserPreferences.getLocale().toLowerCase()) {
             case "en":
