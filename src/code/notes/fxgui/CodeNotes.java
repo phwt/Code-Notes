@@ -29,7 +29,7 @@ public class CodeNotes extends Application {
         
         stage.setScene(scene);
         stage.show();
-        
+        stage.setTitle("Code-Notes");
         CodeNotes.STAGE = stage;
     }
 
