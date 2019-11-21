@@ -4,6 +4,7 @@
  */
 package code.notes.gui;
 
+import code.notes.Bundle;
 import java.nio.file.Path;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingNode;
@@ -43,13 +44,13 @@ public class EditorTab extends javafx.scene.control.Tab {
         });
     }
 
-    private void unsavedPrompt(Event e) {
-        ButtonType btn_save = new ButtonType("Save", ButtonBar.ButtonData.YES);
-        ButtonType btn_savent = new ButtonType("Don't Save", ButtonBar.ButtonData.NO);
-        ButtonType btn_cancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+    public void unsavedPrompt(Event e) {
+        ButtonType btn_save = new ButtonType(Bundle.get("save"), ButtonBar.ButtonData.YES);
+        ButtonType btn_savent = new ButtonType(Bundle.get("savent"), ButtonBar.ButtonData.NO);
+        ButtonType btn_cancel = new ButtonType(Bundle.get("cancel"), ButtonBar.ButtonData.CANCEL_CLOSE);
         Alert alert = new Alert(
                 AlertType.CONFIRMATION,
-                "Your changes will be lost if you don't save them. Do you want to proceed?",
+                getEDITOR().getFileName() + " - " + Bundle.get("save_notice_sub"),
                 btn_save, btn_savent, btn_cancel
         );
         alert.showAndWait().ifPresent(response -> {
@@ -57,7 +58,7 @@ public class EditorTab extends javafx.scene.control.Tab {
                 EDITOR.save();
                 FXMLMainController.removeTabPool(this);
             } else if (response.equals(btn_savent)) {
-                // Do nothing
+                FXMLMainController.removeTabPool(this);
             } else if (response.equals(btn_cancel)) {
                 e.consume();
             }
