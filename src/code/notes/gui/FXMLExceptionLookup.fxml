@@ -17,11 +17,11 @@
             <TableColumn fx:id="col_sol" editable="false" maxWidth="1.7976931348623157E308" minWidth="75.0" prefWidth="150.0" text="%solution" />
         </columns>
       </TableView>
-      <TextArea fx:id="result_area" editable="false" layoutX="14.0" layoutY="229.0" prefHeight="69.0" prefWidth="578.0" />
+      <TextArea fx:id="result_area" editable="false" layoutX="14.0" layoutY="229.0" prefHeight="69.0" prefWidth="578.0" wrapText="true" />
       <Button fx:id="close_btn" layoutX="539.0" layoutY="306.0" mnemonicParsing="false" onAction="#handleCloseAction" text="%close" AnchorPane.rightAnchor="8.0" />
       <HBox alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="25.0" prefWidth="578.0">
          <children>
-            <Label text="%search_label">
+            <Label prefHeight="20.0" prefWidth="137.0" text="%search_label">
                <font>
                   <Font size="14.0" />
                </font>
@@ -29,17 +29,17 @@
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <ComboBox fx:id="combo_lang" prefHeight="25.0" prefWidth="96.0" promptText="%language">
+            <ComboBox fx:id="combo_lang" prefHeight="25.0" prefWidth="105.0" promptText="%language">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </ComboBox>
-            <TextField fx:id="search_kw" prefHeight="25.0" prefWidth="305.0">
+            <TextField fx:id="search_kw" prefHeight="25.0" prefWidth="233.0">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </TextField>
-            <Button mnemonicParsing="false" onAction="#handleSearchAction" text="%search" />
+            <Button mnemonicParsing="false" onAction="#handleSearchAction" prefHeight="25.0" prefWidth="70.0" text="%search" />
          </children>
       </HBox>
       <Button fx:id="moreinfo_btn" disable="true" layoutX="14.0" layoutY="306.0" mnemonicParsing="false" onAction="#handleMoreInfoAction" text="%more_info" AnchorPane.leftAnchor="14.0" />
