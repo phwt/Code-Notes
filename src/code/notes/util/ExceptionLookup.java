@@ -4,7 +4,7 @@
  */
 package code.notes.util;
 
-import code.notes.fxgui.ExceptionModel;
+import code.notes.gui.ExceptionModel;
 import java.nio.file.Paths;
 import java.sql.*;
 import javafx.collections.FXCollections;

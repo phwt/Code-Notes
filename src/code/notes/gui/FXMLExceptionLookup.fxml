@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="340.0" maxWidth="600.0" minHeight="340.0" minWidth="600.0" prefHeight="340.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="code.notes.fxgui.FXMLExceptionLookupController">
+<AnchorPane id="AnchorPane" maxHeight="340.0" maxWidth="600.0" minHeight="340.0" minWidth="600.0" prefHeight="340.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="code.notes.gui.FXMLExceptionLookupController">
    <children>
       <TableView fx:id="result_table" layoutX="14.0" layoutY="45.0" prefHeight="184.0" prefWidth="578.0">
         <columns>

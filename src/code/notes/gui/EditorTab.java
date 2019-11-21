@@ -2,9 +2,8 @@
  * Code-Notes | EditorTab.java
  * Created | 4:34:37 PM Nov 19, 2019
  */
-package code.notes.fxgui;
+package code.notes.gui;
 
-import code.notes.gui.SingleEditor;
 import java.nio.file.Path;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingNode;

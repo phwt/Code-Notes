@@ -2,7 +2,7 @@
  * Code-Notes-FX | FXMLPreferencesController.java
  * Created | 10:03:52 PM Nov 19, 2019
  */
-package code.notes.fxgui;
+package code.notes.gui;
 
 import code.notes.util.FileChooserDialog;
 import code.notes.util.UserPreferences;

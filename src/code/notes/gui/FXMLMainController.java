@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package code.notes.fxgui;
+package code.notes.gui;
 
 import code.notes.Bundle;
 import code.notes.util.FileChooserDialog;

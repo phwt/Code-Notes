@@ -2,7 +2,7 @@
  * Code-Notes-FX | ExceptionModel.java
  * Created | 2:12:08 PM Nov 20, 2019
  */
-package code.notes.fxgui;
+package code.notes.gui;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;

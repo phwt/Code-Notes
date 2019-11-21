@@ -2,7 +2,7 @@
  * Code-Notes-FX | FXMLExceptionLookupController.java
  * Created | 9:22:12 PM Nov 19, 2019
  */
-package code.notes.fxgui;
+package code.notes.gui;
 
 import code.notes.util.ExceptionLookup;
 import java.net.URL;

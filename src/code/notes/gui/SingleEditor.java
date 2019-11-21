@@ -4,7 +4,7 @@
  */
 package code.notes.gui;
 
-import code.notes.fxgui.EditorTab;
+import code.notes.gui.EditorTab;
 import code.notes.util.ExtensionTranslator;
 import code.notes.util.FileChooserDialog;
 import code.notes.util.FileHandler;
@@ -166,7 +166,7 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
      */
     public void saveAs() {
 //        Path save_path = FileChooserDialog.save(getPath(), code.notes.fxgui.CodeNotes.STAGE);
-        Path save_path = FileChooserDialog.save(code.notes.fxgui.CodeNotes.STAGE);
+        Path save_path = FileChooserDialog.save(code.notes.gui.CodeNotes.STAGE);
         if (save_path == null)
             return;
         FileHandler.save(save_path, this.getText());
