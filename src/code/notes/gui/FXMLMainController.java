@@ -32,6 +32,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -89,6 +90,7 @@ public class FXMLMainController implements Initializable {
         stage.setResizable(false);
         stage.show();
         stage.setTitle(Bundle.get("exception_lookup"));
+        stage.getIcons().add(CodeNotes.ICON);
     }
 
     @FXML
@@ -128,6 +130,7 @@ public class FXMLMainController implements Initializable {
         stage.setResizable(false);
         stage.show();
         stage.setTitle(Bundle.get("preferences"));
+        stage.getIcons().add(CodeNotes.ICON);
     }
 
     @FXML
@@ -141,6 +144,7 @@ public class FXMLMainController implements Initializable {
         stage.setResizable(false);
         stage.show();
         stage.setTitle(Bundle.get("about"));
+        stage.getIcons().add(CodeNotes.ICON);
     }
     
     public static void exitApplication() {

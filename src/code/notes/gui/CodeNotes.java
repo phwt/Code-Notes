@@ -11,6 +11,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
@@ -20,6 +21,7 @@ import javafx.stage.Stage;
 public class CodeNotes extends Application {
 
     public static Stage STAGE;
+    public static Image ICON = new Image(CodeNotes.class.getResourceAsStream("/code/notes/icon.png"));
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -32,6 +34,8 @@ public class CodeNotes extends Application {
         stage.setTitle("Code-Notes");
         CodeNotes.STAGE = stage;
 
+        stage.getIcons().add(ICON);
+        
         stage.setOnCloseRequest(e -> {
             for (EditorTab tab : FXMLMainController.getTabPool()) {
                 if (!tab.getEDITOR().getSaveState()) {
