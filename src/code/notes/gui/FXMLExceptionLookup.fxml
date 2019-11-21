@@ -42,5 +42,6 @@
             <Button mnemonicParsing="false" onAction="#handleSearchAction" text="%search" />
          </children>
       </HBox>
+      <Button fx:id="moreinfo_btn" disable="true" layoutX="14.0" layoutY="306.0" mnemonicParsing="false" onAction="#handleMoreInfoAction" text="%more_info" AnchorPane.leftAnchor="14.0" />
    </children>
 </AnchorPane>

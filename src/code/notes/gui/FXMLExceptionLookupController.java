@@ -5,8 +5,14 @@
 package code.notes.gui;
 
 import code.notes.util.ExceptionLookup;
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -30,6 +36,8 @@ import javafx.stage.Stage;
  */
 public class FXMLExceptionLookupController implements Initializable {
 
+    private ExceptionModel current_model = null;
+
     @FXML
     private TextField search_kw;
     @FXML
@@ -38,6 +46,8 @@ public class FXMLExceptionLookupController implements Initializable {
     private TextArea result_area;
     @FXML
     private Button close_btn;
+    @FXML
+    private Button moreinfo_btn;
 
     @FXML
     private TableView result_table;
@@ -57,6 +67,18 @@ public class FXMLExceptionLookupController implements Initializable {
             String user_search = search_kw.getText();
             row_data = ExceptionLookup.searchException(selected_lang, user_search);
             result_table.setItems(row_data);
+        }
+    }
+
+    @FXML
+    private void handleMoreInfoAction(ActionEvent e) {
+        if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+            try {
+                URI infoURI = new URI("https://www.google.com/search?q=" + ((String) combo_lang.getValue()) + "+" + current_model.getKey());
+                Desktop.getDesktop().browse(infoURI);
+            } catch (URISyntaxException | IOException ex) {
+                // (Should) never happens
+            }
         }
     }
 
@@ -93,7 +115,10 @@ public class FXMLExceptionLookupController implements Initializable {
             TableRow<ExceptionModel> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY) {
-                    showSelectionData(row.getItem());
+                    moreinfo_btn.setDisable(false);
+                    ExceptionModel model = row.getItem();
+                    current_model = model;
+                    showSelectionData(model);
                 }
             });
             return row;
