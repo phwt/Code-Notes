@@ -88,6 +88,7 @@ public class FXMLMainController implements Initializable {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
+        stage.setTitle(Bundle.get("exception_lookup"));
     }
 
     @FXML
@@ -126,8 +127,22 @@ public class FXMLMainController implements Initializable {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
+        stage.setTitle(Bundle.get("preferences"));
     }
 
+    @FXML
+    private void handleAboutMenu(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLAbout.fxml"), resources);
+
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
+        stage.setTitle(Bundle.get("about"));
+    }
+    
     public static void exitApplication() {
         System.exit(0);
     }
@@ -224,6 +239,7 @@ public class FXMLMainController implements Initializable {
     private void addFileListener() {
         UserPreferences.getPrefs().addPreferenceChangeListener((e) -> {
             if (e.getKey().equals("dir_path")) {
+                System.out.println("changed");
                 loadTree();
             }
         });
