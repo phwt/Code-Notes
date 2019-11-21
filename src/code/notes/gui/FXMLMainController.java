@@ -16,6 +16,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.attribute.DosFileAttributes;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -99,8 +100,17 @@ public class FXMLMainController implements Initializable {
                 pathBuilder.insert(0, item.getValue());
                 pathBuilder.insert(0, "/");
             }
+            
             String path = pathBuilder.toString();
-            path = UserPreferences.getDirPath() + path.substring(2, path.length());
+            
+            // If path is a root path
+            if (path.startsWith("//")) {
+                path = UserPreferences.getDirPath() + path.substring(2, path.length());
+            } else {
+                String[] split = path.split("/");
+                path = String.join("/", Arrays.copyOfRange(split, 2, split.length));
+                path = UserPreferences.getDirPath() + "/" + path;
+            }
             path = path.replace("\\", "/");
             addTab(Paths.get(path));
         }
@@ -118,6 +128,10 @@ public class FXMLMainController implements Initializable {
         stage.show();
     }
 
+    public static void exitApplication() {
+        System.exit(0);
+    }
+    
     public void loadTree() {
         if (!UserPreferences.getDirPath().isEmpty()) {
             File root_path = new File(UserPreferences.getDirPath());
