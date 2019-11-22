@@ -5,6 +5,7 @@
 package code.notes.util;
 
 import code.notes.gui.ExceptionModel;
+import java.io.InputStream;
 import java.nio.file.Paths;
 import java.sql.*;
 import javafx.collections.FXCollections;
@@ -18,24 +19,29 @@ public class ExceptionLookup {
 
     /**
      * Convert user's entered keyword into SQL statement
+     *
      * @param keyword
      * @return SQL statement
      */
     public static String toStatement(String keyword) {
         System.out.println(keyword);
-        if (keyword.isEmpty())
+        if (keyword.isEmpty()) {
             return ""; // Select everything
+        }
         String[] keywords = keyword.split("[, ?.@+=:]+");
 
-        for (int i = 0; i < keywords.length; i++)
+        for (int i = 0; i < keywords.length; i++) {
             keywords[i] = "UPPER(EXCEPTION_KEY) LIKE UPPER('%" + keywords[i] + "%')";
+        }
 
         return " WHERE " + String.join(" OR ", keywords);
     }
 
     /**
      * Select data from table specified by "lang"
-     * @param lang Language to lookup - possible values "python", "java" (case-insensitive)
+     *
+     * @param lang Language to lookup - possible values "python", "java"
+     * (case-insensitive)
      * @param keyword User's entered keyword
      * @return ObserveableList in ExceptionModel (id, key, solution)
      */

@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 public class CodeNotes extends Application {
 
     public static Stage STAGE;
-    public static Image ICON = new Image(CodeNotes.class.getResourceAsStream("/code/notes/icon.png"));
+    public static Image ICON = new Image(CodeNotes.class.getResourceAsStream("/code/notes/resources/icon.png"));
 
     @Override
     public void start(Stage stage) throws Exception {

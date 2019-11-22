@@ -11,6 +11,7 @@ import code.notes.util.UserPreferences;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import javax.swing.UIManager;
@@ -82,8 +83,8 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
      */
     public void loadEditorFont() {
         try {
-            Path font_path = Paths.get(System.getProperty("user.dir"), "font", "DejaVuSansMonoThai.ttf");
-            font = Font.createFont(Font.PLAIN, font_path.toFile());
+            InputStream resourceAsStream = SingleEditor.class.getResourceAsStream("/code/notes/resources/DejaVuSansMonoThai.ttf");
+            font = Font.createFont(Font.PLAIN, resourceAsStream);
             this.loadEditorFontSize();
         } catch (FontFormatException | IOException ex) {
             // Use default font

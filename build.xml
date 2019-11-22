@@ -3,9 +3,9 @@
     <import file="nbproject/build-impl.xml"/>
 
     <target name="-post-compile">
-        <copy todir="${dist.dir}/font" >  
+        <!-- <copy todir="${dist.dir}/font" >  
             <fileset dir="font/" includes="**"/>  
-        </copy> 
+        </copy>  -->
         <copy todir="${dist.dir}/.derby" >  
             <fileset dir=".derby/" includes="**"/>  
         </copy> 

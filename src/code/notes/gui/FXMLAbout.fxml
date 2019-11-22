@@ -20,7 +20,7 @@
                         <Rectangle2D />
                      </viewport>
                      <image>
-                        <Image url="@/code/notes/icon-64.png" />
+                        <Image url="@/code/notes/resources/icon-64.png" />
                      </image>
                   </ImageView>
                   <VBox alignment="CENTER_LEFT" prefHeight="78.0" prefWidth="178.0">
