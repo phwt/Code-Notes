@@ -8,40 +8,48 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="340.0" maxWidth="600.0" minHeight="340.0" minWidth="600.0" prefHeight="340.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="code.notes.gui.FXMLExceptionLookupController">
+<AnchorPane id="AnchorPane" maxHeight="369.0" maxWidth="600.0" minHeight="340.0" minWidth="600.0" prefHeight="369.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="code.notes.gui.FXMLExceptionLookupController">
    <children>
-      <TableView fx:id="result_table" layoutX="14.0" layoutY="45.0" prefHeight="184.0" prefWidth="578.0">
-        <columns>
-          <TableColumn fx:id="col_id" editable="false" prefWidth="75.0" text="#" />
-          <TableColumn fx:id="col_key" editable="false" maxWidth="1.7976931348623157E308" prefWidth="125.0" text="%key" />
-            <TableColumn fx:id="col_sol" editable="false" maxWidth="1.7976931348623157E308" minWidth="75.0" prefWidth="150.0" text="%solution" />
-        </columns>
-      </TableView>
-      <TextArea fx:id="result_area" editable="false" layoutX="14.0" layoutY="229.0" prefHeight="69.0" prefWidth="578.0" wrapText="true" />
-      <Button fx:id="close_btn" layoutX="539.0" layoutY="306.0" mnemonicParsing="false" onAction="#handleCloseAction" text="%close" AnchorPane.rightAnchor="8.0" />
-      <HBox alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="25.0" prefWidth="578.0">
+      <VBox layoutX="11.0" layoutY="14.0" prefHeight="355.0" prefWidth="578.0" spacing="10.0">
          <children>
-            <Label prefHeight="20.0" prefWidth="137.0" text="%search_label">
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <HBox.margin>
-                  <Insets right="10.0" />
-               </HBox.margin>
-            </Label>
-            <ComboBox fx:id="combo_lang" prefHeight="25.0" prefWidth="105.0" promptText="%language">
-               <HBox.margin>
-                  <Insets right="10.0" />
-               </HBox.margin>
-            </ComboBox>
-            <TextField fx:id="search_kw" prefHeight="25.0" prefWidth="233.0">
-               <HBox.margin>
-                  <Insets right="10.0" />
-               </HBox.margin>
-            </TextField>
-            <Button mnemonicParsing="false" onAction="#handleSearchAction" prefHeight="25.0" prefWidth="70.0" text="%search" />
+            <HBox alignment="CENTER" prefHeight="25.0" prefWidth="578.0">
+               <children>
+                  <Label prefHeight="20.0" prefWidth="124.0" text="%search_label">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <ComboBox fx:id="combo_lang" prefHeight="31.0" prefWidth="130.0" promptText="%language">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </ComboBox>
+                  <TextField fx:id="search_kw" prefHeight="25.0" prefWidth="233.0">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <Button mnemonicParsing="false" onAction="#handleSearchAction" prefHeight="25.0" prefWidth="70.0" text="%search" />
+               </children>
+            </HBox>
+            <TableView fx:id="result_table" prefHeight="184.0" prefWidth="578.0">
+              <columns>
+                <TableColumn fx:id="col_id" editable="false" prefWidth="75.0" text="#" />
+                <TableColumn fx:id="col_key" editable="false" maxWidth="1.7976931348623157E308" prefWidth="125.0" text="%key" />
+                  <TableColumn fx:id="col_sol" editable="false" maxWidth="1.7976931348623157E308" minWidth="75.0" prefWidth="150.0" text="%solution" />
+              </columns>
+            </TableView>
+            <TextArea fx:id="result_area" editable="false" prefHeight="69.0" prefWidth="578.0" wrapText="true" />
+            <HBox alignment="CENTER_RIGHT" prefHeight="31.0" prefWidth="309.0" spacing="10.0">
+               <children>
+                  <Button fx:id="moreinfo_btn" disable="true" mnemonicParsing="false" onAction="#handleMoreInfoAction" text="%more_info" />
+                  <Button fx:id="close_btn" mnemonicParsing="false" onAction="#handleCloseAction" text="%close" />
+               </children>
+            </HBox>
          </children>
-      </HBox>
-      <Button fx:id="moreinfo_btn" disable="true" layoutX="14.0" layoutY="306.0" mnemonicParsing="false" onAction="#handleMoreInfoAction" text="%more_info" AnchorPane.leftAnchor="14.0" />
+      </VBox>
    </children>
 </AnchorPane>
