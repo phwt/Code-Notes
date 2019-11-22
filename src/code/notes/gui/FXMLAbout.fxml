@@ -9,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="148.0" prefWidth="357.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" prefHeight="148.0" prefWidth="357.0" stylesheets="@/code/notes/gui/FXMLMain.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox prefHeight="130.0" prefWidth="339.0" spacing="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
          <children>
@@ -24,35 +24,35 @@
                      </image>
                   </ImageView>
                   <VBox alignment="CENTER_LEFT" prefHeight="78.0" prefWidth="178.0">
-                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Code-Notes">
-                           <font>
-                              <Font name="System Bold" size="24.0" />
-                           </font>
-                        </Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="v 0.2">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Text>
-                     </children>
                      <padding>
                         <Insets left="10.0" />
                      </padding>
+                     <children>
+                        <Label text="Code-Notes">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label text="v 0.2">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
                   </VBox>
                </children>
                <padding>
                   <Insets left="5.0" right="5.0" />
                </padding>
             </HBox>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%about_p" wrappingWidth="328.376953125">
+            <Label alignment="TOP_LEFT" prefHeight="70.0" prefWidth="339.0" text="%about_p">
                <font>
                   <Font size="14.0" />
                </font>
-               <VBox.margin>
-                  <Insets left="10.0" />
-               </VBox.margin>
-            </Text>
+               <padding>
+                  <Insets left="8.0" />
+               </padding>
+            </Label>
          </children>
       </VBox>
    </children>
