@@ -4,21 +4,19 @@
  */
 package code.notes.gui;
 
-import code.notes.gui.EditorTab;
 import code.notes.util.ExtensionTranslator;
 import code.notes.util.FileChooserDialog;
 import code.notes.util.FileHandler;
 import code.notes.util.UserPreferences;
 import java.awt.Font;
 import java.awt.FontFormatException;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import javax.swing.UIManager;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import net.iharder.dnd.FileDrop;
+import org.fife.ui.rsyntaxtextarea.Theme;
 
 /**
  *
@@ -30,15 +28,15 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
     private boolean save_state = true;
     private Font font;
     final private EditorTab EDITOR_TAB;
-    
+
     /**
      * Create RSyntaxTextArea empty content
      */
     public SingleEditor(EditorTab tab) {
         super(20, 60);
+        this.loadEditorFont();
         this.setLAF();
         this.EDITOR_TAB = tab;
-        this.loadEditorFont();
         this.refreshStyles();
         this.setCodeFoldingEnabled(true);
 
@@ -52,9 +50,9 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
      */
     public SingleEditor(Path path, EditorTab tab) {
         super(20, 60);
+        this.loadEditorFont();
         this.setLAF();
         this.EDITOR_TAB = tab;
-        this.loadEditorFont();
         this.refreshStyles();
         this.setCodeFoldingEnabled(true);
 
@@ -63,15 +61,22 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
         this.setSyntaxStyle();
         this.addChangeListener();
     }
-    
+
     private void setLAF() {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
             //Never happens
         }
+        
+//        try {
+//            Theme theme = Theme.load(getClass().getResourceAsStream("/org/fife/ui/rsyntaxtextarea/themes/monokai.xml"));
+//            theme.apply(this);
+//        } catch (IOException ioe) { // Never happens
+//            ioe.printStackTrace();
+//        }
     }
-    
+
     /**
      * Load DejaVu Sans Mono Thai font into the editor
      */
@@ -84,7 +89,7 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
             // Use default font
         }
     }
-    
+
     public void loadEditorFontSize() {
         this.setFont(font.deriveFont((float) UserPreferences.getFontSize()));
     }
@@ -108,15 +113,6 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
                 saveFalse();
             }
         });
-
-//        new FileDrop(this, new FileDrop.Listener() {
-//            @Override
-//            public void filesDropped(File[] files) {
-//                for (File file : files) {
-//                    CodeNotes.text_editor.addTab(file.toPath());
-//                }
-//            }
-//        });
     }
 
     private void saveTrue() {
@@ -149,8 +145,8 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
     }
 
     /**
-     * Put the contents of this editor into the path assigned to this
-     * Redirect to saveAs() if there is no path assigned
+     * Put the contents of this editor into the path assigned to this Redirect
+     * to saveAs() if there is no path assigned
      */
     public void save() {
         if (path == null) {
@@ -167,8 +163,9 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
     public void saveAs() {
 //        Path save_path = FileChooserDialog.save(getPath(), code.notes.fxgui.CodeNotes.STAGE);
         Path save_path = FileChooserDialog.save(code.notes.gui.CodeNotes.STAGE);
-        if (save_path == null)
+        if (save_path == null) {
             return;
+        }
         FileHandler.save(save_path, this.getText());
         this.setPath(save_path);
         saveTrue();
@@ -176,7 +173,8 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
     }
 
     /**
-     * Refresh editor styles (indent, tab size, etc.) after preferences is modified
+     * Refresh editor styles (indent, tab size, etc.) after preferences is
+     * modified
      */
     public void refreshStyles() {
         this.setTabSize(UserPreferences.getTabSize());
@@ -200,7 +198,7 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
         }
         return this.path.equals(path);
     }
-    
+
     @Deprecated
     public java.awt.Component getHeader() {
         return null;
