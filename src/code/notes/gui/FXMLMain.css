@@ -21,7 +21,7 @@
 }
 
 .button:default {
-    -fx-base: -fx-accent ;
+    -fx-base: -fx-accent;
 } 
 
 .table-view{
@@ -33,8 +33,7 @@
     -fx-font-weight: none;
 }
 
-.combo-table-view{/*optional */
-    /*i only use this style when a table-view has to emulate a combo-box or auto-complete look, by making the non focused color same as the focused one*/
+.combo-table-view{
     -fx-selection-bar: -fx-accent;
     -fx-selection-bar-non-focused: -fx-accent;
 }
