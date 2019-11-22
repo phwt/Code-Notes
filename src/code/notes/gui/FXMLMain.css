@@ -18,7 +18,7 @@
 
 .scroll-bar{
     -fx-background-color: derive(-fx-base,45%)
-}
+}n
 
 .button:default {
     -fx-base: -fx-accent;
