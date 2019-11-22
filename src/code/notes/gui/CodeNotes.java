@@ -22,12 +22,16 @@ public class CodeNotes extends Application {
 
     public static Stage STAGE;
     public static Image ICON = new Image(CodeNotes.class.getResourceAsStream("/code/notes/resources/icon.png"));
-
+    public static FXMLMainController main_controller;
+    
     @Override
     public void start(Stage stage) throws Exception {
         ResourceBundle resources = ResourceBundle.getBundle("code.notes.Bundle", Bundle.getLocale());
-        Parent root = new FXMLLoader().load(getClass().getResource("FXMLMain.fxml"), resources);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLMain.fxml"), resources);
+        Parent root = loader.load();
         Scene scene = new Scene(root);
+        
+        main_controller = (FXMLMainController) loader.getController();
 
         stage.setScene(scene);
         stage.show();

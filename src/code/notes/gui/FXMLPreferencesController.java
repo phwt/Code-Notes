@@ -79,6 +79,7 @@ public class FXMLPreferencesController implements Initializable {
         String new_path = field_dir_path.getText();
         if (!new_path.equals(current_path)){
             UserPreferences.setDirPath(new_path);
+            CodeNotes.main_controller.loadTree();
         }
 
         String new_locale = ((String) combo_locale.getSelectionModel().getSelectedItem());

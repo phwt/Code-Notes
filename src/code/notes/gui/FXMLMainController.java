@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -32,7 +33,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -44,7 +44,7 @@ public class FXMLMainController implements Initializable {
 
     private static final ArrayList<EditorTab> TAB_POOL = new ArrayList<>();
     private final ResourceBundle resources = ResourceBundle.getBundle("code.notes.Bundle", Bundle.getLocale());
-    
+
     @FXML
     private TabPane tab_pane;
     @FXML
@@ -103,9 +103,9 @@ public class FXMLMainController implements Initializable {
                 pathBuilder.insert(0, item.getValue());
                 pathBuilder.insert(0, "/");
             }
-            
+
             String path = pathBuilder.toString();
-            
+
             // If path is a root path
             if (path.startsWith("//")) {
                 path = UserPreferences.getDirPath() + path.substring(2, path.length());
@@ -146,11 +146,11 @@ public class FXMLMainController implements Initializable {
         stage.setTitle(Bundle.get("about"));
         stage.getIcons().add(CodeNotes.ICON);
     }
-    
+
     public static void exitApplication() {
         System.exit(0);
     }
-    
+
     public void loadTree() {
         if (!UserPreferences.getDirPath().isEmpty()) {
             File root_path = new File(UserPreferences.getDirPath());
@@ -240,10 +240,10 @@ public class FXMLMainController implements Initializable {
         }
     }
 
-    private void addFileListener() {
-        UserPreferences.getPrefs().addPreferenceChangeListener((e) -> {
-            if (e.getKey().equals("dir_path")) {
-                System.out.println("changed");
+    public void reloadTree() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
                 loadTree();
             }
         });
@@ -254,7 +254,6 @@ public class FXMLMainController implements Initializable {
         bundle = rb;
         addTab();
         loadTree();
-        addFileListener();
     }
 
 }
