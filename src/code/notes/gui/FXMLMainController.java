@@ -33,6 +33,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -49,7 +50,6 @@ public class FXMLMainController implements Initializable {
     private TabPane tab_pane;
     @FXML
     private TreeView dir_tree;
-    private ResourceBundle bundle;
 
     @FXML
     private void handleNewFileAction(ActionEvent event) {
@@ -165,6 +165,12 @@ public class FXMLMainController implements Initializable {
     }
 
     private void createTree(File root_file, TreeItem parent) {
+
+        ImageView img_file = new ImageView("/code/notes/resources/file.png");
+        double icon_size = 16;
+        img_file.setFitHeight(icon_size);
+        img_file.setFitWidth(icon_size);
+
         try {
             DosFileAttributes attr = Files.readAttributes(root_file.toPath(), DosFileAttributes.class);
             if (attr.isSystem() || attr.isHidden() || attr.isReadOnly()) {
@@ -186,7 +192,7 @@ public class FXMLMainController implements Initializable {
                     });
                 }
             } else {
-                parent.getChildren().add(new TreeItem(root_file.getName()));
+                parent.getChildren().add(new TreeItem(root_file.getName(), img_file));
             }
         } catch (IOException ex) {
             Logger.getLogger(FXMLMainController.class.getName()).log(Level.SEVERE, null, ex);
@@ -251,7 +257,6 @@ public class FXMLMainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        bundle = rb;
         addTab();
         loadTree();
     }
