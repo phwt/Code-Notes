@@ -28,7 +28,7 @@ public class TabHeader extends javax.swing.JPanel {
         this.editor = editor;
         this.header = filename;
         this.setHeader(header);
-
+        this.setComponentPopupMenu(tab_ctxmenu);
     }
 
     public void setHeader(String filename) {
@@ -44,8 +44,61 @@ public class TabHeader extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        tab_ctxmenu = new javax.swing.JPopupMenu();
+        menu_close = new javax.swing.JMenuItem();
+        menu_close_others = new javax.swing.JMenuItem();
+        menu_close_right = new javax.swing.JMenuItem();
+        menu_close_saved = new javax.swing.JMenuItem();
+        menu_close_all = new javax.swing.JMenuItem();
         label_filename = new javax.swing.JLabel();
         btn_close = new javax.swing.JLabel();
+
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("code/notes/Bundle"); // NOI18N
+        menu_close.setText(bundle.getString("close")); // NOI18N
+        menu_close.setToolTipText("");
+        menu_close.setActionCommand("Close");
+        menu_close.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_closeActionPerformed(evt);
+            }
+        });
+        tab_ctxmenu.add(menu_close);
+
+        menu_close_others.setText(bundle.getString("close_others")); // NOI18N
+        menu_close_others.setToolTipText("");
+        menu_close_others.setActionCommand("Close");
+        menu_close_others.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_close_othersActionPerformed(evt);
+            }
+        });
+        tab_ctxmenu.add(menu_close_others);
+
+        menu_close_right.setText(bundle.getString("close_right")); // NOI18N
+        menu_close_right.setToolTipText("");
+        menu_close_right.setActionCommand("Close");
+        menu_close_right.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_close_rightActionPerformed(evt);
+            }
+        });
+        tab_ctxmenu.add(menu_close_right);
+
+        menu_close_saved.setText(bundle.getString("close_saved")); // NOI18N
+        menu_close_saved.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_close_savedActionPerformed(evt);
+            }
+        });
+        tab_ctxmenu.add(menu_close_saved);
+
+        menu_close_all.setText(bundle.getString("close_all")); // NOI18N
+        menu_close_all.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_close_allActionPerformed(evt);
+            }
+        });
+        tab_ctxmenu.add(menu_close_all);
 
         setOpaque(false);
         addMouseListener(new java.awt.event.MouseAdapter() {
@@ -93,7 +146,7 @@ public class TabHeader extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_closeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_closeMousePressed
-        CodeNotes.text_editor.closeTab(editor);
+        this.closeEditor();
     }//GEN-LAST:event_btn_closeMousePressed
 
     private void btn_closeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_closeMouseExited
@@ -110,17 +163,46 @@ public class TabHeader extends javax.swing.JPanel {
         } else if (SwingUtilities.isMiddleMouseButton(evt)) {
             this.btn_closeMousePressed(evt);
         } else if (SwingUtilities.isRightMouseButton(evt)) {
-            this.contextMenu();
+            //
         }
     }//GEN-LAST:event_formMousePressed
 
-    private void contextMenu() {
-        // TODO
-    }
+    private void menu_closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_closeActionPerformed
+        this.closeEditor();
+    }//GEN-LAST:event_menu_closeActionPerformed
 
+    private void menu_close_othersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_close_othersActionPerformed
+        CodeNotes.text_editor.closeInactiveTabs(editor);
+    }//GEN-LAST:event_menu_close_othersActionPerformed
+
+    private void menu_close_allActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_close_allActionPerformed
+        CodeNotes.text_editor.closeAllTabs();
+    }//GEN-LAST:event_menu_close_allActionPerformed
+
+    private void menu_close_savedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_close_savedActionPerformed
+        CodeNotes.text_editor.closeSavedTabs();
+    }//GEN-LAST:event_menu_close_savedActionPerformed
+
+    private void menu_close_rightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_close_rightActionPerformed
+        CodeNotes.text_editor.closeToRight(editor);
+    }//GEN-LAST:event_menu_close_rightActionPerformed
+
+    /**
+     * Close SingleEditor assigned to this tab
+     */
+    private void closeEditor() {
+        CodeNotes.text_editor.closeTab(editor);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btn_close;
     private javax.swing.JLabel label_filename;
+    private javax.swing.JMenuItem menu_close;
+    private javax.swing.JMenuItem menu_close_all;
+    private javax.swing.JMenuItem menu_close_others;
+    private javax.swing.JMenuItem menu_close_right;
+    private javax.swing.JMenuItem menu_close_saved;
+    private javax.swing.JPopupMenu tab_ctxmenu;
     // End of variables declaration//GEN-END:variables
 
     private void headerPlain() {

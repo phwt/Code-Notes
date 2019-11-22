@@ -4,6 +4,7 @@
  */
 package code.notes.gui;
 
+import code.notes.Bundle;
 import code.notes.util.ExceptionLookup;
 import javax.swing.JTable;
 import javax.swing.UIManager;
@@ -75,31 +76,7 @@ public class ExceptionForm extends javax.swing.JFrame {
             }
         });
 
-        table_result.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "#", "Key", "Solution"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        table_result.setModel(getStartModel());
         jScrollPane1.setViewportView(table_result);
 
         btn_close.setText(bundle.getString("close")); // NOI18N
@@ -131,9 +108,9 @@ public class ExceptionForm extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(combo_lang, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(combo_lang, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(texfield_search, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(texfield_search, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn_search))
                     .addGroup(layout.createSequentialGroup()
@@ -146,14 +123,16 @@ public class ExceptionForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_search, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(texfield_search)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(combo_lang, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(combo_lang, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(texfield_search, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btn_search, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_close)
                 .addContainerGap())
@@ -178,7 +157,7 @@ public class ExceptionForm extends javax.swing.JFrame {
         table_result.setModel(new javax.swing.table.DefaultTableModel(
                 datas,
                 new String[]{
-                    "#", "Key", "Solution"
+                    "#", Bundle.get("key"), Bundle.get("solution")
                 }
         ) {
             Class[] types = new Class[]{
@@ -194,9 +173,9 @@ public class ExceptionForm extends javax.swing.JFrame {
             }
         });
         table_result.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
-        table_result.getColumnModel().getColumn(0).setPreferredWidth(1);
-        table_result.getColumnModel().getColumn(1).setPreferredWidth(100);
-        table_result.getColumnModel().getColumn(2).setMinWidth(100);
+        table_result.getColumnModel().getColumn(0).setMaxWidth(25);
+        table_result.getColumnModel().getColumn(1).setMinWidth(50);
+        table_result.getColumnModel().getColumn(2).setMinWidth(50);
     }//GEN-LAST:event_btn_searchActionPerformed
 
     private void texfield_searchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_texfield_searchKeyPressed
@@ -207,6 +186,34 @@ public class ExceptionForm extends javax.swing.JFrame {
 
     public void setTextArea(String text) {
         textarea_result.setText(text);
+    }
+
+    private javax.swing.table.DefaultTableModel getStartModel() {
+        return new javax.swing.table.DefaultTableModel(
+                new Object[][]{
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null}
+                },
+                new String[]{
+                    "#", Bundle.get("key"), Bundle.get("solution")
+                }
+        ) {
+            Class[] types = new Class[]{
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean[]{
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types[columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
+        };
     }
 
     /**

@@ -5,10 +5,10 @@
 package code.notes.gui;
 
 import code.notes.Bundle;
-import code.notes.gui.ExceptionForm;
-import code.notes.gui.SettingsForm;
-import code.notes.gui.TextEditor;
 import code.notes.util.FileChooser;
+import code.notes.util.UserPreferences;
+import java.awt.BorderLayout;
+import java.awt.Font;
 import java.nio.file.Path;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -20,15 +20,29 @@ import javax.swing.UIManager;
 public class CodeNotes extends javax.swing.JFrame {
 
     public static TextEditor text_editor;
+    public static boolean isWelcome = true;
 
     /**
      * Creates new form CodeNotes
      */
     public CodeNotes() {
+        super(Bundle.get("title"));
+        this.loadLocale();
         initComponents();
+        this.checkUnsavedEvent();
+        removeWelcome();
+    }
+
+    private static void removeWelcome() {
+        isWelcome = false;
+        editor_panel.removeAll();
+        editor_panel.setLayout(new BorderLayout());
         text_editor = new TextEditor();
         editor_panel.add(text_editor);
-        this.checkUnsavedEvent();
+    }
+
+    private void loadLocale() {
+        Bundle.setLocale(Bundle.toLocale(UserPreferences.getLocale()));
     }
 
     private void checkUnsavedEvent() {
@@ -61,9 +75,10 @@ public class CodeNotes extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        editor_panel = new javax.swing.JPanel();
+        jSplitPane1 = new javax.swing.JSplitPane();
         jScrollPane2 = new javax.swing.JScrollPane();
         directory_listing = new code.notes.gui.DirectoryListing();
+        editor_panel = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         menu_file = new javax.swing.JMenu();
         menu_open = new javax.swing.JMenuItem();
@@ -80,14 +95,30 @@ public class CodeNotes extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setLocationByPlatform(true);
 
-        editor_panel.setLayout(new java.awt.BorderLayout());
+        jSplitPane1.setDividerLocation(150);
+        jSplitPane1.setDividerSize(5);
 
         jScrollPane2.setViewportView(directory_listing);
 
-        menu_file.setText("File");
+        jSplitPane1.setLeftComponent(jScrollPane2);
+
+        javax.swing.GroupLayout editor_panelLayout = new javax.swing.GroupLayout(editor_panel);
+        editor_panel.setLayout(editor_panelLayout);
+        editor_panelLayout.setHorizontalGroup(
+            editor_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 677, Short.MAX_VALUE)
+        );
+        editor_panelLayout.setVerticalGroup(
+            editor_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 500, Short.MAX_VALUE)
+        );
+
+        jSplitPane1.setRightComponent(editor_panel);
+
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("code/notes/Bundle"); // NOI18N
+        menu_file.setText(bundle.getString("menu_file")); // NOI18N
 
         menu_open.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("code/notes/Bundle"); // NOI18N
         menu_open.setText(bundle.getString("open")); // NOI18N
         menu_open.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -126,7 +157,7 @@ public class CodeNotes extends javax.swing.JFrame {
         menu_file.add(jSeparator2);
 
         menu_closetab.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_W, java.awt.event.InputEvent.CTRL_MASK));
-        menu_closetab.setText("Close Tab");
+        menu_closetab.setText(bundle.getString("menu_close_tab")); // NOI18N
         menu_closetab.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menu_closetabActionPerformed(evt);
@@ -162,15 +193,11 @@ public class CodeNotes extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(editor_panel, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE))
+            .addComponent(jSplitPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(editor_panel, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jSplitPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         pack();
@@ -195,6 +222,9 @@ public class CodeNotes extends javax.swing.JFrame {
     }//GEN-LAST:event_menu_closetabActionPerformed
 
     private void menu_newfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_newfileActionPerformed
+        if (isWelcome) {
+            removeWelcome();
+        }
         text_editor.addTab();
     }//GEN-LAST:event_menu_newfileActionPerformed
 
@@ -206,12 +236,24 @@ public class CodeNotes extends javax.swing.JFrame {
         new SettingsForm().setVisible(true);
     }//GEN-LAST:event_menu_perferencesActionPerformed
 
+    public static void setUIFont(javax.swing.plaf.FontUIResource f) {
+        java.util.Enumeration keys = UIManager.getDefaults().keys();
+        while (keys.hasMoreElements()) {
+            Object key = keys.nextElement();
+            Object value = UIManager.get(key);
+            if (value instanceof javax.swing.plaf.FontUIResource) {
+                UIManager.put(key, f);
+            }
+        }
+    }
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            setUIFont(new javax.swing.plaf.FontUIResource("Leelawadee", Font.PLAIN, 12));
         } catch (Exception e) {
             //Never happens
         }
@@ -226,12 +268,13 @@ public class CodeNotes extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static code.notes.gui.DirectoryListing directory_listing;
-    private javax.swing.JPanel editor_panel;
+    private static javax.swing.JPanel editor_panel;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JMenuItem menu_closetab;
     private javax.swing.JMenu menu_file;
     private javax.swing.JMenuItem menu_lookup;

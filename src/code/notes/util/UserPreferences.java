@@ -4,7 +4,6 @@
  */
 package code.notes.util;
 
-import java.nio.file.Path;
 import java.util.prefs.Preferences;
 
 /**
@@ -20,7 +19,9 @@ public class UserPreferences {
         setTabEmulated(false);
         setWtspVisible(false);
         setTabSize(4);
+        setFontSize(14);
         setDirPath("/");
+        setLocale("en");
     }
 
     public static boolean isAutoIndent() {
@@ -38,9 +39,17 @@ public class UserPreferences {
     public static int getTabSize() {
         return prefs.getInt("tab_size", 4);
     }
+    
+    public static int getFontSize() {
+        return prefs.getInt("font_size", 14);
+    }
 
     public static String getDirPath() {
         return prefs.get("dir_path", "/");
+    }
+    
+    public static String getLocale() {
+        return prefs.get("locale", "en");
     }
 
     /*--------------------*/
@@ -60,8 +69,16 @@ public class UserPreferences {
     public static void setTabSize(int size) {
         prefs.putInt("tab_size", size);
     }
+    
+    public static void setFontSize(int size) {
+        prefs.putInt("font_size", size);
+    }
 
     public static void setDirPath(String path) {
         prefs.put("dir_path", path);
+    }
+    
+    public static void setLocale(String locale) {
+        prefs.put("locale", locale);
     }
 }
