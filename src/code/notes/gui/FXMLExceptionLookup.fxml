@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="369.0" maxWidth="600.0" minHeight="340.0" minWidth="600.0" prefHeight="369.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="code.notes.gui.FXMLExceptionLookupController">
+<AnchorPane id="AnchorPane" maxHeight="369.0" maxWidth="600.0" minHeight="340.0" minWidth="600.0" prefHeight="369.0" prefWidth="600.0" stylesheets="@/code/notes/gui/FXMLMain.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="code.notes.gui.FXMLExceptionLookupController">
    <children>
       <VBox layoutX="11.0" layoutY="14.0" prefHeight="355.0" prefWidth="578.0" spacing="10.0">
          <children>
