@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.UIManager;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -35,8 +37,8 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
      */
     public SingleEditor(EditorTab tab) {
         super(20, 60);
-        this.loadEditorFont();
         this.setLAF();
+//        this.loadEditorFont();
         this.EDITOR_TAB = tab;
         this.refreshStyles();
         this.setCodeFoldingEnabled(true);
@@ -51,8 +53,8 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
      */
     public SingleEditor(Path path, EditorTab tab) {
         super(20, 60);
-        this.loadEditorFont();
         this.setLAF();
+//        this.loadEditorFont();
         this.EDITOR_TAB = tab;
         this.refreshStyles();
         this.setCodeFoldingEnabled(true);
@@ -69,28 +71,36 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
         } catch (Exception e) {
             //Never happens
         }
-        
-//        try {
-//            Theme theme = Theme.load(getClass().getResourceAsStream("/org/fife/ui/rsyntaxtextarea/themes/monokai.xml"));
-//            theme.apply(this);
-//        } catch (IOException ioe) { // Never happens
-//            ioe.printStackTrace();
-//        }
+
+        try {
+            InputStream resourceAsStream = SingleEditor.class.getResourceAsStream("/code/notes/resources/DejaVuSansMonoThai.ttf");
+            font = Font.createFont(Font.PLAIN, resourceAsStream);
+            font = font.deriveFont((float) UserPreferences.getFontSize());
+            Theme theme = Theme.load(getClass().getResourceAsStream("/code/notes/resources/monokai.xml"), font);
+            theme.apply(this);
+        } catch (IOException ioe) { // Never happens
+            ioe.printStackTrace();
+        } catch (FontFormatException ex) {
+            Logger.getLogger(SingleEditor.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
      * Load DejaVu Sans Mono Thai font into the editor
      */
     public void loadEditorFont() {
-        try {
-            InputStream resourceAsStream = SingleEditor.class.getResourceAsStream("/code/notes/resources/DejaVuSansMonoThai.ttf");
-            font = Font.createFont(Font.PLAIN, resourceAsStream);
-            this.loadEditorFontSize();
-        } catch (FontFormatException | IOException ex) {
-            // Use default font
-        }
+//        try {
+////            InputStream resourceAsStream = SingleEditor.class.getResourceAsStream("/code/notes/resources/DejaVuSansMonoThai.ttf");
+////            font = Font.createFont(Font.PLAIN, resourceAsStream);
+////            font.deriveFont(14.0f);
+////            this.setFont(font);
+////            this.loadEditorFontSize();
+//        } catch (FontFormatException | IOException ex) {
+//            // Use default font
+//        }
     }
 
+    @Deprecated
     public void loadEditorFontSize() {
         this.setFont(font.deriveFont((float) UserPreferences.getFontSize()));
     }
@@ -182,7 +192,8 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
         this.setTabsEmulated(UserPreferences.isTabEmulated());
         this.setAutoIndentEnabled(UserPreferences.isAutoIndent());
         this.setWhitespaceVisible(UserPreferences.isWtspVisible());
-        this.loadEditorFontSize();
+//        this.loadEditorFontSize();
+        this.setLAF();
     }
 
     /**
