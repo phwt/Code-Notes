@@ -1,13 +1,17 @@
-/*.root { 
-    -fx-accent: #1a6ee4;
+.root { 
+    -fx-accent: #326D32;
     -fx-focus-color: -fx-accent;
-    -fx-base: #111;
-    -fx-control-inner-background: derive(-fx-base,50%);
-    -fx-control-inner-background-alt: derive(-fx-control-inner-background, 30%);
+    -fx-base: #252525;
+    -fx-control-inner-background: #333333;
+    -fx-control-inner-background-alt: #383838;
 }
 
 .label{
     -fx-text-fill: lightgray;
+}
+
+.menu-bar{
+    -fx-background-color: derive(-fx-base, -30%);
 }
 
 .separator *.line { 
@@ -17,8 +21,8 @@
 }
 
 .scroll-bar{
-    -fx-background-color: derive(-fx-base,45%)
-}n
+    -fx-background-color: derive(-fx-base,45%);
+}
 
 .button:default {
     -fx-base: -fx-accent;
@@ -48,4 +52,28 @@
 
 .table-row-cell:empty {
     -fx-background-color: transparent;
-}*/
+}
+
+.split-pane:horizontal > .split-pane-divider {
+    -fx-background-color: transparent;
+}
+
+.split-pane:vertical > .split-pane-divider {
+    -fx-background-color: transparent;
+}
+
+.tab-header-background {
+    -fx-background-color: -fx-control-inner-background-alt;
+}
+
+.tab {
+    -fx-background-color: #2D2D2D;
+}
+
+.tab:selected {
+    -fx-background-color: derive(-fx-base, -30%);
+}
+
+.bottom-color {
+    -fx-background-color: -fx-accent;
+}

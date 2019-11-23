@@ -16,6 +16,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.StackPane;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 import org.fife.ui.rtextarea.RTextScrollPane;
@@ -76,6 +77,7 @@ public class EditorTab extends javafx.scene.control.Tab {
 
         Color scroll_bg = new Color(30, 30, 30); // #1E1E1E
         
+        scrollPane.setBorder(BorderFactory.createEmptyBorder());
         scrollPane.setBackground(scroll_bg);
         scrollPane.getVerticalScrollBar().setBackground(scroll_bg);
         scrollPane.getHorizontalScrollBar().setBackground(scroll_bg);
