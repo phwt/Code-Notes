@@ -2,7 +2,7 @@
  * Code-Notes | Bundle.java
  * Created | 3:15:32 PM Oct 10, 2019
  */
-package code.notes;
+package code.notes.util;
 
 import code.notes.util.UserPreferences;
 import java.util.Locale;

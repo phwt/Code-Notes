@@ -5,7 +5,7 @@
  */
 package code.notes.gui;
 
-import code.notes.Bundle;
+import code.notes.util.Bundle;
 import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -23,11 +23,11 @@ public class CodeNotes extends Application {
     public static Stage STAGE;
     public static Image ICON = new Image(CodeNotes.class.getResourceAsStream("/code/notes/resources/icon.png"));
     public static FXMLMainController main_controller;
+    public static final ResourceBundle RESOURCES = ResourceBundle.getBundle("code.notes.resources.Bundle", Bundle.getLocale());
     
     @Override
     public void start(Stage stage) throws Exception {
-        ResourceBundle resources = ResourceBundle.getBundle("code.notes.Bundle", Bundle.getLocale());
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLMain.fxml"), resources);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLMain.fxml"), RESOURCES);
         Parent root = loader.load();
         Scene scene = new Scene(root);
         

@@ -5,7 +5,7 @@
  */
 package code.notes.gui;
 
-import code.notes.Bundle;
+import code.notes.util.Bundle;
 import code.notes.util.FileChooserDialog;
 import code.notes.util.UserPreferences;
 import java.io.File;
@@ -44,7 +44,6 @@ import javafx.stage.Stage;
 public class FXMLMainController implements Initializable {
 
     private static final ArrayList<EditorTab> TAB_POOL = new ArrayList<>();
-    private final ResourceBundle resources = ResourceBundle.getBundle("code.notes.Bundle", Bundle.getLocale());
 
     @FXML
     private TabPane tab_pane;
@@ -81,7 +80,7 @@ public class FXMLMainController implements Initializable {
 
     @FXML
     private void handleExceptionLookupMenu(ActionEvent event) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLExceptionLookup.fxml"), resources);
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLExceptionLookup.fxml"), CodeNotes.RESOURCES);
 
         Scene scene = new Scene(root);
         Stage stage = new Stage();
@@ -121,7 +120,7 @@ public class FXMLMainController implements Initializable {
 
     @FXML
     private void handlePreferencesMenu(ActionEvent event) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLPreferences.fxml"), resources);
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLPreferences.fxml"), CodeNotes.RESOURCES);
 
         Scene scene = new Scene(root);
         Stage stage = new Stage();
@@ -135,7 +134,7 @@ public class FXMLMainController implements Initializable {
 
     @FXML
     private void handleAboutMenu(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLAbout.fxml"), resources);
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLAbout.fxml"), CodeNotes.RESOURCES);
 
         Scene scene = new Scene(root);
         Stage stage = new Stage();

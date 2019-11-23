@@ -4,7 +4,7 @@
  */
 package code.notes.gui;
 
-import code.notes.Bundle;
+import code.notes.util.Bundle;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.nio.file.Path;

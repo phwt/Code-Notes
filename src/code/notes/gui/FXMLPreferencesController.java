@@ -4,7 +4,7 @@
  */
 package code.notes.gui;
 
-import code.notes.Bundle;
+import code.notes.util.Bundle;
 import code.notes.util.FileChooserDialog;
 import code.notes.util.UserPreferences;
 import java.net.URL;
