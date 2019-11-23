@@ -40,13 +40,14 @@ public class CodeNotes extends Application {
 
         stage.getIcons().add(ICON);
         
-        stage.setOnCloseRequest(e -> {
-            for (EditorTab tab : FXMLMainController.getTabPool()) {
-                if (!tab.getEDITOR().getSaveState()) {
-                    tab.unsavedPrompt(e);
-                }
-            }
-        });
+//        stage.setOnCloseRequest(e -> {
+//            for (EditorTab tab : FXMLMainController.getTabPool()) {
+//                if (!tab.getEDITOR().getSaveState()) {
+//                    tab.getOnCloseRequest().handle(null);
+////                    tab.unsavedPrompt(e);
+//                }
+//            }
+//        });
     }
 
     /**
