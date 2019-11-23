@@ -73,10 +73,10 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
         }
 
         try {
-            InputStream resourceAsStream = SingleEditor.class.getResourceAsStream("/code/notes/resources/DejaVuSansMonoThai.ttf");
+            InputStream resourceAsStream = SingleEditor.class.getResourceAsStream("/code/notes/res/DejaVuSansMonoThai.ttf");
             font = Font.createFont(Font.PLAIN, resourceAsStream);
             font = font.deriveFont((float) UserPreferences.getFontSize());
-            Theme theme = Theme.load(getClass().getResourceAsStream("/code/notes/resources/monokai.xml"), font);
+            Theme theme = Theme.load(getClass().getResourceAsStream("/code/notes/res/monokai.xml"), font);
             theme.apply(this);
         } catch (IOException ioe) { // Never happens
             ioe.printStackTrace();

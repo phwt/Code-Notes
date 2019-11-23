@@ -21,9 +21,9 @@ import javafx.stage.Stage;
 public class CodeNotes extends Application {
 
     public static Stage STAGE;
-    public static Image ICON = new Image(CodeNotes.class.getResourceAsStream("/code/notes/resources/icon.png"));
+    public static Image ICON = new Image(CodeNotes.class.getResourceAsStream("/code/notes/res/icon.png"));
     public static FXMLMainController main_controller;
-    public static final ResourceBundle RESOURCES = ResourceBundle.getBundle("code.notes.resources.Bundle", Bundle.getLocale());
+    public static final ResourceBundle RESOURCES = ResourceBundle.getBundle("code.notes.res.Bundle", Bundle.getLocale());
     
     @Override
     public void start(Stage stage) throws Exception {

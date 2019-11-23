@@ -165,7 +165,7 @@ public class FXMLMainController implements Initializable {
 
     private void createTree(File root_file, TreeItem parent) {
 
-        ImageView img_file = new ImageView("/code/notes/resources/file.png");
+        ImageView img_file = new ImageView("/code/notes/res/file.png");
         double icon_size = 16;
         img_file.setFitHeight(icon_size);
         img_file.setFitWidth(icon_size);
