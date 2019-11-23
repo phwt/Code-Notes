@@ -4,6 +4,7 @@
  */
 package code.notes.gui;
 
+import code.notes.util.ExceptionModel;
 import code.notes.util.ExceptionLookup;
 import java.awt.Desktop;
 import java.io.IOException;
