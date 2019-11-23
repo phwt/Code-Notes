@@ -12,9 +12,9 @@ import javafx.beans.property.SimpleStringProperty;
  * @author phwts
  */
 public class ExceptionModel {
-    private SimpleIntegerProperty id;
-    private SimpleStringProperty key;
-    private SimpleStringProperty solution;
+    private final SimpleIntegerProperty id;
+    private final SimpleStringProperty key;
+    private final SimpleStringProperty solution;
 
     public ExceptionModel(int id, String key, String solution) {
         this.id = new SimpleIntegerProperty(id);
