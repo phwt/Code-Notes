@@ -44,7 +44,7 @@ public class EditorTab extends javafx.scene.control.Tab {
         this.setText(EDITOR.getFileName());
 
         this.setOnCloseRequest(e -> {
-            if (!EDITOR.getSaveState()) {
+            if (!EDITOR.isSaved()) {
                 unsavedPrompt(e);
             }
         });
@@ -100,7 +100,7 @@ public class EditorTab extends javafx.scene.control.Tab {
         Platform.runLater(
                 () -> {
                     String header_text = EDITOR.getFileName();
-                    header_text += ((EDITOR.getSaveState()) ? "" : " *");
+                    header_text += ((EDITOR.isSaved()) ? "" : " *");
                     this.setText(header_text);
                 }
         );

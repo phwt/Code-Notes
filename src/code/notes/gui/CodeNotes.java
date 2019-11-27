@@ -21,9 +21,9 @@ import javafx.stage.Stage;
 public class CodeNotes extends Application {
 
     public static Stage STAGE;
-    public static Image ICON = new Image(CodeNotes.class.getResourceAsStream("/code/notes/res/icon.png"));
-    public static FXMLMainController main_controller;
+    public static final Image ICON = new Image(CodeNotes.class.getResourceAsStream("/code/notes/res/icon.png"));
     public static final ResourceBundle RESOURCES = ResourceBundle.getBundle("code.notes.res.Bundle", Bundle.getLocale());
+    public static FXMLMainController main_controller;
     
     @Override
     public void start(Stage stage) throws Exception {
@@ -36,25 +36,15 @@ public class CodeNotes extends Application {
         stage.setScene(scene);
         stage.show();
         stage.setTitle("Code-Notes");
-        CodeNotes.STAGE = stage;
-
         stage.getIcons().add(ICON);
         
-//        stage.setOnCloseRequest(e -> {
-//            for (EditorTab tab : FXMLMainController.getTabPool()) {
-//                if (!tab.getEDITOR().getSaveState()) {
-//                    tab.getOnCloseRequest().handle(null);
-////                    tab.unsavedPrompt(e);
-//                }
-//            }
-//        });
+        CodeNotes.STAGE = stage;
     }
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-//        code.notes.util.UserPreferences.resetPreferences();
         launch(args);
     }
 

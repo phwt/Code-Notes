@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -58,7 +57,7 @@ public class FXMLMainController implements Initializable {
     @FXML
     private void handleOpenAction(ActionEvent event) {
         // TODO: Make addTab handle multiple files by itself
-        List<Path> paths = FileChooserDialog.openFiles(CodeNotes.STAGE);
+        List<Path> paths = FileChooserDialog.openFiles((Stage) tab_pane.getScene().getWindow());
         if (paths != null) {
             for (Path path : paths) {
                 this.addTab(path);
@@ -144,10 +143,6 @@ public class FXMLMainController implements Initializable {
         stage.show();
         stage.setTitle(Bundle.get("about"));
         stage.getIcons().add(CodeNotes.ICON);
-    }
-
-    public static void exitApplication() {
-        System.exit(0);
     }
 
     public void loadTree() {
@@ -243,15 +238,6 @@ public class FXMLMainController implements Initializable {
 
             addTabPool(editor_tab);
         }
-    }
-
-    public void reloadTree() {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                loadTree();
-            }
-        });
     }
 
     @Override

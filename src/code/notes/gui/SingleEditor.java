@@ -13,7 +13,6 @@ import java.awt.FontFormatException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
@@ -29,7 +28,6 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
 
     private Path path = null;
     private boolean save_state = true;
-    private Font font;
     final private EditorTab EDITOR_TAB;
 
     /**
@@ -66,6 +64,8 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
     }
 
     private void setLAF() {
+        Font font;
+        
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
@@ -100,11 +100,6 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
 //        }
     }
 
-    @Deprecated
-    public void loadEditorFontSize() {
-        this.setFont(font.deriveFont((float) UserPreferences.getFontSize()));
-    }
-
     /**
      * Listen for content change inside the text area and for file drop
      */
@@ -136,7 +131,7 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
         EDITOR_TAB.refresh();
     }
 
-    public boolean getSaveState() {
+    public boolean isSaved() {
         return save_state;
     }
 
@@ -172,7 +167,6 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
      * Put the contents of this editor into the path selected by the user
      */
     public void saveAs() {
-//        Path save_path = FileChooserDialog.save(getPath(), code.notes.fxgui.CodeNotes.STAGE);
         Path save_path = FileChooserDialog.save(code.notes.gui.CodeNotes.STAGE);
         if (save_path == null) {
             return;
@@ -209,10 +203,5 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
             return false;
         }
         return this.path.equals(path);
-    }
-
-    @Deprecated
-    public java.awt.Component getHeader() {
-        return null;
     }
 }
