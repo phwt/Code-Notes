@@ -38,7 +38,7 @@ public class Bundle {
     }
 
     public static String get(String key) {
-        ResourceBundle bundle = ResourceBundle.getBundle("code/notes/Bundle");
+        ResourceBundle bundle = ResourceBundle.getBundle("code/notes/res/Bundle");
         return bundle.getString(key);
     }
 
