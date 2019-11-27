@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="710.0" prefWidth="896.0" stylesheets="@/code/notes/gui/FXMLMain.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="code.notes.gui.FXMLMainController">
+<AnchorPane id="AnchorPane" prefHeight="710.0" prefWidth="1026.0" stylesheets="@/code/notes/gui/FXMLMain.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="code.notes.gui.FXMLMainController">
    <children>
       <MenuBar layoutY="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
@@ -51,7 +51,7 @@
       </MenuBar>
       <SplitPane dividerPositions="0.3" layoutY="26.0" prefHeight="660.0" prefWidth="896.0" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="26.0">
         <items>
-          <AnchorPane maxWidth="400.0" minWidth="100.0" prefWidth="200.0">
+          <AnchorPane maxWidth="400.0" minWidth="100.0" prefHeight="658.0" prefWidth="251.0">
                <children>
                   <TreeView fx:id="dir_tree" onMouseClicked="#handleTreeClickAction" prefHeight="628.0" prefWidth="263.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
