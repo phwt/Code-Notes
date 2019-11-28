@@ -53,3 +53,4 @@ ant
 ```
 java -jar Code-Notes-FX.jar
 ```
+3. (หรือ) เรียกใช้งานไฟล์ `run.bat` (มีเฉพาะไฟล์จาก [Releases](https://github.com/phwt/Code-Notes/releases) เวอร์ชั่น 0.21 ขึ้นไปเท่านั้น)
