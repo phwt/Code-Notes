@@ -4,7 +4,9 @@
  */
 package code.notes.gui;
 
-import code.notes.Bundle;
+import code.notes.util.Bundle;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.nio.file.Path;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingNode;
@@ -14,6 +16,9 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.StackPane;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.plaf.basic.BasicScrollBarUI;
 import org.fife.ui.rtextarea.RTextScrollPane;
 
 /**
@@ -39,7 +44,7 @@ public class EditorTab extends javafx.scene.control.Tab {
         this.setText(EDITOR.getFileName());
 
         this.setOnCloseRequest(e -> {
-            if (!EDITOR.getSaveState()) {
+            if (!EDITOR.isSaved()) {
                 unsavedPrompt(e);
             }
         });
@@ -68,7 +73,22 @@ public class EditorTab extends javafx.scene.control.Tab {
 
     private void createEditor(SingleEditor editor) {
         SwingNode swingNode = new SwingNode();
-        swingNode.setContent(new RTextScrollPane(editor));
+        RTextScrollPane scrollPane = new RTextScrollPane(editor);
+
+        Color scroll_bg = new Color(30, 30, 30); // #1E1E1E
+        
+        scrollPane.setBorder(BorderFactory.createEmptyBorder());
+        scrollPane.setBackground(scroll_bg);
+        scrollPane.getVerticalScrollBar().setBackground(scroll_bg);
+        scrollPane.getHorizontalScrollBar().setBackground(scroll_bg);
+        
+        scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+        scrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(10, 0));
+
+        scrollPane.getVerticalScrollBar().setUI(new CustomScrollBar());
+        scrollPane.getHorizontalScrollBar().setUI(new CustomScrollBar());
+
+        swingNode.setContent(scrollPane);
         this.setContent(new StackPane(swingNode));
     }
 
@@ -80,10 +100,37 @@ public class EditorTab extends javafx.scene.control.Tab {
         Platform.runLater(
                 () -> {
                     String header_text = EDITOR.getFileName();
-                    header_text += ((EDITOR.getSaveState()) ? "" : " *");
+                    header_text += ((EDITOR.isSaved()) ? "" : " *");
                     this.setText(header_text);
                 }
         );
+    }
+
+    class CustomScrollBar extends BasicScrollBarUI {
+
+        @Override
+        protected void configureScrollBarColors() {
+            this.thumbColor = new Color(66, 66, 66); // #424242
+        }
+
+        @Override
+        protected JButton createDecreaseButton(int orientation) {
+            return createNullButton();
+        }
+
+        @Override
+        protected JButton createIncreaseButton(int orientation) {
+            return createNullButton();
+        }
+
+        private JButton createNullButton() {
+            JButton jbutton = new JButton();
+            Dimension zero = new Dimension(0, 0);
+            jbutton.setPreferredSize(zero);
+            jbutton.setMinimumSize(zero);
+            jbutton.setMaximumSize(zero);
+            return jbutton;
+        }
     }
 
 }

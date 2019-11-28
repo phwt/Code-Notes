@@ -13,7 +13,8 @@ import java.awt.FontFormatException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.UIManager;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -27,7 +28,6 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
 
     private Path path = null;
     private boolean save_state = true;
-    private Font font;
     final private EditorTab EDITOR_TAB;
 
     /**
@@ -35,8 +35,8 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
      */
     public SingleEditor(EditorTab tab) {
         super(20, 60);
-        this.loadEditorFont();
         this.setLAF();
+//        this.loadEditorFont();
         this.EDITOR_TAB = tab;
         this.refreshStyles();
         this.setCodeFoldingEnabled(true);
@@ -51,8 +51,8 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
      */
     public SingleEditor(Path path, EditorTab tab) {
         super(20, 60);
-        this.loadEditorFont();
         this.setLAF();
+//        this.loadEditorFont();
         this.EDITOR_TAB = tab;
         this.refreshStyles();
         this.setCodeFoldingEnabled(true);
@@ -64,35 +64,40 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
     }
 
     private void setLAF() {
+        Font font;
+        
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
             //Never happens
         }
-        
-//        try {
-//            Theme theme = Theme.load(getClass().getResourceAsStream("/org/fife/ui/rsyntaxtextarea/themes/monokai.xml"));
-//            theme.apply(this);
-//        } catch (IOException ioe) { // Never happens
-//            ioe.printStackTrace();
-//        }
+
+        try {
+            InputStream resourceAsStream = SingleEditor.class.getResourceAsStream("/code/notes/res/DejaVuSansMonoThai.ttf");
+            font = Font.createFont(Font.PLAIN, resourceAsStream);
+            font = font.deriveFont((float) UserPreferences.getFontSize());
+            Theme theme = Theme.load(getClass().getResourceAsStream("/code/notes/res/monokai.xml"), font);
+            theme.apply(this);
+        } catch (IOException ioe) { // Never happens
+            ioe.printStackTrace();
+        } catch (FontFormatException ex) {
+            Logger.getLogger(SingleEditor.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
      * Load DejaVu Sans Mono Thai font into the editor
      */
     public void loadEditorFont() {
-        try {
-            InputStream resourceAsStream = SingleEditor.class.getResourceAsStream("/code/notes/resources/DejaVuSansMonoThai.ttf");
-            font = Font.createFont(Font.PLAIN, resourceAsStream);
-            this.loadEditorFontSize();
-        } catch (FontFormatException | IOException ex) {
-            // Use default font
-        }
-    }
-
-    public void loadEditorFontSize() {
-        this.setFont(font.deriveFont((float) UserPreferences.getFontSize()));
+//        try {
+////            InputStream resourceAsStream = SingleEditor.class.getResourceAsStream("/code/notes/resources/DejaVuSansMonoThai.ttf");
+////            font = Font.createFont(Font.PLAIN, resourceAsStream);
+////            font.deriveFont(14.0f);
+////            this.setFont(font);
+////            this.loadEditorFontSize();
+//        } catch (FontFormatException | IOException ex) {
+//            // Use default font
+//        }
     }
 
     /**
@@ -126,7 +131,7 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
         EDITOR_TAB.refresh();
     }
 
-    public boolean getSaveState() {
+    public boolean isSaved() {
         return save_state;
     }
 
@@ -162,7 +167,6 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
      * Put the contents of this editor into the path selected by the user
      */
     public void saveAs() {
-//        Path save_path = FileChooserDialog.save(getPath(), code.notes.fxgui.CodeNotes.STAGE);
         Path save_path = FileChooserDialog.save(code.notes.gui.CodeNotes.STAGE);
         if (save_path == null) {
             return;
@@ -182,7 +186,8 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
         this.setTabsEmulated(UserPreferences.isTabEmulated());
         this.setAutoIndentEnabled(UserPreferences.isAutoIndent());
         this.setWhitespaceVisible(UserPreferences.isWtspVisible());
-        this.loadEditorFontSize();
+//        this.loadEditorFontSize();
+        this.setLAF();
     }
 
     /**
@@ -198,10 +203,5 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
             return false;
         }
         return this.path.equals(path);
-    }
-
-    @Deprecated
-    public java.awt.Component getHeader() {
-        return null;
     }
 }

@@ -5,7 +5,7 @@
  */
 package code.notes.gui;
 
-import code.notes.Bundle;
+import code.notes.util.Bundle;
 import code.notes.util.FileChooserDialog;
 import code.notes.util.UserPreferences;
 import java.io.File;
@@ -32,7 +32,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
-import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -43,13 +43,11 @@ import javafx.stage.Stage;
 public class FXMLMainController implements Initializable {
 
     private static final ArrayList<EditorTab> TAB_POOL = new ArrayList<>();
-    private final ResourceBundle resources = ResourceBundle.getBundle("code.notes.Bundle", Bundle.getLocale());
-    
+
     @FXML
     private TabPane tab_pane;
     @FXML
     private TreeView dir_tree;
-    private ResourceBundle bundle;
 
     @FXML
     private void handleNewFileAction(ActionEvent event) {
@@ -59,7 +57,7 @@ public class FXMLMainController implements Initializable {
     @FXML
     private void handleOpenAction(ActionEvent event) {
         // TODO: Make addTab handle multiple files by itself
-        List<Path> paths = FileChooserDialog.openFiles(CodeNotes.STAGE);
+        List<Path> paths = FileChooserDialog.openFiles((Stage) tab_pane.getScene().getWindow());
         if (paths != null) {
             for (Path path : paths) {
                 this.addTab(path);
@@ -81,7 +79,7 @@ public class FXMLMainController implements Initializable {
 
     @FXML
     private void handleExceptionLookupMenu(ActionEvent event) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLExceptionLookup.fxml"), resources);
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLExceptionLookup.fxml"), CodeNotes.RESOURCES);
 
         Scene scene = new Scene(root);
         Stage stage = new Stage();
@@ -103,9 +101,9 @@ public class FXMLMainController implements Initializable {
                 pathBuilder.insert(0, item.getValue());
                 pathBuilder.insert(0, "/");
             }
-            
+
             String path = pathBuilder.toString();
-            
+
             // If path is a root path
             if (path.startsWith("//")) {
                 path = UserPreferences.getDirPath() + path.substring(2, path.length());
@@ -121,7 +119,7 @@ public class FXMLMainController implements Initializable {
 
     @FXML
     private void handlePreferencesMenu(ActionEvent event) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLPreferences.fxml"), resources);
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLPreferences.fxml"), CodeNotes.RESOURCES);
 
         Scene scene = new Scene(root);
         Stage stage = new Stage();
@@ -135,7 +133,7 @@ public class FXMLMainController implements Initializable {
 
     @FXML
     private void handleAboutMenu(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLAbout.fxml"), resources);
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLAbout.fxml"), CodeNotes.RESOURCES);
 
         Scene scene = new Scene(root);
         Stage stage = new Stage();
@@ -146,11 +144,7 @@ public class FXMLMainController implements Initializable {
         stage.setTitle(Bundle.get("about"));
         stage.getIcons().add(CodeNotes.ICON);
     }
-    
-    public static void exitApplication() {
-        System.exit(0);
-    }
-    
+
     public void loadTree() {
         if (!UserPreferences.getDirPath().isEmpty()) {
             File root_path = new File(UserPreferences.getDirPath());
@@ -165,6 +159,12 @@ public class FXMLMainController implements Initializable {
     }
 
     private void createTree(File root_file, TreeItem parent) {
+
+        ImageView img_file = new ImageView("/code/notes/res/file.png");
+        double icon_size = 16;
+        img_file.setFitHeight(icon_size);
+        img_file.setFitWidth(icon_size);
+
         try {
             DosFileAttributes attr = Files.readAttributes(root_file.toPath(), DosFileAttributes.class);
             if (attr.isSystem() || attr.isHidden() || attr.isReadOnly()) {
@@ -186,7 +186,7 @@ public class FXMLMainController implements Initializable {
                     });
                 }
             } else {
-                parent.getChildren().add(new TreeItem(root_file.getName()));
+                parent.getChildren().add(new TreeItem(root_file.getName(), img_file));
             }
         } catch (IOException ex) {
             Logger.getLogger(FXMLMainController.class.getName()).log(Level.SEVERE, null, ex);
@@ -240,21 +240,10 @@ public class FXMLMainController implements Initializable {
         }
     }
 
-    private void addFileListener() {
-        UserPreferences.getPrefs().addPreferenceChangeListener((e) -> {
-            if (e.getKey().equals("dir_path")) {
-                System.out.println("changed");
-                loadTree();
-            }
-        });
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        bundle = rb;
         addTab();
         loadTree();
-        addFileListener();
     }
 
 }

@@ -4,6 +4,7 @@
  */
 package code.notes.gui;
 
+import code.notes.util.ExceptionModel;
 import code.notes.util.ExceptionLookup;
 import java.awt.Desktop;
 import java.io.IOException;
@@ -11,8 +12,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -58,7 +57,7 @@ public class FXMLExceptionLookupController implements Initializable {
     @FXML
     private TableColumn<ExceptionModel, String> col_sol;
 
-    ObservableList<ExceptionModel> row_data = FXCollections.observableArrayList();
+    private ObservableList<ExceptionModel> row_data = FXCollections.observableArrayList();
 
     @FXML
     private void handleSearchAction(ActionEvent e) {

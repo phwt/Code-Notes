@@ -2,7 +2,7 @@
  * Code-Notes | Bundle.java
  * Created | 3:15:32 PM Oct 10, 2019
  */
-package code.notes;
+package code.notes.util;
 
 import code.notes.util.UserPreferences;
 import java.util.Locale;
@@ -38,7 +38,7 @@ public class Bundle {
     }
 
     public static String get(String key) {
-        ResourceBundle bundle = ResourceBundle.getBundle("code/notes/Bundle");
+        ResourceBundle bundle = ResourceBundle.getBundle("code/notes/res/Bundle");
         return bundle.getString(key);
     }
 

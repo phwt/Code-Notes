@@ -20,7 +20,7 @@
                         <Rectangle2D />
                      </viewport>
                      <image>
-                        <Image url="@/code/notes/resources/icon-64.png" />
+                        <Image url="@/code/notes/res/icon-64.png" />
                      </image>
                   </ImageView>
                   <VBox alignment="CENTER_LEFT" prefHeight="78.0" prefWidth="178.0">
@@ -33,10 +33,13 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Label text="v 0.2">
+                        <Label text="v 0.21">
                            <font>
                               <Font size="18.0" />
                            </font>
+                           <padding>
+                              <Insets left="2.0" />
+                           </padding>
                         </Label>
                      </children>
                   </VBox>
