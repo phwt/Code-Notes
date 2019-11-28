@@ -20,3 +20,24 @@
   - Internationalization (i18n) | รองรับสองภาษา (อังกฤษ/ไทย)
   - Preferences | ตั้งค่าส่วนต่าง ๆ ภายในโปรแกรม
     
+## Built-With
+> เครื่องมือที่ใช้
+
+- Java
+  - JavaFX
+  - [RSyntaxTextArea](https://github.com/bobbylight/RSyntaxTextArea)
+- IDE/Tools
+  - Netbeans 8.2
+  - JavaFX Scene Builder 2.0
+  
+# Build
+
+1. Clone Repository นี้
+2. เข้าไปยัง Root Directory ของ Repository
+```
+cd Code-Notes
+```
+3. รัน Ant Script
+```
+ant
+```
