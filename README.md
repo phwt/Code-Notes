@@ -33,6 +33,7 @@
   - JavaFX Scene Builder 2.0
   
 ## Build
+> การ Build
 
 1. Clone Repository นี้
 2. เข้าไปยัง Root Directory ของ Repository
@@ -42,4 +43,13 @@ cd Code-Notes
 3. รัน Ant Script
 ```
 ant
+```
+
+## Usage
+> การใช้งาน
+
+1. ไปยังที่อยู่ของไฟล์ `Code-Notes-FX.jar` ที่ได้มาจากการ Build หรือจาก [Releases](https://github.com/phwt/Code-Notes/releases)
+2. ใข้คำสั่งดังกล่าวเพื่อเปิดใช้งาน
+```
+java -jar Code-Notes-FX.jar
 ```
