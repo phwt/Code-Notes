@@ -2,7 +2,7 @@
 
 โครงงานพัฒนาซอฟต์แวร์ Text Editor สำหรับนักพัฒนาหน้าใหม่ โครงานนี้เป็นส่วนหนึ่งของรายวิชาการสร้างโปรแกรมเชิงอ็อบเจกต์ - Object-Oriented Programming (06016317)
 
-![](fxversion.png)
+![](fxversion.png?raw=true)
 
 ## Features
 > คุณสมบัติของโปรแกรม
