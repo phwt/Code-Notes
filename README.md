@@ -30,7 +30,7 @@
   - Netbeans 8.2
   - JavaFX Scene Builder 2.0
   
-# Build
+## Build
 
 1. Clone Repository นี้
 2. เข้าไปยัง Root Directory ของ Repository
