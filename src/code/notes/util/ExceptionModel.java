@@ -16,6 +16,13 @@ public class ExceptionModel {
     private final SimpleStringProperty key;
     private final SimpleStringProperty solution;
 
+    /**
+     * Create a exception model with provided values
+     * 
+     * @param id
+     * @param key
+     * @param solution
+     */
     public ExceptionModel(int id, String key, String solution) {
         this.id = new SimpleIntegerProperty(id);
         this.key = new SimpleStringProperty(key);

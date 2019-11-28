@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Code-Notes-FX | FXMLPreferencesController.java
+ * Created | 12:47:04 PM Nov 28, 2019
  */
 package code.notes.gui;
 
@@ -145,6 +144,9 @@ public class FXMLMainController implements Initializable {
         stage.getIcons().add(CodeNotes.ICON);
     }
 
+    /**
+     * Create a directory tree from user's provided path
+     */
     public void loadTree() {
         if (!UserPreferences.getDirPath().isEmpty()) {
             File root_path = new File(UserPreferences.getDirPath());
@@ -158,6 +160,12 @@ public class FXMLMainController implements Initializable {
         }
     }
 
+    /**
+     * Recursively building a directory tree
+     * 
+     * @param root_file Root path of parent node
+     * @param parent Parent node (Root node of this iteration)
+     */
     private void createTree(File root_file, TreeItem parent) {
 
         ImageView img_file = new ImageView("/code/notes/res/file.png");

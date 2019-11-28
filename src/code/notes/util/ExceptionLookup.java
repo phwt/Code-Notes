@@ -4,7 +4,6 @@
  */
 package code.notes.util;
 
-import java.io.InputStream;
 import java.nio.file.Paths;
 import java.sql.*;
 import javafx.collections.FXCollections;

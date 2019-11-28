@@ -4,7 +4,6 @@
  */
 package code.notes.util;
 
-import code.notes.util.UserPreferences;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -37,6 +36,12 @@ public class Bundle {
         ResourceBundle.clearCache();
     }
 
+    /**
+     * Get the localized string from provided key
+     * 
+     * @param key String's key
+     * @return Localized string correspond to key provided and user's default locale.
+     */
     public static String get(String key) {
         ResourceBundle bundle = ResourceBundle.getBundle("code/notes/res/Bundle");
         return bundle.getString(key);

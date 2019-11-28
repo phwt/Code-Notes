@@ -32,6 +32,8 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
 
     /**
      * Create RSyntaxTextArea empty content
+     * 
+     * @param tab Tab that this editor assigned to
      */
     public SingleEditor(EditorTab tab) {
         super(20, 60);
@@ -48,6 +50,7 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
      * Create RSyntaxTextArea with content from path
      *
      * @param path Path assigned to text area
+     * @param tab Tab that this editor assigned to
      */
     public SingleEditor(Path path, EditorTab tab) {
         super(20, 60);
@@ -88,6 +91,7 @@ public final class SingleEditor extends org.fife.ui.rsyntaxtextarea.RSyntaxTextA
     /**
      * Load DejaVu Sans Mono Thai font into the editor
      */
+    @Deprecated
     public void loadEditorFont() {
 //        try {
 ////            InputStream resourceAsStream = SingleEditor.class.getResourceAsStream("/code/notes/resources/DejaVuSansMonoThai.ttf");

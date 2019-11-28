@@ -50,6 +50,11 @@ public class EditorTab extends javafx.scene.control.Tab {
         });
     }
 
+    /**
+     * Show unsaved prompt if user attempt to exit without saving
+     * 
+     * @param e
+     */
     public void unsavedPrompt(Event e) {
         ButtonType btn_save = new ButtonType(Bundle.get("save"), ButtonBar.ButtonData.YES);
         ButtonType btn_savent = new ButtonType(Bundle.get("savent"), ButtonBar.ButtonData.NO);
@@ -96,6 +101,9 @@ public class EditorTab extends javafx.scene.control.Tab {
         return EDITOR;
     }
 
+    /**
+     * Refresh editor's header bases on save status
+     */
     public void refresh() {
         Platform.runLater(
                 () -> {

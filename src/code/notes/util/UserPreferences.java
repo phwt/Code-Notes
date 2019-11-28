@@ -14,6 +14,9 @@ public class UserPreferences {
 
     private static final Preferences prefs = Preferences.userRoot().node(UserPreferences.class.getName());;
 
+    /**
+     * Reset preference to defaults
+     */
     public static void resetPreferences() {
         setAutoIndent(true);
         setTabEmulated(false);
@@ -25,6 +28,9 @@ public class UserPreferences {
         setLocale("en");
     }
     
+    /**
+     * @return Preference's object
+     */
     public static Preferences getPrefs() {
         return prefs;
     }

@@ -17,6 +17,7 @@ public class FileHandler {
 
     /**
      * Get file contents from specified path
+     * 
      * @param path Path to the file
      * @return File contents
      */
@@ -39,6 +40,7 @@ public class FileHandler {
 
     /**
      * Save contents to specified path
+     * 
      * @param path Path to the file
      * @param content File contents
      */

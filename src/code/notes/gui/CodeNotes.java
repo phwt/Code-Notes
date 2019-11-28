@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Code-Notes | EditorTab.java
+ * Created | 12:47:04 PM Nov 28, 2019
  */
 package code.notes.gui;
 
@@ -15,7 +14,8 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
- *
+ * Run the application and display the main screen
+ * 
  * @author phwts
  */
 public class CodeNotes extends Application {

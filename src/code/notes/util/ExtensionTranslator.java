@@ -12,12 +12,23 @@ import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
  */
 public class ExtensionTranslator {
 
+    /**
+     * Get extension from a filename
+     * 
+     * @param filename
+     * @return Extension of provided filename
+     */
     public static String getExtension(String filename) {
         int i = filename.lastIndexOf('.');
         return filename.substring(i + 1);
-//        return null;
     }
 
+    /**
+     * Get syntax style correspond to the filename provided
+     * 
+     * @param filename
+     * @return Syntax Constants
+     */
     public static String getConstant(String filename) {
         switch (getExtension(filename).toLowerCase()) {
             case "actionscript":
